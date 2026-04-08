@@ -1,0 +1,2048 @@
+:root {
+  --bg: #020408;
+  --bg-soft: #050b18;
+  --text: #e8eaf0;
+  --accent: #4fc3f7;
+  --accent-warm: #e8d5b7;
+  --line: rgba(79, 195, 247, 0.28);
+  --glow: rgba(79, 195, 247, 0.15);
+  --panel: rgba(5, 12, 26, 0.58);
+  --panel-strong: rgba(6, 16, 34, 0.82);
+  --radius: 20px;
+  --max-width: 1180px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "DM Sans", system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1100px 520px at 78% -8%, rgba(36, 74, 138, 0.28), rgba(2, 4, 8, 0) 72%),
+    radial-gradient(820px 560px at -6% 108%, rgba(98, 138, 196, 0.2), rgba(2, 4, 8, 0) 74%),
+    radial-gradient(640px 420px at 52% 44%, rgba(18, 40, 82, 0.16), rgba(2, 4, 8, 0) 78%),
+    linear-gradient(180deg, #02050d 0%, #020408 46%, #010308 100%);
+  overflow-x: hidden;
+}
+
+body.story-scroll-snap {
+  scroll-snap-type: y proximity;
+}
+
+body.voyager-expanded-open {
+  overflow: hidden;
+}
+
+#starfield-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+}
+
+.nebula {
+  position: fixed;
+  border-radius: 58% 42% 47% 53% / 52% 39% 61% 48%;
+  pointer-events: none;
+  z-index: -2;
+  filter: blur(52px);
+  opacity: 0.23;
+}
+
+.nebula-a {
+  width: 42rem;
+  height: 28rem;
+  right: -10rem;
+  top: 6vh;
+  background:
+    radial-gradient(circle at 36% 44%, rgba(121, 184, 255, 0.26), transparent 56%),
+    radial-gradient(circle at 68% 58%, rgba(70, 120, 192, 0.14), transparent 64%);
+  animation: driftA 26s ease-in-out infinite;
+}
+
+.nebula-b {
+  width: 34rem;
+  height: 30rem;
+  left: -7rem;
+  bottom: 4vh;
+  background:
+    radial-gradient(circle at 58% 42%, rgba(210, 188, 150, 0.15), transparent 54%),
+    radial-gradient(circle at 44% 66%, rgba(107, 164, 235, 0.12), transparent 62%);
+  animation: driftB 30s ease-in-out infinite;
+}
+
+#cosmos-app {
+  position: relative;
+  z-index: 1;
+}
+
+.panel {
+  min-height: 100svh;
+  width: min(var(--max-width), 92vw);
+  margin: 0 auto;
+  padding: clamp(5rem, 8vh, 7rem) 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.3rem;
+}
+
+body.story-scroll-snap .panel {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.section-head h2,
+.hero-title,
+#outro h2 {
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+.section-head h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  text-shadow: 0 0 24px rgba(79, 195, 247, 0.15);
+}
+
+.hero {
+  text-align: center;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: clamp(3.5rem, 10vw, 8.5rem);
+  line-height: 0.95;
+  text-shadow: 0 0 32px rgba(79, 195, 247, 0.4);
+  animation: titlePulse 6s ease-in-out infinite;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 1.6vw, 1.45rem);
+  color: rgba(232, 234, 240, 0.88);
+  margin: 0;
+}
+
+.hero-context {
+  max-width: 66ch;
+  margin: 0 auto;
+  color: rgba(232, 234, 240, 0.78);
+  line-height: 1.6;
+}
+
+.scroll-cue,
+.ghost-button,
+#quiz-submit {
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: linear-gradient(120deg, rgba(79, 195, 247, 0.16), rgba(232, 213, 183, 0.08));
+  border-radius: 999px;
+  padding: 0.75rem 1.2rem;
+  font-family: "Space Mono", monospace;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.scroll-cue:hover,
+.ghost-button:hover,
+#quiz-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(79, 195, 247, 0.2);
+  background: linear-gradient(120deg, rgba(79, 195, 247, 0.26), rgba(232, 213, 183, 0.15));
+}
+
+.split-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(1.4rem, 3vw, 2.8rem);
+  align-items: center;
+}
+
+.universe-layout {
+  align-items: stretch;
+}
+
+.content-pane {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(1rem, 2.1vw, 1.8rem);
+  backdrop-filter: blur(6px);
+}
+
+.info-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.content-pane p,
+.section-copy {
+  line-height: 1.7;
+  color: rgba(232, 234, 240, 0.9);
+  font-size: 1.02rem;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.metric-card {
+  border: 1px solid rgba(79, 195, 247, 0.22);
+  border-radius: 14px;
+  padding: 0.72rem 0.78rem;
+  background: rgba(8, 20, 42, 0.55);
+}
+
+.metric-value {
+  margin: 0;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.1rem;
+  color: var(--accent-warm);
+}
+
+.metric-label {
+  margin: 0.2rem 0 0;
+  color: rgba(232, 234, 240, 0.76);
+  font-size: 0.84rem;
+}
+
+.fact-list {
+  margin: 1.2rem 0 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.fact-list strong {
+  color: var(--accent-warm);
+}
+
+.universe-visual {
+  min-height: 420px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(10, 20, 38, 0.2), rgba(4, 9, 18, 0.7) 78%, rgba(3, 8, 15, 0.9) 100%),
+    url("../assets/images/universe-hudf-nasa.jpg");
+  background-size: 100% 100%, 109% 109%;
+  background-position: center center, 50% 50%;
+  box-shadow: inset 0 0 120px rgba(2, 4, 8, 0.55), 0 30px 60px rgba(2, 4, 8, 0.45);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  animation: universeImageDrift 28s ease-in-out infinite alternate;
+  will-change: background-position, background-size;
+}
+
+.universe-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(128, 196, 255, 0.16), transparent 40%),
+    radial-gradient(circle at 76% 70%, rgba(232, 213, 183, 0.12), transparent 42%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
+  animation: universeGlowPulse 16s ease-in-out infinite;
+}
+
+.universe-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 16% 28%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 38%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.45) 0 1px, transparent 2px);
+  opacity: 0.38;
+  pointer-events: none;
+  z-index: 2;
+  animation: universeTwinkle 8s ease-in-out infinite;
+}
+
+.visual-caption {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  border: 1px solid rgba(79, 195, 247, 0.3);
+  border-radius: 12px;
+  padding: 0.5rem 0.65rem;
+  background: rgba(4, 8, 18, 0.62);
+  backdrop-filter: blur(3px);
+  z-index: 3;
+}
+
+.visual-caption p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(232, 234, 240, 0.84);
+}
+
+@keyframes universeImageDrift {
+  0% {
+    background-size: 100% 100%, 109% 109%;
+    background-position: center center, 50% 50%;
+  }
+  50% {
+    background-size: 100% 100%, 110% 110%;
+    background-position: center center, 49.2% 50.7%;
+  }
+  100% {
+    background-size: 100% 100%, 109% 109%;
+    background-position: center center, 50.8% 49.4%;
+  }
+}
+
+@keyframes universeGlowPulse {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.96;
+    transform: scale(1.02) translate3d(0.3%, -0.2%, 0);
+  }
+}
+
+@keyframes universeTwinkle {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 0.43;
+  }
+}
+
+.timeline-list {
+  margin-top: 0.7rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.timeline-list article {
+  border: 1px solid rgba(79, 195, 247, 0.25);
+  border-radius: 14px;
+  background: rgba(7, 16, 33, 0.6);
+  padding: 0.75rem;
+}
+
+.timeline-list h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-family: "Space Mono", monospace;
+  color: var(--accent-warm);
+}
+
+.timeline-list p {
+  margin: 0.4rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: rgba(232, 234, 240, 0.84);
+}
+
+.timeline-list.mini {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0.1rem;
+}
+
+.galaxy-showcase {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.galaxy-type-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.galaxy-type-card {
+  border: 1px solid rgba(79, 195, 247, 0.3);
+  border-radius: 18px;
+  background: linear-gradient(175deg, rgba(10, 24, 48, 0.85), rgba(5, 12, 25, 0.82));
+  padding: 1rem 1.05rem;
+  cursor: pointer;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+}
+
+.galaxy-type-card:hover,
+.galaxy-type-card:focus-visible,
+.galaxy-type-card.is-active {
+  transform: translateY(-3px);
+  border-color: rgba(140, 215, 255, 0.78);
+  box-shadow: 0 18px 45px rgba(4, 14, 30, 0.46);
+  background: linear-gradient(175deg, rgba(18, 40, 77, 0.9), rgba(6, 16, 32, 0.88));
+}
+
+.galaxy-type-card:focus-visible {
+  outline: 2px solid rgba(170, 232, 255, 0.7);
+  outline-offset: 2px;
+}
+
+.galaxy-type-card h3 {
+  margin: 0;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.2rem;
+}
+
+.galaxy-type-card p {
+  margin: 0.55rem 0 0;
+  line-height: 1.55;
+  color: rgba(232, 234, 240, 0.9);
+}
+
+.galaxy-preview {
+  position: relative;
+  min-height: 560px;
+  border: 1px solid rgba(79, 195, 247, 0.3);
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 48% 38%, rgba(84, 140, 212, 0.24), rgba(4, 10, 20, 0.08) 48%),
+    linear-gradient(175deg, #01040b 0%, #020915 100%);
+}
+
+.galaxy-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(180deg, rgba(2, 8, 18, 0.16) 0%, rgba(2, 8, 18, 0.5) 100%),
+    radial-gradient(circle at 52% 42%, rgba(150, 206, 255, 0.12), transparent 48%);
+  pointer-events: none;
+  transition: background 0.4s ease;
+}
+
+.galaxy-preview.is-info-open::before {
+  background:
+    linear-gradient(180deg, rgba(2, 8, 18, 0.26) 0%, rgba(2, 8, 18, 0.74) 100%),
+    radial-gradient(circle at 52% 42%, rgba(150, 206, 255, 0.08), transparent 50%);
+}
+
+.galaxy-preview-image {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: scale(1);
+  filter: saturate(1.08) contrast(1.05);
+  transition: opacity 0.42s ease, transform 0.9s ease, filter 0.46s ease;
+  z-index: 1;
+}
+
+.galaxy-preview-image.is-changing {
+  opacity: 0.2;
+  transform: scale(1.02);
+  filter: saturate(0.92) contrast(0.94);
+}
+
+.galaxy-preview-overlay {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 3;
+  border: 1px solid rgba(79, 195, 247, 0.34);
+  border-radius: 14px;
+  background: rgba(4, 10, 20, 0.68);
+  backdrop-filter: blur(8px);
+  padding: 0.68rem 0.8rem 0.75rem;
+  box-shadow: 0 14px 30px rgba(3, 9, 20, 0.44);
+}
+
+.galaxy-preview.is-info-open .galaxy-preview-overlay {
+  border-color: rgba(120, 210, 255, 0.58);
+  background: rgba(3, 8, 18, 0.84);
+}
+
+.galaxy-preview-overlay-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.galaxy-preview-hint {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  color: rgba(188, 225, 255, 0.92);
+}
+
+.galaxy-info-toggle {
+  border: 1px solid rgba(120, 210, 255, 0.45);
+  background: linear-gradient(180deg, rgba(17, 46, 82, 0.78), rgba(9, 24, 46, 0.88));
+  color: rgba(232, 234, 240, 0.97);
+  border-radius: 999px;
+  padding: 0.42rem 0.82rem;
+  font-size: 0.78rem;
+  font-family: "Space Mono", monospace;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.galaxy-info-toggle:hover,
+.galaxy-info-toggle:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(175, 231, 255, 0.88);
+  background: linear-gradient(180deg, rgba(26, 62, 108, 0.9), rgba(12, 31, 60, 0.92));
+}
+
+.galaxy-info-toggle:focus-visible {
+  outline: 2px solid rgba(170, 232, 255, 0.7);
+  outline-offset: 2px;
+}
+
+.galaxy-preview-details {
+  display: grid;
+  gap: 0.25rem;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+  padding-top: 0;
+  transition: max-height 0.55s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.32s ease, transform 0.45s ease,
+    padding-top 0.35s ease;
+}
+
+.galaxy-preview.is-info-open .galaxy-preview-details {
+  max-height: 26rem;
+  opacity: 1;
+  transform: translateY(0);
+  padding-top: 0.34rem;
+}
+
+.galaxy-preview-type {
+  margin: 0.1rem 0 0;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 0.03em;
+  font-size: 1.15rem;
+  color: rgba(232, 234, 240, 0.98);
+}
+
+.galaxy-preview-caption {
+  margin: 0.2rem 0 0;
+  color: rgba(182, 220, 255, 0.92);
+  font-family: "Space Mono", monospace;
+  font-size: 0.82rem;
+}
+
+.galaxy-preview-description {
+  margin: 0.52rem 0 0;
+  color: rgba(232, 234, 240, 0.9);
+  line-height: 1.58;
+  font-size: 0.95rem;
+}
+
+.galaxy-preview-facts {
+  margin: 0.58rem 0 0;
+  padding-left: 1.05rem;
+  display: grid;
+  gap: 0.36rem;
+}
+
+.galaxy-preview-facts li {
+  color: rgba(232, 234, 240, 0.92);
+  line-height: 1.45;
+  font-size: 0.88rem;
+}
+
+.galaxy-preview-source {
+  margin: 0.54rem 0 0;
+  font-size: 0.72rem;
+  color: rgba(181, 210, 243, 0.78);
+  font-family: "Space Mono", monospace;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+}
+
+.notes-grid.compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0.2rem;
+}
+
+.note-card {
+  border: 1px solid rgba(79, 195, 247, 0.22);
+  border-radius: 14px;
+  background: rgba(7, 16, 33, 0.58);
+  padding: 0.85rem;
+}
+
+.note-card h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-family: "Space Mono", monospace;
+}
+
+.note-card p {
+  margin: 0.55rem 0 0;
+  line-height: 1.55;
+  color: rgba(232, 234, 240, 0.84);
+  font-size: 0.9rem;
+}
+
+.milkyway-layout {
+  align-items: stretch;
+}
+
+.milkyway-map {
+  min-height: 380px;
+  border-radius: 26px;
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 52% 50%, rgba(18, 38, 74, 0.56), rgba(3, 6, 14, 0.96) 64%),
+    radial-gradient(circle at 18% 72%, rgba(79, 195, 247, 0.08), transparent 48%),
+    radial-gradient(circle at 82% 18%, rgba(232, 213, 183, 0.06), transparent 46%),
+    #02060f;
+}
+
+.milkyway-details-toggle {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 7;
+  border: 1px solid rgba(128, 208, 255, 0.5);
+  border-radius: 999px;
+  background: linear-gradient(130deg, rgba(10, 30, 57, 0.82), rgba(5, 13, 24, 0.84));
+  color: rgba(229, 241, 252, 0.96);
+  font-family: "Space Mono", monospace;
+  font-size: 0.73rem;
+  letter-spacing: 0.03em;
+  padding: 0.36rem 0.62rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.milkyway-details-toggle:hover,
+.milkyway-details-toggle:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(179, 230, 255, 0.88);
+  box-shadow: 0 8px 18px rgba(5, 13, 27, 0.4);
+  background: linear-gradient(130deg, rgba(16, 42, 79, 0.9), rgba(7, 18, 34, 0.9));
+}
+
+.milkyway-details-toggle:focus-visible {
+  outline: 2px solid rgba(170, 232, 255, 0.74);
+  outline-offset: 2px;
+}
+
+.milkyway-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.23;
+  background-image:
+    radial-gradient(circle at 12% 16%, rgba(255, 255, 255, 0.95) 0 1.3px, transparent 2px),
+    radial-gradient(circle at 78% 33%, rgba(255, 255, 255, 0.9) 0 1px, transparent 2px),
+    radial-gradient(circle at 56% 72%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2px),
+    radial-gradient(circle at 36% 52%, rgba(255, 255, 255, 0.72) 0 1px, transparent 2px);
+  animation: milkyNoise 16s linear infinite;
+}
+
+.milkyway-disc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(96%, 640px);
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  transform-origin: center center;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(13, 24, 46, 0.24), rgba(4, 9, 16, 0.58) 70%, rgba(4, 9, 16, 0.88) 100%),
+    url("../assets/images/milky-way-esa-topdown.jpg");
+  background-size: 100% 100%, cover;
+  background-position: center center;
+  box-shadow:
+    inset 0 0 90px rgba(2, 7, 16, 0.7),
+    inset 0 0 170px rgba(4, 12, 24, 0.58),
+    0 20px 60px rgba(2, 6, 14, 0.55);
+  animation: milkySpin 180s linear infinite;
+}
+
+.milkyway-disc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(248, 228, 181, 0.1) 0, rgba(176, 210, 252, 0.05) 34%, rgba(8, 18, 35, 0.22) 68%, rgba(3, 8, 15, 0.45) 100%),
+    radial-gradient(circle at 52% 48%, rgba(120, 190, 255, 0.08), transparent 60%);
+  pointer-events: none;
+}
+
+.milkyway-disc::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 183, 245, 0.18);
+  box-shadow: inset 0 0 26px rgba(116, 175, 255, 0.2);
+  pointer-events: none;
+}
+
+.milkyway-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  border-radius: 50%;
+  opacity: 0.56;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.solar-orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 52%;
+  height: 52%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(134, 192, 255, 0.42);
+  box-shadow: 0 0 14px rgba(124, 184, 255, 0.16);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.galactic-center-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(255, 235, 190, 0.96);
+  box-shadow: 0 0 14px rgba(255, 216, 156, 0.7), 0 0 30px rgba(129, 179, 243, 0.35);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.galaxy-core {
+  display: none;
+}
+
+.spiral-arm {
+  display: none;
+}
+
+.arm-1 {
+  width: 460px;
+  height: 270px;
+}
+
+.arm-2 {
+  width: 370px;
+  height: 200px;
+  transform: translate(-50%, -50%) rotate(34deg);
+  animation-delay: -2s;
+}
+
+.arm-3 {
+  width: 290px;
+  height: 150px;
+  transform: translate(-50%, -50%) rotate(-38deg);
+  animation-delay: -4s;
+}
+
+#solar-system-marker {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(226, 245, 255, 0.95);
+  background: rgba(185, 229, 255, 0.96);
+  box-shadow: 0 0 10px rgba(150, 210, 255, 0.5);
+  cursor: pointer;
+  animation: none;
+  z-index: 5;
+  display: block;
+  pointer-events: auto;
+}
+
+.marker-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(8deg);
+  transform-origin: center;
+  animation: milkyLabelCounterSpin 180s linear infinite;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  color: rgba(228, 238, 248, 0.93);
+  white-space: nowrap;
+  max-width: 72%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 5;
+  transition: opacity 0.24s ease;
+}
+
+.marker-label-btn {
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  text-shadow: 0 0 9px rgba(79, 195, 247, 0.22);
+  box-shadow: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.marker-label-btn:hover {
+  color: rgba(234, 245, 255, 1);
+  text-shadow: 0 0 16px rgba(79, 195, 247, 0.55);
+}
+
+.map-legend {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  width: min(340px, calc(100% - 2rem));
+  border-radius: 12px;
+  border: 1px solid rgba(79, 195, 247, 0.25);
+  background: rgba(4, 8, 18, 0.66);
+  padding: 0.55rem 0.65rem;
+  z-index: 6;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.map-legend p {
+  margin: 0;
+  font-size: 0.77rem;
+  line-height: 1.4;
+  color: rgba(232, 234, 240, 0.82);
+}
+
+.milkyway-map.is-details-ready .marker-label {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.milkyway-map.is-details-ready .map-legend {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.milkyway-map.is-details-open .marker-label {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.milkyway-map.is-details-open .map-legend {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.map-legend a {
+  color: rgba(176, 221, 255, 0.95);
+  text-decoration-color: rgba(176, 221, 255, 0.4);
+}
+
+.map-legend a:hover {
+  color: rgba(212, 239, 255, 0.98);
+  text-decoration-color: rgba(212, 239, 255, 0.72);
+}
+
+#solar-system.is-targeted {
+  animation: sectionHighlight 1.4s ease;
+}
+
+.solar-layout {
+  display: grid;
+  grid-template-columns: 1.65fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.solar-intro {
+  max-width: 80ch;
+}
+
+#solar-canvas-wrap {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse at 50% 52%, rgba(17, 25, 42, 0.36), rgba(2, 4, 8, 0.9) 72%),
+    radial-gradient(ellipse at 64% 56%, rgba(232, 213, 183, 0.06), transparent 48%),
+    url("../assets/images/starfield-eso-allsky.jpg"),
+    linear-gradient(180deg, #03070f 0%, #01040a 100%);
+  background-size: auto, auto, cover, auto;
+  background-position: center center, center center, center center, center center;
+  min-height: 520px;
+}
+
+body.solar-expanded-open {
+  overflow: hidden;
+}
+
+.solar-expand {
+  position: absolute;
+  top: 0.72rem;
+  right: 0.72rem;
+  z-index: 8;
+  border: 1px solid rgba(131, 210, 255, 0.55);
+  border-radius: 999px;
+  background: linear-gradient(130deg, rgba(12, 34, 62, 0.88), rgba(6, 16, 30, 0.82));
+  color: rgba(227, 241, 255, 0.96);
+  font-family: "Space Mono", monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.035em;
+  padding: 0.38rem 0.62rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.solar-expand:hover {
+  transform: translateY(-1px);
+  border-color: rgba(171, 231, 255, 0.86);
+  box-shadow: 0 8px 18px rgba(6, 14, 28, 0.46);
+}
+
+.solar-mode-chip {
+  position: absolute;
+  top: 0.74rem;
+  left: 0.76rem;
+  z-index: 8;
+  margin: 0;
+  border: 1px solid rgba(79, 195, 247, 0.38);
+  border-radius: 999px;
+  background: rgba(4, 12, 24, 0.75);
+  color: rgba(196, 231, 255, 0.94);
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  padding: 0.3rem 0.56rem;
+  pointer-events: none;
+}
+
+.solar-expand-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(10, 18, 33, 0.58), rgba(2, 4, 8, 0.9) 62%),
+    rgba(1, 2, 5, 0.74);
+  backdrop-filter: blur(3px);
+}
+
+.solar-expand-backdrop[hidden] {
+  display: none;
+}
+
+#solar-canvas-wrap.is-expanded {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: min(95vw, 1500px);
+  height: 90vh;
+  min-height: 0;
+  transform: translate(-50%, -50%);
+  z-index: 71;
+  border: 1px solid rgba(130, 212, 255, 0.55);
+  border-radius: 18px;
+  box-shadow: 0 40px 90px rgba(1, 3, 8, 0.75), 0 0 0 1px rgba(99, 190, 255, 0.18);
+}
+
+#solar-canvas-wrap:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+#solar-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+#solar-canvas.is-grabbing {
+  cursor: grabbing;
+}
+
+#planet-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.solar-focus-title {
+  position: absolute;
+  left: 50%;
+  top: 7.5%;
+  transform: translate(-50%, -50%);
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(1.5rem, 3.8vw, 3.2rem);
+  letter-spacing: 0.08em;
+  color: rgba(232, 234, 240, 0.95);
+  text-shadow: 0 0 26px rgba(79, 195, 247, 0.38);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  text-transform: uppercase;
+  text-align: center;
+  max-width: 90%;
+  width: 90%;
+}
+
+.solar-focus-title.is-visible {
+  opacity: 1;
+}
+
+.solar-layer-panel {
+  position: absolute;
+  top: 2.8rem;
+  left: 0.8rem;
+  width: min(400px, calc(100% - 1.6rem));
+  z-index: 8;
+  border: 1px solid rgba(92, 185, 246, 0.46);
+  border-radius: 13px;
+  background: rgba(3, 10, 20, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 0.6rem 0.7rem;
+  box-shadow: 0 12px 35px rgba(2, 6, 14, 0.45);
+}
+
+.solar-layer-panel[hidden] {
+  display: none;
+}
+
+.solar-layer-panel h4 {
+  margin: 0;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+}
+
+.solar-layer-panel p {
+  margin: 0.34rem 0 0;
+  line-height: 1.45;
+  font-size: 0.81rem;
+  color: rgba(228, 240, 252, 0.9);
+}
+
+.solar-layer-panel p strong {
+  color: rgba(176, 223, 255, 0.96);
+}
+
+.solar-layer-hint {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: rgba(192, 226, 251, 0.83);
+}
+
+.planet-label {
+  position: absolute;
+  color: rgba(232, 234, 240, 0.94);
+  font-size: 0.72rem;
+  font-family: "Space Mono", monospace;
+  text-shadow: 0 0 10px rgba(3, 8, 12, 0.8);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.planet-label-satellite {
+  color: rgba(200, 229, 255, 0.92);
+  font-size: 0.66rem;
+  letter-spacing: 0.015em;
+}
+
+.planet-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-strong);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  backdrop-filter: blur(6px);
+}
+
+.planet-panel h3 {
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.planet-panel p {
+  margin: 0;
+  color: rgba(232, 234, 240, 0.86);
+}
+
+.planet-description {
+  line-height: 1.7;
+  font-size: 0.98rem;
+  color: rgba(232, 234, 240, 0.9);
+}
+
+.planet-facts {
+  margin: 0.4rem 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.planet-facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  border-bottom: 1px dashed rgba(79, 195, 247, 0.25);
+  padding-bottom: 0.35rem;
+}
+
+.planet-facts dt {
+  color: rgba(232, 234, 240, 0.72);
+}
+
+.planet-facts dd {
+  margin: 0;
+  color: var(--accent-warm);
+  text-align: right;
+  max-width: 65%;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.planet-extra {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.planet-table-wrap {
+  margin-top: 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(5, 12, 26, 0.66);
+  padding: 0.95rem;
+  overflow-x: auto;
+}
+
+.planet-table-wrap h3 {
+  margin: 0 0 0.65rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.95rem;
+  color: rgba(232, 234, 240, 0.9);
+  text-align: center;
+}
+
+.planet-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+
+.planet-table th,
+.planet-table td {
+  text-align: center;
+  padding: 0.48rem 0.55rem;
+  border-bottom: 1px solid rgba(79, 195, 247, 0.2);
+  font-size: 0.9rem;
+}
+
+.planet-table th {
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: rgba(232, 234, 240, 0.74);
+  letter-spacing: 0.07em;
+}
+
+.planet-table td {
+  color: rgba(232, 234, 240, 0.92);
+}
+
+.solar-source-note {
+  margin: 0.2rem 0 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  color: rgba(176, 212, 243, 0.78);
+}
+
+.voyager-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.voyager-stage {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(6, 16, 36, 0.88), rgba(3, 7, 15, 0.92));
+  padding: clamp(1rem, 3vw, 2rem);
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.voyager-viewer {
+  position: relative;
+  min-height: 360px;
+  border: 1px solid rgba(79, 195, 247, 0.28);
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(36, 78, 138, 0.28), rgba(5, 11, 22, 0) 52%),
+    radial-gradient(circle at 82% 86%, rgba(232, 213, 183, 0.08), rgba(3, 8, 16, 0) 54%),
+    url("../assets/images/starfield-eso-allsky.jpg"),
+    linear-gradient(180deg, rgba(5, 11, 22, 0.98), rgba(2, 5, 10, 0.98));
+  background-size: auto, auto, cover, auto;
+  background-position: center center, center center, center center, center center;
+}
+
+#voyager-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+#voyager-canvas.is-grabbing {
+  cursor: grabbing;
+}
+
+.voyager-expand {
+  position: absolute;
+  top: 0.72rem;
+  right: 0.72rem;
+  z-index: 8;
+  border: 1px solid rgba(131, 210, 255, 0.55);
+  border-radius: 999px;
+  background: linear-gradient(130deg, rgba(12, 34, 62, 0.88), rgba(6, 16, 30, 0.82));
+  color: rgba(227, 241, 255, 0.96);
+  font-family: "Space Mono", monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.035em;
+  padding: 0.38rem 0.62rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.voyager-expand:hover {
+  transform: translateY(-1px);
+  border-color: rgba(171, 231, 255, 0.86);
+  box-shadow: 0 8px 18px rgba(6, 14, 28, 0.46);
+}
+
+.voyager-mode-chip {
+  position: absolute;
+  top: 0.74rem;
+  left: 0.76rem;
+  z-index: 8;
+  margin: 0;
+  border: 1px solid rgba(79, 195, 247, 0.38);
+  border-radius: 999px;
+  background: rgba(4, 12, 24, 0.75);
+  color: rgba(196, 231, 255, 0.94);
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  padding: 0.3rem 0.56rem;
+  pointer-events: none;
+}
+
+.voyager-expand-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 74;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(10, 18, 33, 0.65), rgba(2, 4, 8, 0.9) 62%),
+    rgba(1, 2, 5, 0.76);
+  backdrop-filter: blur(3px);
+}
+
+.voyager-expand-backdrop[hidden] {
+  display: none;
+}
+
+.voyager-viewer.is-expanded {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: min(95vw, 1500px);
+  height: 90vh;
+  min-height: 0;
+  transform: translate(-50%, -50%);
+  z-index: 75;
+  border: 1px solid rgba(130, 212, 255, 0.55);
+  border-radius: 18px;
+  box-shadow: 0 40px 90px rgba(1, 3, 8, 0.75), 0 0 0 1px rgba(99, 190, 255, 0.18);
+}
+
+.voyager-viewer.is-expanded .voyager-viewer-overlay {
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+}
+
+.voyager-viewer.is-expanded .voyager-part-panel {
+  width: min(420px, calc(100% - 2rem));
+}
+
+.voyager-viewer:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.voyager-viewer:fullscreen .voyager-viewer-overlay {
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+}
+
+.voyager-viewer:fullscreen .voyager-part-panel {
+  width: min(420px, calc(100% - 2rem));
+}
+
+.voyager-viewer-overlay {
+  position: absolute;
+  left: 0.8rem;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(79, 195, 247, 0.26);
+  background: rgba(4, 10, 20, 0.7);
+  padding: 0.55rem 0.65rem;
+  backdrop-filter: blur(3px);
+  pointer-events: none;
+}
+
+.voyager-viewer-overlay h3 {
+  margin: 0;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.98rem;
+  letter-spacing: 0.04em;
+}
+
+.voyager-viewer-overlay p {
+  margin: 0.26rem 0 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.74rem;
+  color: rgba(203, 227, 255, 0.88);
+}
+
+.voyager-part-panel {
+  position: absolute;
+  top: 2.7rem;
+  left: 0.8rem;
+  width: min(360px, calc(100% - 1.6rem));
+  z-index: 8;
+  border: 1px solid rgba(92, 185, 246, 0.46);
+  border-radius: 13px;
+  background: rgba(3, 10, 20, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 0.6rem 0.7rem;
+  box-shadow: 0 12px 35px rgba(2, 6, 14, 0.45);
+}
+
+.voyager-part-panel[hidden] {
+  display: none;
+}
+
+.voyager-part-panel h4 {
+  margin: 0;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+}
+
+.voyager-part-panel p {
+  margin: 0.34rem 0 0;
+  line-height: 1.45;
+  font-size: 0.81rem;
+  color: rgba(228, 240, 252, 0.9);
+}
+
+.voyager-part-panel p strong {
+  color: rgba(176, 223, 255, 0.96);
+}
+
+.voyager-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.58rem;
+  align-items: center;
+}
+
+.voyager-controls .ghost-button {
+  padding: 0.58rem 0.9rem;
+  font-size: 0.82rem;
+}
+
+.voyager-explode-hint {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: rgba(192, 226, 251, 0.83);
+}
+
+#interstellar-status {
+  margin: 0;
+  color: var(--accent-warm);
+  font-family: "Space Mono", monospace;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+#interstellar-status.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.voyager-badges {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.voyager-badges div {
+  border: 1px solid rgba(79, 195, 247, 0.24);
+  border-radius: 12px;
+  background: rgba(6, 15, 31, 0.62);
+  padding: 0.55rem;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.voyager-badges span {
+  font-size: 0.74rem;
+  color: rgba(232, 234, 240, 0.68);
+  font-family: "Space Mono", monospace;
+}
+
+.voyager-badges strong {
+  font-size: 0.9rem;
+  color: var(--accent-warm);
+}
+
+.voyager-fallback {
+  border: 1px dashed rgba(79, 195, 247, 0.42);
+  border-radius: 12px;
+  background: rgba(5, 12, 24, 0.7);
+  padding: 0.55rem 0.7rem;
+  font-size: 0.82rem;
+  color: rgba(215, 237, 255, 0.9);
+}
+
+.voyager-fallback a {
+  color: rgba(174, 220, 255, 0.95);
+}
+
+.voyager-fallback a:hover {
+  color: rgba(218, 239, 255, 1);
+}
+
+.voyager-fallback[hidden] {
+  display: none;
+}
+
+.voyager-viewer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.09;
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.92) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 38%, rgba(255, 255, 255, 0.86) 0 1px, transparent 2px),
+    radial-gradient(circle at 84% 76%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2px),
+    radial-gradient(circle at 36% 64%, rgba(255, 255, 255, 0.75) 0 1px, transparent 2px);
+}
+
+.voyager-viewer-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(79, 195, 247, 0.34);
+  border-radius: 999px;
+  background: rgba(5, 12, 24, 0.8);
+  color: rgba(213, 237, 255, 0.88);
+  font-family: "Space Mono", monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+  padding: 0.42rem 0.72rem;
+  pointer-events: none;
+}
+
+.voyager-viewer-loading[hidden] {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 4, 8, 0.8);
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+  z-index: 40;
+}
+
+.modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  width: min(640px, 92vw);
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(7, 16, 31, 0.95);
+  padding: 1.2rem 1.25rem;
+  position: relative;
+}
+
+.modal-card h3 {
+  margin-top: 0;
+  font-family: "Orbitron", sans-serif;
+}
+
+.modal-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.modal-close {
+  position: absolute;
+  right: 0.65rem;
+  top: 0.65rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.quiz-card {
+  width: min(660px, 100%);
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+  border-radius: var(--radius);
+  padding: clamp(1rem, 2.4vw, 1.8rem);
+  display: grid;
+  gap: 0.85rem;
+}
+
+#quiz-progress {
+  margin: 0;
+  color: rgba(232, 234, 240, 0.72);
+  font-family: "Space Mono", monospace;
+}
+
+.quiz-type-badge {
+  margin: 0;
+  width: fit-content;
+  padding: 0.26rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(79, 195, 247, 0.36);
+  background: rgba(8, 20, 40, 0.72);
+  color: rgba(202, 230, 255, 0.92);
+  font-size: 0.73rem;
+  font-family: "Space Mono", monospace;
+}
+
+.quiz-meter {
+  height: 8px;
+  width: 100%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.quiz-meter-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(79, 195, 247, 0.95), rgba(132, 232, 183, 0.92));
+  transition: width 0.35s ease;
+}
+
+.quiz-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.quiz-stats div {
+  border: 1px solid rgba(79, 195, 247, 0.22);
+  border-radius: 11px;
+  background: rgba(6, 16, 32, 0.58);
+  padding: 0.4rem 0.5rem;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.quiz-stats span {
+  font-size: 0.69rem;
+  color: rgba(232, 234, 240, 0.7);
+  font-family: "Space Mono", monospace;
+}
+
+.quiz-stats strong {
+  font-size: 0.88rem;
+  color: rgba(232, 234, 240, 0.95);
+}
+
+#quiz-question {
+  margin: 0;
+  font-size: clamp(1.16rem, 2.1vw, 1.45rem);
+}
+
+#quiz-answer {
+  width: 100%;
+  padding: 0.75rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid rgba(79, 195, 247, 0.33);
+  background: rgba(3, 10, 22, 0.75);
+  color: var(--text);
+  font-family: "Space Mono", monospace;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.quiz-option {
+  text-align: left;
+  border: 1px solid rgba(79, 195, 247, 0.28);
+  border-radius: 11px;
+  background: rgba(6, 16, 32, 0.62);
+  color: rgba(232, 234, 240, 0.92);
+  padding: 0.62rem 0.72rem;
+  cursor: pointer;
+  transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
+}
+
+.quiz-option:hover {
+  border-color: rgba(137, 222, 255, 0.66);
+  background: rgba(12, 29, 56, 0.76);
+  transform: translateY(-1px);
+}
+
+.quiz-option.is-selected {
+  border-color: rgba(150, 232, 255, 0.9);
+  background: rgba(18, 46, 84, 0.88);
+  box-shadow: inset 0 0 0 1px rgba(150, 232, 255, 0.3);
+}
+
+.quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+#quiz-feedback,
+#quiz-score {
+  margin: 0;
+  min-height: 1.2em;
+}
+
+.quiz-explanation {
+  margin: 0;
+  min-height: 1.2em;
+  line-height: 1.5;
+  font-size: 0.9rem;
+  color: rgba(198, 225, 251, 0.9);
+  border-left: 2px solid rgba(79, 195, 247, 0.45);
+  padding-left: 0.55rem;
+}
+
+#quiz-feedback.ok {
+  color: #76f2a2;
+}
+
+#quiz-feedback.near {
+  color: #ffd98e;
+}
+
+#quiz-feedback.bad {
+  color: #ff8f9d;
+}
+
+#quiz-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+#quiz-next:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.quiz-review {
+  border: 1px solid rgba(79, 195, 247, 0.25);
+  border-radius: 14px;
+  background: rgba(6, 14, 27, 0.64);
+  padding: 0.7rem 0.8rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.quiz-review h4 {
+  margin: 0;
+  font-size: 0.94rem;
+  color: rgba(232, 234, 240, 0.95);
+}
+
+.quiz-review > p {
+  margin: 0;
+  font-size: 0.86rem;
+  color: rgba(232, 234, 240, 0.9);
+}
+
+.quiz-review-item {
+  border: 1px solid rgba(79, 195, 247, 0.22);
+  border-radius: 10px;
+  background: rgba(8, 18, 36, 0.62);
+  padding: 0.52rem 0.6rem;
+  display: grid;
+  gap: 0.18rem;
+}
+
+.quiz-review-item p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: rgba(232, 234, 240, 0.9);
+}
+
+.outro {
+  text-align: center;
+  align-items: center;
+}
+
+.outro h2 {
+  font-size: clamp(1.7rem, 4.1vw, 3.2rem);
+  max-width: 18ch;
+  line-height: 1.2;
+}
+
+.credits {
+  color: rgba(232, 234, 240, 0.7);
+  margin: 0;
+}
+
+.js-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.js-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+@keyframes titlePulse {
+  0%,
+  100% {
+    text-shadow: 0 0 24px rgba(79, 195, 247, 0.33);
+  }
+  50% {
+    text-shadow: 0 0 40px rgba(79, 195, 247, 0.62);
+  }
+}
+
+@keyframes markerPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(79, 195, 247, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 195, 247, 0);
+  }
+}
+
+@keyframes driftA {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-20px, 18px) scale(1.05);
+  }
+}
+
+@keyframes driftB {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(16px, -14px) scale(1.04);
+  }
+}
+
+@keyframes sectionHighlight {
+  0% {
+    box-shadow: 0 0 0 rgba(79, 195, 247, 0);
+  }
+  45% {
+    box-shadow: 0 0 40px rgba(79, 195, 247, 0.22);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(79, 195, 247, 0);
+  }
+}
+
+@keyframes milkyNoise {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.18;
+  }
+  50% {
+    transform: translateX(-6px) translateY(3px);
+    opacity: 0.26;
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.18;
+  }
+}
+
+@keyframes armDrift {
+  0%,
+  100% {
+    opacity: 0.2;
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 0.32;
+    filter: blur(0.5px);
+  }
+}
+
+@keyframes milkySpin {
+  from {
+    transform: translate(-50%, -50%) rotate(-8deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(352deg);
+  }
+}
+
+@keyframes milkyLabelCounterSpin {
+  from {
+    transform: translate(-50%, -50%) rotate(8deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-352deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .universe-visual,
+  .universe-visual::before,
+  .universe-visual::after {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .split-layout,
+  .solar-layout,
+  .voyager-layout,
+  .notes-grid,
+  .timeline-list,
+  .metrics-grid,
+  .voyager-badges,
+  .notes-grid.compact,
+  .timeline-list.mini {
+    grid-template-columns: 1fr;
+  }
+
+  #solar-canvas-wrap {
+    min-height: 420px;
+  }
+
+  .solar-focus-title {
+    left: 50%;
+    top: 9%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    width: 90%;
+    text-align: center;
+    font-size: clamp(1.4rem, 5.8vw, 2.7rem);
+  }
+
+  .galaxy-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .galaxy-preview {
+    min-height: 430px;
+  }
+
+  .galaxy-preview.is-info-open .galaxy-preview-details {
+    max-height: 21rem;
+  }
+
+  .universe-visual {
+    min-height: 320px;
+  }
+
+  .voyager-viewer {
+    min-height: 320px;
+  }
+
+  .quiz-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .panel {
+    width: min(var(--max-width), 94vw);
+    padding: 4.2rem 0;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 16vw, 4rem);
+  }
+
+  .marker-label {
+    font-size: 0.76rem;
+    max-width: 62%;
+  }
+
+  #solar-system-marker {
+    width: 9px;
+    height: 9px;
+  }
+
+  .galaxy-preview {
+    min-height: 360px;
+  }
+
+  .map-legend {
+    width: min(300px, calc(100% - 1.4rem));
+    padding: 0.48rem 0.56rem;
+  }
+
+  .milkyway-details-toggle {
+    top: 0.62rem;
+    right: 0.62rem;
+    padding: 0.32rem 0.55rem;
+    font-size: 0.69rem;
+  }
+
+  .map-legend p {
+    font-size: 0.73rem;
+    line-height: 1.34;
+  }
+
+  .galaxy-preview-overlay {
+    left: 0.72rem;
+    right: 0.72rem;
+    bottom: 0.72rem;
+    padding: 0.64rem 0.68rem;
+  }
+
+  .galaxy-preview-hint {
+    font-size: 0.67rem;
+  }
+
+  .galaxy-info-toggle {
+    padding: 0.36rem 0.68rem;
+    font-size: 0.72rem;
+  }
+
+  .galaxy-preview.is-info-open .galaxy-preview-details {
+    max-height: 17rem;
+  }
+
+  .galaxy-preview-type {
+    font-size: 1rem;
+  }
+
+  .galaxy-preview-description {
+    font-size: 0.88rem;
+  }
+
+  .galaxy-preview-facts li {
+    font-size: 0.81rem;
+  }
+
+  .voyager-viewer {
+    min-height: 280px;
+  }
+
+  .quiz-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

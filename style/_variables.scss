@@ -1,0 +1,15 @@
+$bg: #020408;
+$bg-soft: #050b18;
+$text: #e8eaf0;
+$accent: #4fc3f7;
+$accent-warm: #e8d5b7;
+$glow: rgba(79, 195, 247, 0.15);
+
+:root {
+  --bg: #{$bg};
+  --bg-soft: #{$bg-soft};
+  --text: #{$text};
+  --accent: #{$accent};
+  --accent-warm: #{$accent-warm};
+  --glow: #{$glow};
+}
