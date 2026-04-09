@@ -1,6 +1,6 @@
 import { initStarfield } from "./starfield.js";
 import { initMilkyWay } from "./milkyway.js";
-import { initSolarSystem } from "./solar-system.js?v=20260409c";
+import { initSolarSystem } from "./solar-system.js?v=20260409g";
 import { initVoyager } from "./voyager.js";
 import { initQuiz } from "./quiz.js";
 

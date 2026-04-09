@@ -10,66 +10,66 @@ const VOYAGER_PART_LIBRARY = {
   antenna: {
     title: "Antena de mare castig",
     functionText:
-      "Function: transmite/primeste semnale radio pe distante interstelare folosind Deep Space Network.",
+      "Transmite si primeste semnale radio pe distante interstelare prin Deep Space Network.",
     materialText:
-      "Materiale: aluminiu structural, suprafete metalice cu acoperiri termo-optice si elemente compozite.",
+      "Aluminiu structural, suprafete metalice cu acoperiri termo-optice si elemente compozite.",
     noteText:
-      "Detaliu: orientarea antenei este critica, pentru ca puterea semnalului la Pamant este extrem de mica.",
+      "Orientarea ei e critica — la distanta lui Voyager, semnalul ajunge la Pamant extrem de slab.",
     explodeAxis: [1.12, 0.26, 0.08],
     explodeDistance: 1.42
   },
   bus: {
     title: "Corpul sondei (bus)",
     functionText:
-      "Function: gazduieste avionica, telecomunicatii, control atitudine, memorie si distributia energiei.",
+      "Gazduieste avionica, telecomunicatiile, controlul atitudinii, memoria si distributia energiei.",
     materialText:
-      "Materiale: aluminiu, titan local, cablaje ecranate, panouri structurale multistrat.",
+      "Aluminiu, titan, cablaje ecranate, panouri structurale multistrat.",
     noteText:
-      "Detaliu: aici sunt sistemele care mentin misiunea operationala de zeci de ani.",
+      "Aici sunt sistemele care tin misiunea in viata de aproape 50 de ani.",
     explodeAxis: [-0.34, 0.28, -0.35],
     explodeDistance: 1.06
   },
   booms: {
     title: "Brate si structuri externe",
     functionText:
-      "Function: separa senzori/instrumente de corp pentru masuratori mai curate ale campurilor si plasmei.",
+      "Separa senzorii si instrumentele de corpul principal pentru masuratori mai precise ale campurilor si plasmei.",
     materialText:
-      "Materiale: elemente metalice usoare, suporturi rigide si puncte de fixare amortizate.",
+      "Elemente metalice usoare, suporturi rigide si puncte de fixare amortizate.",
     noteText:
-      "Detaliu: geometria acestor brate reduce interferentele produse de electronica principala.",
+      "Distanta fata de electronica principala reduce interferentele electromagnetice.",
     explodeAxis: [-0.92, 0.34, 0.72],
     explodeDistance: 1.56
   },
   rtg: {
     title: "Sistem energetic RTG",
     functionText:
-      "Function: genereaza energie electrica din caldura radioizotopica (nu din lumina solara).",
+      "Genereaza energie electrica din caldura radioizotopica — nu are nevoie de lumina solara.",
     materialText:
-      "Materiale: unitati RTG ecranate, elemente termo-electrice si radiatoare dedicate.",
+      "Unitati RTG ecranate, elemente termo-electrice si radiatoare dedicate.",
     noteText:
-      "Important: Voyager nu are panouri solare; la aceasta distanta energia vine din RTG.",
+      "Voyager nu are panouri solare — la aceasta distanta, Soarele e prea slab. RTG-ul e singura sursa.",
     explodeAxis: [-0.68, -0.8, 0.38],
     explodeDistance: 1.68
   },
   instruments: {
     title: "Pachet de instrumente stiintifice",
     functionText:
-      "Function: masoara plasma, campuri magnetice, radiatii si particule energetice din heliosfera/interstelar.",
+      "Masoara plasma, campuri magnetice, radiatii si particule energetice din heliosfera si spatiul interstelar.",
     materialText:
-      "Materiale: senzori de inalta precizie, componente electronice ecranate si carcase termo-stabile.",
+      "Senzori de inalta precizie, componente electronice ecranate si carcase termo-stabile.",
     noteText:
-      "Detaliu: datele acestor instrumente au confirmat iesirea in mediul interstelar.",
+      "Datele lor au confirmat momentul exact al iesirii din heliosfera in 2012.",
     explodeAxis: [0.22, 0.78, 0.76],
     explodeDistance: 1.44
   },
   golden_record: {
     title: "Golden Record",
     functionText:
-      "Function: arhiva culturala cu sunete, imagini si muzica de pe Pamant, destinata unui posibil contact viitor.",
+      "O arhiva culturala — sunete, imagini si muzica de pe Pamant, pentru orice eventuala intalnire viitoare.",
     materialText:
-      "Materiale: disc placat cu aur, carcasa de protectie si instructiuni gravate.",
+      "Disc placat cu aur, carcasa de protectie si instructiuni gravate pe suprafata.",
     noteText:
-      "Detaliu: include saluturi in mai multe limbi si secvente audio reprezentative pentru omenire.",
+      "Include saluturi in 55 de limbi, muzica si sunete din natura — practic un mesaj al omenirii.",
     explodeAxis: [-0.12, 0.14, 1.08],
     explodeDistance: 1.32
   }

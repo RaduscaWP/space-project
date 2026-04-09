@@ -12,7 +12,7 @@ const QUESTIONS = [
     numericToleranceFull: 0.25,
     numericToleranceHalf: 1.2,
     explanation:
-      "Varsta de ~13.8 miliarde ani rezulta din masuratori cosmologice (radiatia cosmica de fond, expansiunea Universului si modele cosmologice)."
+      "Valoarea de ~13.8 miliarde ani vine din mai multe masuratori independente: radiatia cosmica de fond, viteza de expansiune a Universului si modelele cosmologice actuale."
   },
   {
     type: "tf",
@@ -21,11 +21,11 @@ const QUESTIONS = [
     correctIndex: 1,
     canonical: "False",
     optionExplanations: [
-      "Incorect: galaxiile eliptice nu au brate spirale bine definite.",
-      "Corect: Calea Lactee este o galaxie spirala barata, cu disc si brate."
+      "Gresit: galaxiile eliptice nu au brate spirale.",
+      "Corect: Calea Lactee are disc, bara centrala si brate spirale bine definite."
     ],
     explanation:
-      "Calea Lactee are structura de disc cu bara centrala si brate spirale, deci nu este eliptica."
+      "Calea Lactee e o galaxie spirala barata — are bara centrala si brate spirale, nu forma ovala a celor eliptice."
   },
   {
     type: "mcq",
@@ -34,13 +34,13 @@ const QUESTIONS = [
     correctIndex: 1,
     canonical: "Spirala barata",
     optionExplanations: [
-      "Eliptica ar avea aspect mai omogen, fara brate spirale evidente.",
-      "Spirala barata este corect: exista o bara centrala si brate spirale.",
-      "Neregulata ar insemna lipsa unei structuri stabile de tip disc + brate.",
-      "Lenticulara pura are proprietati diferite si, de regula, mai putina activitate in brate."
+      "Eliptica ar arata mai uniform, fara brate spirale vizibile.",
+      "Corect: Calea Lactee are o bara centrala si brate spirale.",
+      "Neregulata ar insemna lipsa unui disc si a unor brate structurate.",
+      "Lenticulara e un tip intermediar, de obicei cu mai putina activitate stelara in brate."
     ],
     explanation:
-      "Observatiile arata clar ca Calea Lactee este o galaxie spirala barata."
+      "Observatiile arata clar ca Calea Lactee e o galaxie spirala barata — disc, bara si brate spirale."
   },
   {
     type: "mcq",
@@ -49,13 +49,13 @@ const QUESTIONS = [
     correctIndex: 1,
     canonical: "8",
     optionExplanations: [
-      "7 este prea putin; in modelul actual sunt 8 planete.",
-      "8 este corect: Mercur, Venus, Pamant, Mars, Jupiter, Saturn, Uranus, Neptun.",
-      "9 nu este corect in clasificarea actuala (Pluto este planeta pitica).",
-      "10 este prea mult pentru clasificarea oficiala curenta."
+      "Prea putin — in clasificarea actuala sunt 8 planete.",
+      "Corect: Mercur, Venus, Pamant, Mars, Jupiter, Saturn, Uranus, Neptun.",
+      "9 nu mai e corect — Pluto a fost retrogradat la planeta pitica in 2006.",
+      "10 e prea mult pentru clasificarea oficiala."
     ],
     explanation:
-      "Uniunea Astronomica Internationala recunoaste 8 planete in Sistemul Solar."
+      "Uniunea Astronomica Internationala recunoaste oficial 8 planete in Sistemul Solar."
   },
   {
     type: "text",
@@ -63,7 +63,7 @@ const QUESTIONS = [
     answers: ["voyager 1", "voyager", "misiunea voyager 1"],
     canonical: "Voyager 1",
     explanation:
-      "Voyager 1 a trecut heliopauza in 2012, fiind prima misiune umana intrata in spatiul interstelar."
+      "Voyager 1 a depasit heliopauza in 2012 — prima nava construita de om care a ajuns in spatiu interstelar."
   },
   {
     type: "tf",
@@ -72,11 +72,11 @@ const QUESTIONS = [
     correctIndex: 1,
     canonical: "False",
     optionExplanations: [
-      "Incorect: Soarele nu este in nucleul galactic.",
-      "Corect: Soarele se afla in Bratul Orion, la ~26.000 ani-lumina de centru."
+      "Gresit: Soarele nu e in nucleul galactic.",
+      "Corect: Soarele e in Bratul Orion, la vreo 26.000 ani-lumina de centru."
     ],
     explanation:
-      "Pozitia noastra este periferica fata de nucleul Calei Lactee, nu centrala."
+      "Suntem la periferia Calei Lactee, nu la centru — o pozitie destul de obisnuita intr-o galaxie spirala."
   },
   {
     type: "mcq",
@@ -85,13 +85,13 @@ const QUESTIONS = [
     correctIndex: 1,
     canonical: "100-400 miliarde",
     optionExplanations: [
-      "Interval prea mic pentru estimarile actuale.",
-      "Corect: estimarile utilizate frecvent sunt in jur de 100-400 miliarde de stele.",
-      "Interval mult prea mare pentru evaluarile standard ale Calei Lactee.",
-      "Interval prea mic pentru dimensiunea reala a galaxiei noastre."
+      "Prea putin — estimarile actuale sunt mult mai mari.",
+      "Corect: estimarile uzuale se invart in jurul a 100-400 de miliarde de stele.",
+      "Prea mult — nicio evaluare serioasa nu ajunge la un trilion pentru Calea Lactee.",
+      "Prea putin — galaxia noastra e mai mare de atat."
     ],
     explanation:
-      "Numarul exact este dificil de masurat, dar estimarea folosita didactic este ~100-400 miliarde."
+      "Numarul exact e greu de stabilit, dar estimarea folosita e de ~100-400 de miliarde de stele."
   },
   {
     type: "text",
@@ -99,7 +99,7 @@ const QUESTIONS = [
     answers: ["bratul orion", "orion", "orion spur", "bratul orion spur"],
     canonical: "Bratul Orion (Orion Spur)",
     explanation:
-      "Sistemul Solar este in Bratul Orion, o ramura minora intre bratele Sagittarius si Perseus."
+      "Sistemul Solar e in Bratul Orion — o ramura minora a Calei Lactee, intre bratele Sagittarius si Perseus."
   },
   {
     type: "tf",
@@ -108,11 +108,11 @@ const QUESTIONS = [
     correctIndex: 0,
     canonical: "True",
     optionExplanations: [
-      "Corect: Voyager 1 a trecut heliopauza in august 2012.",
-      "Incorect: datele misiunii confirma intrarea in mediul interstelar in 2012."
+      "Corect: Voyager 1 a depasit heliopauza in august 2012.",
+      "Gresit: datele misiunii confirma clar intrarea in spatiu interstelar in 2012."
     ],
     explanation:
-      "Anul 2012 este un reper major pentru explorarea spatiala interstelara."
+      "2012 e un moment de referinta in istoria explorarilor spatiale — prima nava care paraseste oficial Sistemul Solar."
   }
 ];
 
@@ -251,7 +251,15 @@ export function initQuiz() {
       .replaceAll("'", "&#39;");
   }
 
-  function updateStatsUI() {
+  function bumpNode(node) {
+    if (!node) return;
+    node.classList.remove("is-stat-bump");
+    void node.offsetWidth; // reflow to restart animation
+    node.classList.add("is-stat-bump");
+    setTimeout(() => node.classList.remove("is-stat-bump"), 320);
+  }
+
+  function updateStatsUI(bumpChanged) {
     const maxPoints = QUESTIONS.length;
     const answeredRatio = answeredCount / maxPoints;
     const accuracy = answeredCount ? (totalPoints / answeredCount) * 100 : 0;
@@ -262,6 +270,13 @@ export function initQuiz() {
     wrongLiveNode.textContent = String(wrongCount);
     accuracyLiveNode.textContent = `${accuracy.toFixed(0)}%`;
     meterFillNode.style.width = `${Math.min(100, Math.max(0, answeredRatio * 100)).toFixed(1)}%`;
+
+    if (bumpChanged) {
+      bumpNode(pointsLiveNode);
+      if (exactCount > 0 || nearCount > 0 || wrongCount > 0) {
+        bumpNode(accuracyLiveNode);
+      }
+    }
   }
 
   function renderOptions(entry) {
@@ -329,10 +344,10 @@ export function initQuiz() {
         confidence: 0,
         canonical,
         userAnswer: "(fara raspuns)",
-        reason: "Nu ai introdus raspuns.",
+        reason: "Nu ai scris nimic.",
         explanation:
-          `De ce e corect: ${entry.explanation || canonical}. ` +
-          "De ce raspunsul tau e gresit: nu ai oferit niciun raspuns."
+          `Raspuns corect: ${entry.explanation || canonical}. ` +
+          "Nu ai introdus niciun raspuns."
       };
     }
 
@@ -348,8 +363,8 @@ export function initQuiz() {
           confidence: 1,
           canonical,
           userAnswer: rawInput,
-          reason: "Valoare numerica corecta.",
-          explanation: `De ce e corect: ${entry.explanation || canonical}.`
+          reason: "Valoare corecta.",
+          explanation: `Corect: ${entry.explanation || canonical}.`
         };
       }
       if (diff <= halfTol) {
@@ -360,10 +375,10 @@ export function initQuiz() {
           confidence: Math.max(0.5, conf),
           canonical,
           userAnswer: rawInput,
-          reason: "Valoare numerica apropiata.",
+          reason: "Valoare apropiata.",
           explanation:
-            `De ce e aproape: valoarea introdusa este in vecinatatea valorii corecte ${canonical}. ` +
-            `De ce e corect raspunsul oficial: ${entry.explanation || canonical}.`
+            `Aproape — ai dat ${canonical} ca referinta. ` +
+            `${entry.explanation || canonical}.`
         };
       }
     }
@@ -385,8 +400,8 @@ export function initQuiz() {
         confidence: bestSimilarity,
         canonical,
         userAnswer: rawInput,
-        reason: "Raspuns foarte apropiat de forma corecta.",
-        explanation: `De ce e corect: ${entry.explanation || canonical}.`
+        reason: "Raspuns corect.",
+        explanation: `${entry.explanation || canonical}.`
       };
     }
 
@@ -397,10 +412,10 @@ export function initQuiz() {
         confidence: bestSimilarity,
         canonical,
         userAnswer: rawInput,
-        reason: "Raspuns partial corect.",
+        reason: "Partial corect.",
         explanation:
-          `De ce e aproape: raspunsul tau contine doar o parte din informatie. ` +
-          `De ce e corect raspunsul oficial: ${entry.explanation || canonical}.`
+          `Raspunsul tau acopera doar o parte din informatie. ` +
+          `${entry.explanation || canonical}.`
       };
     }
 
@@ -410,10 +425,10 @@ export function initQuiz() {
       confidence: bestSimilarity,
       canonical,
       userAnswer: rawInput,
-      reason: "Raspuns incorect.",
+      reason: "Raspuns gresit.",
       explanation:
-        `De ce e gresit: raspunsul tau nu se potriveste cu conceptul cerut. ` +
-        `De ce e corect raspunsul oficial: ${entry.explanation || canonical}.`
+        `Raspunsul tau nu corespunde. ` +
+        `${entry.explanation || canonical}.`
     };
   }
 
@@ -434,8 +449,8 @@ export function initQuiz() {
         confidence: 1,
         canonical,
         userAnswer: selected,
-        reason: "Varianta selectata este corecta.",
-        explanation: `De ce e corect: ${correctWhy || entry.explanation || canonical}.`
+        reason: "Varianta corecta.",
+        explanation: `${correctWhy || entry.explanation || canonical}.`
       };
     }
 
@@ -445,10 +460,10 @@ export function initQuiz() {
       confidence: 0,
       canonical,
       userAnswer: selected,
-      reason: "Varianta selectata este gresita.",
+      reason: "Varianta gresita.",
       explanation:
-        `De ce varianta ta e gresita: ${selectedWhy || "nu corespunde faptelor prezentate."} ` +
-        `De ce varianta corecta e corecta: ${correctWhy || canonical}.`
+        `${selectedWhy || "Nu corespunde faptelor."} ` +
+        `Raspuns corect: ${correctWhy || canonical}.`
     };
   }
 
@@ -478,21 +493,34 @@ export function initQuiz() {
       explanation: result.explanation || ""
     });
 
+    const quizCard = document.querySelector(".quiz-card");
     const similarityPct = `${Math.round(result.confidence * 100)}%`;
     if (result.verdict === "correct") {
       feedbackNode.className = "ok";
-      feedbackNode.textContent = `Corect (+1p). ${result.reason} Apasa Next.`;
+      feedbackNode.textContent = `Corect! (+1p) ${result.reason}`;
+      if (quizCard) {
+        quizCard.classList.remove("is-correct-pulse", "is-wrong-shake");
+        void quizCard.offsetWidth;
+        quizCard.classList.add("is-correct-pulse");
+        setTimeout(() => quizCard.classList.remove("is-correct-pulse"), 500);
+      }
     } else if (result.verdict === "near") {
       feedbackNode.className = "near";
-      feedbackNode.textContent = `Aproape (+0.5p, similaritate ${similarityPct}). Raspuns corect: ${result.canonical}.`;
+      feedbackNode.textContent = `Aproape (+0.5p, ${similarityPct} similaritate). Raspuns corect: ${result.canonical}.`;
     } else {
       feedbackNode.className = "bad";
-      feedbackNode.textContent = `Gresit (0p). ${result.reason} Raspuns corect: ${result.canonical}.`;
+      feedbackNode.textContent = `Gresit (0p). ${result.reason} Raspuns: ${result.canonical}.`;
+      if (quizCard) {
+        quizCard.classList.remove("is-correct-pulse", "is-wrong-shake");
+        void quizCard.offsetWidth;
+        quizCard.classList.add("is-wrong-shake");
+        setTimeout(() => quizCard.classList.remove("is-wrong-shake"), 400);
+      }
     }
     explanationNode.textContent = result.explanation || "";
 
     scoreNode.textContent = `Scor curent: ${formatPoints(totalPoints)} / ${QUESTIONS.length}`;
-    updateStatsUI();
+    updateStatsUI(true);
     currentResult = result;
     submitButton.disabled = true;
     nextButton.disabled = false;
@@ -504,7 +532,7 @@ export function initQuiz() {
   function renderReview() {
     const lowScoreItems = attempts.filter((item) => item.points < SCORE_EXACT);
     if (!lowScoreItems.length) {
-      reviewNode.innerHTML = "<h4>Raport final</h4><p>Excelent: nu ai avut intrebari gresite sau partiale.</p>";
+      reviewNode.innerHTML = "<h4>Raport final</h4><p>Excelent — niciun raspuns gresit sau partial!</p>";
       reviewNode.hidden = false;
       return;
     }
@@ -515,16 +543,63 @@ export function initQuiz() {
         return `
           <article class="quiz-review-item">
             <p><strong>${escapeHtml(label)}</strong> - ${escapeHtml(item.question)}</p>
-            <p><strong>Raspunsul tau:</strong> ${escapeHtml(item.userAnswer || "(fara raspuns)")}</p>
+            <p><strong>Raspunsul tau:</strong> ${escapeHtml(item.userAnswer || "(nimic)")}</p>
             <p><strong>Raspuns corect:</strong> ${escapeHtml(item.canonical)}</p>
-            <p><strong>De ce:</strong> ${escapeHtml(item.explanation || "Explicatia nu este disponibila.")}</p>
+            <p><strong>Explicatie:</strong> ${escapeHtml(item.explanation || "Nu este disponibila.")}</p>
           </article>
         `;
       })
       .join("");
 
-    reviewNode.innerHTML = `<h4>Statistica intrebari gresite / aproape</h4>${itemsHtml}`;
+    reviewNode.innerHTML = `<h4>Ce ai gresit sau dat aproape</h4>${itemsHtml}`;
     reviewNode.hidden = false;
+  }
+
+  function launchConfetti() {
+    const canvas = document.createElement("canvas");
+    canvas.style.cssText =
+      "position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999";
+    document.body.appendChild(canvas);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext("2d");
+    const colors = ["#4fc3f7", "#e8d5b7", "#76f2a2", "#ffffff", "#b8e8ff"];
+    const particles = Array.from({ length: 82 }, () => ({
+      x: canvas.width * (0.3 + Math.random() * 0.4),
+      y: canvas.height * 0.55,
+      vx: (Math.random() - 0.5) * 10,
+      vy: -(Math.random() * 9 + 4),
+      r: Math.random() * 5 + 2,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      alpha: 1,
+      rot: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.22
+    }));
+    let frame = 0;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.vy += 0.22;
+        p.y += p.vy;
+        p.rot += p.spin;
+        p.alpha = Math.max(0, 1 - frame / 90);
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.r, -p.r * 0.5, p.r * 2, p.r);
+        ctx.restore();
+      });
+      frame += 1;
+      if (frame < 100) {
+        requestAnimationFrame(draw);
+      } else {
+        canvas.remove();
+      }
+    }
+    draw();
   }
 
   function finishQuiz() {
@@ -540,13 +615,17 @@ export function initQuiz() {
 
     const finalAccuracy = (totalPoints / QUESTIONS.length) * 100;
     feedbackNode.className = "ok";
-    feedbackNode.textContent = "Ai finalizat quiz-ul. Verifica raportul detaliat de mai jos.";
+    feedbackNode.textContent = "Gata! Verifica raportul de mai jos.";
     scoreNode.textContent =
       `Scor final: ${formatPoints(totalPoints)} / ${QUESTIONS.length}. ` +
       `Corecte: ${exactCount}, Aproape: ${nearCount}, Gresite: ${wrongCount}. ` +
       `Acuratete finala: ${finalAccuracy.toFixed(1)}%.`;
 
     renderReview();
+
+    if (totalPoints / QUESTIONS.length >= 0.5) {
+      setTimeout(launchConfetti, 300);
+    }
   }
 
   function handleSubmit() {
@@ -555,13 +634,13 @@ export function initQuiz() {
     const result = evaluateCurrentQuestion();
     if (!result) {
       feedbackNode.className = "bad";
-      feedbackNode.textContent = "Selecteaza o varianta inainte sa confirmi.";
+      feedbackNode.textContent = "Alege o varianta inainte sa confirmi.";
       return;
     }
 
     if (QUESTIONS[index].type === "text" && !normalize(answerNode.value)) {
       feedbackNode.className = "bad";
-      feedbackNode.textContent = "Scrie un raspuns inainte sa confirmi.";
+      feedbackNode.textContent = "Scrie ceva inainte sa confirmi.";
       return;
     }
 

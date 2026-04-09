@@ -122,17 +122,17 @@ function createZodiacalBand() {
 
 const SUN_INFO = {
   name: "Soare",
-  summary: "Steaua centrala a Sistemului Solar",
+  summary: "Steaua in jurul careia orbiteaza totul",
   description:
-    "Soarele contine peste 99% din masa Sistemului Solar si furnizeaza energia necesara planetelor.",
+    "Contine peste 99% din masa Sistemului Solar si e sursa de energie pentru toate planetele.",
   diameter: "1,392,700 km",
   distance: "-",
   orbit: "~225 milioane ani in jurul centrului galactic",
   moons: "-",
   satellites: "Mercur, Venus, Pamant, Mars, Jupiter, Saturn, Uranus, Neptun",
   temp: "~5,500 C (fotosfera)",
-  fact1: "Lumina Soarelui ajunge la Pamant in aproximativ 8 minute si 20 secunde.",
-  fact2: "Vantul solar modeleaza heliosfera."
+  fact1: "Lumina lui ajunge la Pamant in vreo 8 minute si 20 de secunde.",
+  fact2: "Vantul solar e cel care defineste limitele heliosferei."
 };
 
 const PLANET_DEFS = [
@@ -152,10 +152,10 @@ const PLANET_DEFS = [
     orbitPeriod: "88 zile",
     moonsTotal: "0",
     temp: "~167 C",
-    summary: "Planeta stancoasa cea mai apropiata de Soare",
-    description: "Are atmosfera foarte subtire si diferente termice extreme.",
-    fact1: "Un an pe Mercur dureaza 88 de zile terestre.",
-    fact2: "Suprafata este foarte craterizata.",
+    summary: "Cea mai apropiata planeta de Soare",
+    description: "Aproape fara atmosfera, cu diferente de temperatura uriase intre zi si noapte.",
+    fact1: "Un an pe Mercur dureaza doar 88 de zile.",
+    fact2: "Suprafata e plina de cratere — fara atmosfera, nu are nimic care sa o protejeze.",
     satellites: []
   },
   {
@@ -174,10 +174,10 @@ const PLANET_DEFS = [
     orbitPeriod: "225 zile",
     moonsTotal: "0",
     temp: "~464 C",
-    summary: "Planeta cu efect de sera extrem",
-    description: "Atmosfera densa de CO2 mentine temperatura foarte ridicata.",
-    fact1: "Este cea mai fierbinte planeta din Sistemul Solar.",
-    fact2: "Rotatia este retrograda.",
+    summary: "Cea mai fierbinte planeta, mai calda chiar decat Mercur",
+    description: "Atmosfera groasa de CO2 retine caldura si duce temperatura la ~464 C.",
+    fact1: "E mai fierbinte decat Mercur, desi e mai departe de Soare.",
+    fact2: "Se roteste invers fata de celelalte planete.",
     satellites: []
   },
   {
@@ -196,10 +196,10 @@ const PLANET_DEFS = [
     orbitPeriod: "365 zile",
     moonsTotal: "1",
     temp: "~15 C",
-    summary: "Singura planeta cunoscuta care sustine viata",
-    description: "Are apa lichida stabila, atmosfera protectoare si camp magnetic activ.",
-    fact1: "71% din suprafata este acoperita de apa.",
-    fact2: "Inclinarea axei produce anotimpurile.",
+    summary: "Singura planeta cu viata cunoscuta",
+    description: "Apa lichida, o atmosfera care ne protejeaza si un camp magnetic activ.",
+    fact1: "71% din suprafata e apa.",
+    fact2: "Anotimpurile apar din cauza inclinarii axei, nu a distantei fata de Soare.",
     satellites: [
       sat({
         key: "moon",
@@ -215,9 +215,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~384,400 km",
         orbitPeriod: "27.3 zile",
         temp: "~ -20 C",
-        description: "Satelitul natural al Pamantului care influenteaza mareele.",
-        fact1: "Este in rotatie sincronizata cu Pamantul.",
-        fact2: "Suprafata are campuri bazaltice (maria)."
+        description: "Singurul satelit natural al Pamantului, raspunzator de maree.",
+        fact1: "Intotdeauna ne arata aceeasi fata — rotatia e sincronizata cu orbita.",
+        fact2: "Petele intunecate de pe suprafata sunt campuri bazaltice vechi (maria)."
       })
     ]
   },
@@ -237,10 +237,10 @@ const PLANET_DEFS = [
     orbitPeriod: "687 zile",
     moonsTotal: "2",
     temp: "~ -63 C",
-    summary: "Planeta rosie cu urme geologice de apa",
-    description: "Are atmosfera subtire si relief spectaculos.",
-    fact1: "Ziua martiana dureaza 24h 37m.",
-    fact2: "Calotele polare contin gheata de apa si CO2.",
+    summary: "Planeta rosie cu urmele unui trecut mai activ",
+    description: "Atmosfera subtire, vulcani gigantici si semne geologice ca a existat apa candva.",
+    fact1: "O zi pe Marte dureaza aproape ca pe Pamant — 24h 37m.",
+    fact2: "La ambii poli are calote de gheata din apa si CO2.",
     satellites: [
       sat({
         key: "phobos",
@@ -253,9 +253,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~9,376 km",
         orbitPeriod: "7h 39m",
         temp: "~ -40 C",
-        description: "Cel mai mare satelit al lui Mars, foarte apropiat de planeta.",
-        fact1: "Are forma neregulata.",
-        fact2: "Se apropie lent de Mars."
+        description: "Cel mai mare dintre cei doi sateliti ai lui Mars, orbiteaza foarte aproape.",
+        fact1: "Are o forma ciudata, neregulata — probabil un asteroid capturat.",
+        fact2: "Se apropie incet de Mars si intr-o zi va fi distrus de fortele de maree."
       }),
       sat({
         key: "deimos",
@@ -268,9 +268,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~23,460 km",
         orbitPeriod: "30.3h",
         temp: "~ -40 C",
-        description: "Satelit exterior cu suprafata acoperita de regolit fin.",
-        fact1: "Orbita aproape circulara.",
-        fact2: "Are albedo redus."
+        description: "Cel mai indepartat satelit al lui Mars, acoperit cu un strat gros de praf fin.",
+        fact1: "Orbita lui e aproape perfect circulara.",
+        fact2: "Suprafata inchisa la culoare — reflecta putin din lumina primita."
       })
     ]
   },
@@ -290,10 +290,10 @@ const PLANET_DEFS = [
     orbitPeriod: "11.9 ani",
     moonsTotal: "95",
     temp: "~ -110 C",
-    summary: "Cea mai mare planeta, gigant gazos",
-    description: "Este dominat de hidrogen si heliu, cu benzi atmosferice vizibile.",
-    fact1: "Marea Pata Rosie este o furtuna uriasa.",
-    fact2: "Are camp magnetic foarte puternic.",
+    summary: "Cel mai mare corp din Sistemul Solar dupa Soare",
+    description: "In mare parte hidrogen si heliu, cu un sistem complex de benzi atmosferice colorate.",
+    fact1: "Marea Pata Rosie e o furtuna cat doua Pamanturi si dureaza de sute de ani.",
+    fact2: "Campul magnetic e asa de puternic incat afecteaza satelitii din jur.",
     satellites: [
       sat({
         key: "io",
@@ -306,9 +306,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~421,700 km",
         orbitPeriod: "1.77 zile",
         temp: "~ -130 C",
-        description: "Cel mai activ corp vulcanic din Sistemul Solar.",
-        fact1: "Are sute de vulcani activi.",
-        fact2: "Suprafata este bogata in sulf."
+        description: "Cel mai activ vulcanic din tot Sistemul Solar — vulcani tot timpul.",
+        fact1: "Are sute de vulcani activi, cu eruptii observabile din spatiu.",
+        fact2: "Culoarea galbena-portocalie vine din depozitele de sulf."
       }),
       sat({
         key: "europa",
@@ -321,9 +321,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~670,900 km",
         orbitPeriod: "3.55 zile",
         temp: "~ -160 C",
-        description: "Are gheata la suprafata si posibil ocean subteran.",
-        fact1: "Suprafata este relativ neteda.",
-        fact2: "Este tinta majora pentru astrobiologie."
+        description: "Sub crusta de gheata se presupune ca exista un ocean de apa lichida.",
+        fact1: "Suprafata e acoperita de o crusta de gheata relativ neteda.",
+        fact2: "E unul dintre cele mai cautate locuri pentru urme de viata extraterestra."
       }),
       sat({
         key: "ganymede",
@@ -336,9 +336,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~1,070,400 km",
         orbitPeriod: "7.15 zile",
         temp: "~ -163 C",
-        description: "Cel mai mare satelit natural din Sistemul Solar.",
-        fact1: "Este mai mare decat Mercur.",
-        fact2: "Are camp magnetic propriu."
+        description: "Cel mai mare satelit natural din Sistemul Solar — mai mare chiar decat Mercur.",
+        fact1: "Desi e satelit, e mai mare ca Mercur.",
+        fact2: "Singurul satelit cu camp magnetic propriu."
       }),
       sat({
         key: "callisto",
@@ -351,9 +351,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~1,882,700 km",
         orbitPeriod: "16.69 zile",
         temp: "~ -139 C",
-        description: "Satelit puternic craterizat, cu suprafata foarte veche.",
-        fact1: "Poate avea ocean intern sarat.",
-        fact2: "Are densitate relativ mica."
+        description: "Suprafata acoperita de cratere vechi, una dintre cele mai bombardate din Sistemul Solar.",
+        fact1: "Poate ascunde un ocean intern sarat sub suprafata.",
+        fact2: "Densitate mica — combinatie de gheata si roca."
       })
     ]
   },
@@ -373,10 +373,10 @@ const PLANET_DEFS = [
     orbitPeriod: "29.4 ani",
     moonsTotal: "146",
     temp: "~ -140 C",
-    summary: "Gigant gazos faimos pentru inele",
-    description: "Inelele sunt formate din particule de gheata si roca.",
-    fact1: "Densitatea medie este mai mica decat apa.",
-    fact2: "Titan are atmosfera densa.",
+    summary: "Gigantul cu inelele — cel mai usor din Sistemul Solar per volum",
+    description: "Inelele iconice sunt din particule de gheata si roca, intinse pe mii de kilometri.",
+    fact1: "E asa de rar incat ar pluti pe apa — densitatea medie e sub 1 g/cm3.",
+    fact2: "Titanul, satelitul sau principal, are atmosfera mai densa decat a Pamantului.",
     ring: {
       innerRadius: 9.4,
       outerRadius: 15.1,
@@ -395,9 +395,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~1,221,900 km",
         orbitPeriod: "15.95 zile",
         temp: "~ -179 C",
-        description: "Are atmosfera bogata in azot si lacuri de hidrocarburi.",
-        fact1: "Misiunea Huygens a aterizat pe Titan in 2005.",
-        fact2: "Este al doilea cel mai mare satelit din Sistemul Solar."
+        description: "Are o atmosfera densa de azot si lacuri de hidrocarburi lichide la suprafata.",
+        fact1: "In 2005, sonda Huygens a aterizat pe el — prima aterizare dincolo de Marte.",
+        fact2: "E al doilea satelit ca marime din Sistemul Solar, dupa Ganymede."
       }),
       sat({
         key: "enceladus",
@@ -410,9 +410,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~238,000 km",
         orbitPeriod: "1.37 zile",
         temp: "~ -198 C",
-        description: "Prezinta gheizere de apa in zona polara sudica.",
-        fact1: "Este o tinta-cheie pentru cautarea mediilor locuibile.",
-        fact2: "Are albedo foarte ridicat."
+        description: "Arunca gheizere de apa in spatiu din zona polara sudica.",
+        fact1: "Gheizere lui sugereaza un ocean subteran — il pune pe lista locurilor de interes astrobiologic.",
+        fact2: "E extrem de alb si reflectiv — practic acoperit cu gheata proaspata."
       }),
       sat({
         key: "rhea",
@@ -425,9 +425,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~527,100 km",
         orbitPeriod: "4.52 zile",
         temp: "~ -174 C",
-        description: "Suprafata veche, dominata de gheata de apa.",
-        fact1: "Puternic craterizata.",
-        fact2: "Poate avea un inel foarte discret."
+        description: "Suprafata batrana si acoperita de gheata, cu multi cratere vechi.",
+        fact1: "Puternic craterizata — bine conservata din cauza inactivitatii geologice.",
+        fact2: "Exista indicii ca ar putea avea si ea un mic inel propriu."
       }),
       sat({
         key: "iapetus",
@@ -441,9 +441,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~3,560,800 km",
         orbitPeriod: "79.3 zile",
         temp: "~ -143 C",
-        description: "Contrast mare intre emisfera intunecata si cea luminoasa.",
-        fact1: "Are creasta ecuatoriala neobisnuita.",
-        fact2: "Orbita inclinata fata de satelitii interni."
+        description: "Jumatate din el e aproape negru, cealalta jumatate e alba — un contrast surprinzator.",
+        fact1: "Are o creasta ecuatoriala uriasa — nimeni nu stie exact cum s-a format.",
+        fact2: "Orbita lui e inclinata fata de ceilalti sateliti saturnieni."
       })
     ]
   },
@@ -463,10 +463,10 @@ const PLANET_DEFS = [
     orbitPeriod: "84 ani",
     moonsTotal: "28",
     temp: "~ -195 C",
-    summary: "Gigant inghetat inclinat aproape pe o parte",
-    description: "Axa extrema produce sezoane neobisnuite.",
-    fact1: "Rotatie retrograda.",
-    fact2: "Are inele intunecate discrete.",
+    summary: "Gigant inghetat cu axa intoarsa — orbiteaza practic pe o parte",
+    description: "Din cauza inclinarii extreme, fiecare pol petrece zeci de ani in intuneric.",
+    fact1: "Se roteste retrograda si e culcat — axa de rotatie e aproape paralela cu orbita.",
+    fact2: "Are inele, dar foarte intunecate si greu de observat.",
     satellites: [
       sat({
         key: "titania",
@@ -480,8 +480,8 @@ const PLANET_DEFS = [
         orbitPeriod: "8.71 zile",
         temp: "~ -203 C",
         description: "Cel mai mare satelit al lui Uranus.",
-        fact1: "Prezinta canioane extinse.",
-        fact2: "Suprafata este un amestec de gheata si roca."
+        fact1: "Are canioane extinse — semn al unor procese geologice trecute.",
+        fact2: "Suprafata din gheata si roca, cu cratere vizibile."
       }),
       sat({
         key: "oberon",
@@ -494,9 +494,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~583,500 km",
         orbitPeriod: "13.46 zile",
         temp: "~ -203 C",
-        description: "Satelit exterior major, foarte craterizat.",
-        fact1: "Are depozite intunecate in unele cratere.",
-        fact2: "Luminozitate redusa."
+        description: "Cel mai exterior satelit major al lui Uranus, puternic craterizat.",
+        fact1: "Unele cratere au material inchis la culoare pe fund — origine neclar.",
+        fact2: "Suprafata cu luminozitate scazuta."
       }),
       sat({
         key: "ariel",
@@ -509,9 +509,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~191,000 km",
         orbitPeriod: "2.52 zile",
         temp: "~ -213 C",
-        description: "Are una dintre cele mai tinere suprafete la Uranus.",
-        fact1: "Canioane si campii netede.",
-        fact2: "Posibila activitate geologica trecuta."
+        description: "Una dintre suprafetele mai tinere din sistemul lui Uranus.",
+        fact1: "Are canioane si campii netede — semne de remodelare geologica.",
+        fact2: "Probabil a avut activitate geologica in trecut."
       })
     ]
   },
@@ -531,10 +531,10 @@ const PLANET_DEFS = [
     orbitPeriod: "164.8 ani",
     moonsTotal: "16",
     temp: "~ -200 C",
-    summary: "Gigant inghetat cu vanturi foarte rapide",
-    description: "Atmosfera bogata in metan si furtuni intense.",
-    fact1: "Vanturile pot depasi 2,000 km/h.",
-    fact2: "Descoperit prin calcule matematice inainte de observatie directa.",
+    summary: "Cel mai indepartat gigant, cu cele mai puternice vanturi",
+    description: "Atmosfera cu metan care ii da culoarea albastra, si furtuni violente.",
+    fact1: "Vanturile pot depasi 2.000 km/h — cele mai rapide din Sistemul Solar.",
+    fact2: "A fost descoperit mai intai prin calcule — astronomii au prezis exact unde sa se uite.",
     satellites: [
       sat({
         key: "triton",
@@ -548,9 +548,9 @@ const PLANET_DEFS = [
         distanceFromPlanet: "~354,800 km",
         orbitPeriod: "5.88 zile",
         temp: "~ -235 C",
-        description: "Satelit retrograd, probabil obiect capturat.",
-        fact1: "Prezinta gheizere de azot.",
-        fact2: "Este unul dintre cei mai reci sateliti mari."
+        description: "Orbiteaza invers — probabil a fost capturat din centura Kuiper.",
+        fact1: "Are gheizere de azot care erupe la suprafata.",
+        fact2: "Unul dintre cele mai reci locuri din Sistemul Solar."
       })
     ]
   }
@@ -563,9 +563,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "sun-core",
         name: "Nucleu",
-        composition: "Plasma de hidrogen si heliu, foarte densa.",
-        role: "Locul fuziunii nucleare unde se produce energia stelei.",
-        note: "Temperatura este de ordinul a ~15 milioane K.",
+        composition: "Plasma de hidrogen si heliu, extrem de densa.",
+        role: "Locul unde se produce energia stelei prin fuziune nucleara.",
+        note: "Temperatura ajunge la vreo 15 milioane K.",
         color: 0xffc95e,
         scale: 0.28,
         opacity: 0.95,
@@ -575,9 +575,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "sun-radiative",
         name: "Zona radiativa",
-        composition: "Plasma ionizata cu transfer energetic dominant radiativ.",
-        role: "Transporta energia prin absorbtie si re-emisie de fotoni.",
-        note: "Fotoni pot avea nevoie de mii pana la milioane de ani pentru tranzit.",
+        composition: "Plasma ionizata cu transfer energetic radiativ.",
+        role: "Energia e transportata prin absorbtia si re-emisia repetata a fotonilor.",
+        note: "Un foton poate rata mii sau chiar milioane de ani pana ajunge la exterior.",
         color: 0xffa64d,
         scale: 0.56,
         opacity: 0.72,
@@ -587,9 +587,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "sun-convective",
         name: "Zona convectiva",
-        composition: "Plasma mai rece, in celule convective.",
-        role: "Transport energetic prin curenti ascendenti/descendenti.",
-        note: "Granulatia fotosferei este efectul convectiei.",
+        composition: "Plasma mai rece, organizata in celule convective.",
+        role: "Energia urca prin curenti convectivi — caldura se ridica, se raceste, coboara din nou.",
+        note: "Granulatia vizibila pe fotosfera e de fapt capatul acestor curenti.",
         color: 0xff8d52,
         scale: 0.82,
         opacity: 0.5,
@@ -600,8 +600,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "sun-photosphere",
         name: "Fotosfera / strat vizibil",
         composition: "Plasma relativ mai rece, sursa luminii vizibile.",
-        role: "Suprafata aparenta de unde observam radiatia solara.",
-        note: "Temperatura tipica ~5,500 C.",
+        role: "Suprafata vizibila a Soarelui — de unde vine lumina pe care o vedem.",
+        note: "Temperatura ~5.500 C.",
         color: 0xffe7ad,
         scale: 1.02,
         opacity: 0.34,
@@ -617,8 +617,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "mercury-core",
         name: "Nucleu metalic",
         composition: "Predominant fier si nichel.",
-        role: "Contribuie major la masa planetei si la campul magnetic slab.",
-        note: "Nucleul ocupa o fractie foarte mare din raza planetei.",
+        role: "Responsabil pentru mare parte din masa planetei si campul magnetic slab.",
+        note: "E disproportionat de mare — ocupa mult din raza planetei.",
         color: 0xc2b7ad,
         scale: 0.56,
         opacity: 0.95,
@@ -629,8 +629,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "mercury-mantle",
         name: "Mantaua silicatica",
         composition: "Silicati magnezio-ferosi.",
-        role: "Zona intermediara cu rol in evolutia termica.",
-        note: "Relativ subtire comparativ cu nucleul.",
+        role: "Zona intermediara, relativ subtire.",
+        note: "Mult mai subtire decat la alte planete.",
         color: 0xa18f84,
         scale: 0.84,
         opacity: 0.74,
@@ -641,8 +641,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "mercury-crust",
         name: "Crusta",
         composition: "Roci bazaltice si regolit impactic.",
-        role: "Stratul solid craterizat observabil direct.",
-        note: "Fara atmosfera densa, suprafata ramane puternic marcata de impacturi.",
+        role: "Suprafata direct vizibila, plina de cratere.",
+        note: "Fara atmosfera care sa o protejeze, fiecare asteroid si-a lasat urma.",
         color: 0x87796d,
         scale: 1.02,
         opacity: 0.45,
@@ -659,7 +659,7 @@ const BODY_INTERNAL_STRUCTURE = {
         name: "Nucleu metalic",
         composition: "Fier si nichel.",
         role: "Centru dens al planetei, posibil partial lichid.",
-        note: "Dinamic diferita fata de Pamant.",
+        note: "Functioneaza diferit fata de nucleul terestru.",
         color: 0xd2b09c,
         scale: 0.49,
         opacity: 0.94,
@@ -670,8 +670,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "venus-mantle",
         name: "Mantaua",
         composition: "Silicati fier-magneziu.",
-        role: "Controleaza transferul termic intern.",
-        note: "Probabil foarte activa in trecut geologic.",
+        role: "Controleaza transferul de caldura intern.",
+        note: "Probabil mult mai activa in trecutul geologic al planetei.",
         color: 0xb48765,
         scale: 0.82,
         opacity: 0.7,
@@ -681,9 +681,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "venus-crust-atmo",
         name: "Crusta + atmosfera densa",
-        composition: "Crusta bazaltica; atmosfera bogata in CO2 cu nori de acid sulfuric.",
-        role: "Genereaza efectul de sera extrem.",
-        note: "Presiunea atmosferica la suprafata este ~92 bar.",
+        composition: "Crusta bazaltica; atmosfera groasa de CO2 cu nori de acid sulfuric.",
+        role: "Genereaza efectul de sera extrem — temperatura la suprafata ~464 C.",
+        note: "Presiunea atmosferica la suprafata e ~92 de ori mai mare decat pe Pamant.",
         color: 0xe1b07c,
         scale: 1.03,
         opacity: 0.42,
@@ -699,8 +699,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "earth-core-inner",
         name: "Nucleu intern",
         composition: "Fier-nichel solid.",
-        role: "Contribuie la evolutia geodinamica a nucleului.",
-        note: "Presiuni extrem de mari mentin faza solida.",
+        role: "Contribuie la dinamica nucleului extern.",
+        note: "Presiunile uriase de acolo il mentin solid, chiar la temperaturi extreme.",
         color: 0xffd08a,
         scale: 0.2,
         opacity: 0.96,
@@ -711,8 +711,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "earth-core-outer",
         name: "Nucleu extern",
         composition: "Fier-nichel lichid cu elemente usoare.",
-        role: "Sursa geodinamo-ului care produce campul magnetic terestru.",
-        note: "Fluxurile convective sunt esentiale pentru magnetosfera.",
+        role: "Sursa campului magnetic terestru — miscarea sa genereaza geodinamoul.",
+        note: "Fara el, magnetosfera disparea si radiatia cosmica ar ajunge direct la suprafata.",
         color: 0xff9e63,
         scale: 0.38,
         opacity: 0.86,
@@ -723,8 +723,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "earth-mantle",
         name: "Mantaua",
         composition: "Silicati bogati in Mg si Fe.",
-        role: "Convecia mantalei antreneaza tectonica placilor.",
-        note: "Ocupa cea mai mare parte din volumul planetei.",
+        role: "Convectia mantalei e motorul tectonic al planetei.",
+        note: "Ocupa cea mai mare parte din volumul Pamantului.",
         color: 0xd07f4f,
         scale: 0.78,
         opacity: 0.65,
@@ -735,8 +735,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "earth-crust-ocean-atmo",
         name: "Crusta + oceane + atmosfera",
         composition: "Crusta silicatica, hidrosfera si atmosfera azot-oxigen.",
-        role: "Mediu favorabil vietii si reglare climatica.",
-        note: "Interactiunea geosfera-hidrosfera-atmosfera este critica.",
+        role: "Mediu favorabil vietii — pana acum singurul cunoscut.",
+        note: "Interactiunea dintre geosfera, hidrosfera si atmosfera e ceea ce ne mentine in echilibru.",
         color: 0x6da7e4,
         scale: 1.02,
         opacity: 0.36,
@@ -752,8 +752,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "mars-core",
         name: "Nucleu",
         composition: "Fier, nichel si elemente usoare (sulf).",
-        role: "Controleaza partial dinamica termica interna.",
-        note: "Datele seismice recente sugereaza nucleu lichid.",
+        role: "Influenteaza partial dinamica termica a planetei.",
+        note: "Datele seismice recente, de la InSight, sugereaza ca e lichid.",
         color: 0xe5935d,
         scale: 0.44,
         opacity: 0.93,
@@ -764,8 +764,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "mars-mantle",
         name: "Mantaua",
         composition: "Silicati bogati in Fe si Mg.",
-        role: "Leaga nucleul de crusta, influentand vulcanismul trecut.",
-        note: "Activitate geologica mult redusa fata de trecut.",
+        role: "Leaga nucleul de crusta si a alimentat vulcanismul imens din trecut.",
+        note: "Azi activitatea geologica e mult redusa fata de ce a fost.",
         color: 0xc66e41,
         scale: 0.8,
         opacity: 0.69,
@@ -775,9 +775,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "mars-crust-atmo",
         name: "Crusta + atmosfera subtire",
-        composition: "Crusta bazaltica, atmosfera dominata de CO2.",
-        role: "Suprafata oxidata ce da culoarea rosie caracteristica.",
-        note: "Presiune atmosferica foarte mica comparativ cu Pamantul.",
+        composition: "Crusta bazaltica, atmosfera subtire dominata de CO2.",
+        role: "Oxizii de fier din crusta dau culoarea rosie caracteristica planetei.",
+        note: "Presiunea atmosferica e de vreo 100 de ori mai mica decat pe Pamant.",
         color: 0xad5632,
         scale: 1.02,
         opacity: 0.42,
@@ -792,9 +792,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "jupiter-core",
         name: "Nucleu dens",
-        composition: "Roca/gheata sub presiune extrema.",
-        role: "Semnatura interna a formarii timpurii a gigantului gazos.",
-        note: "Poate fi difuz, nu neaparat nucleu solid compact.",
+        composition: "Roca si gheata sub presiune extrema.",
+        role: "Ramasa din formarea timpurie a planetei.",
+        note: "Poate fi difuz — probabil nu un nucleu solid compact clasic.",
         color: 0xbca08c,
         scale: 0.2,
         opacity: 0.95,
@@ -804,9 +804,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "jupiter-metallic-h",
         name: "Hidrogen metalic",
-        composition: "Hidrogen comprimat in stare conductoare.",
-        role: "Genereaza campul magnetic foarte puternic.",
-        note: "Regiune esentiala pentru dinamica magnetica.",
+        composition: "Hidrogen comprimat pana devine conductor electric.",
+        role: "Genereaza campul magnetic imens al lui Jupiter.",
+        note: "Fara aceasta zona, campul magnetic nu ar exista.",
         color: 0xa97d62,
         scale: 0.54,
         opacity: 0.78,
@@ -817,8 +817,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "jupiter-molecular-envelope",
         name: "Anvelopa H/He",
         composition: "Hidrogen molecular si heliu.",
-        role: "Masa volumica dominanta a planetei.",
-        note: "Tranzitie graduala spre straturile externe.",
+        role: "Asigura cea mai mare parte a masei si volumului planetei.",
+        note: "Tranzitia spre straturile externe e graduala, fara limite clare.",
         color: 0xd7ad82,
         scale: 0.84,
         opacity: 0.58,
@@ -829,8 +829,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "jupiter-cloudtops",
         name: "Nori superiori",
         composition: "Amoniac, hidrosulfura de amoniu si apa in urme.",
-        role: "Benzile vizibile si furtunile globale (inclusiv Marea Pata Rosie).",
-        note: "Vanturi zonale puternice pe multiple latitudini.",
+        role: "De aici vin benzile colorate si furtunile — inclusiv Marea Pata Rosie.",
+        note: "Vanturi puternice pe mai multe latitudini, in directii diferite.",
         color: 0xe4c9ad,
         scale: 1.02,
         opacity: 0.33,
@@ -845,9 +845,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "saturn-core",
         name: "Nucleu dens",
-        composition: "Roca si gheata sub presiuni inalte.",
-        role: "Centru gravitationaI al gigantului gazos.",
-        note: "Datele sugereaza un nucleu extins/difuz.",
+        composition: "Roca si gheata sub presiuni mari.",
+        role: "Centru gravitational al lui Saturn.",
+        note: "Datele recente sugereaza ca e extins si difuz, nu compact.",
         color: 0xc7af8e,
         scale: 0.21,
         opacity: 0.94,
@@ -858,8 +858,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "saturn-metallic-h",
         name: "Hidrogen metalic",
         composition: "Hidrogen in stare conductoare.",
-        role: "Contribuie la campul magnetic saturnian.",
-        note: "Mai putin extins decat la Jupiter.",
+        role: "Genereaza campul magnetic al lui Saturn.",
+        note: "Mai putin extins decat la Jupiter, dar la fel de important.",
         color: 0xb7946a,
         scale: 0.5,
         opacity: 0.76,
@@ -870,8 +870,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "saturn-envelope",
         name: "Anvelopa moleculara",
         composition: "Hidrogen si heliu.",
-        role: "Asigura cea mai mare parte a volumului planetar.",
-        note: "Densitatea medie a planetei este sub cea a apei.",
+        role: "Asigura cea mai mare parte a volumului lui Saturn.",
+        note: "Din cauza ei, densitatea medie a planetei e sub cea a apei.",
         color: 0xe0c39a,
         scale: 0.86,
         opacity: 0.56,
@@ -882,8 +882,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "saturn-cloudtops",
         name: "Nori superiori",
         composition: "Amoniac, hidrosulfuri si aerosoli.",
-        role: "Textura vizibila a atmosferei superioare.",
-        note: "Inelele se afla in exterior, dar nu sunt parte a interiorului planetar.",
+        role: "Ce vedem din exterior — benzile si structura atmosferei superioare.",
+        note: "Inelele se afla in afara acestei zone, nu fac parte din structura interna.",
         color: 0xf0d8b9,
         scale: 1.02,
         opacity: 0.34,
@@ -899,8 +899,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "uranus-core",
         name: "Nucleu stancos",
         composition: "Silicati si metale.",
-        role: "Centru relativ compact al gigantului inghetat.",
-        note: "Mai mic procentual decat anvelopa interna.",
+        role: "Centru relativ compact al lui Uranus.",
+        note: "Procentual mic fata de anvelopa de gheata care il inconjoara.",
         color: 0x7bb0b5,
         scale: 0.25,
         opacity: 0.93,
@@ -910,9 +910,9 @@ const BODY_INTERNAL_STRUCTURE = {
       layer({
         id: "uranus-icy-mantle",
         name: "Mantaua de gheata fierbinte",
-        composition: "Apa, amoniac, metan in stare comprimata/supracritica.",
-        role: "Regiune dominanta in masa pentru gigantii inghetati.",
-        note: "Aici apar conditii fizice extreme, neintalnite pe Pamant.",
+        composition: "Apa, amoniac, metan in stare comprimata sau supracritica.",
+        role: "Zona dominanta ca masa la gigantii inghetati.",
+        note: "Conditii fizice extreme — nimic din ce am experimentat pe Pamant.",
         color: 0x62a9bf,
         scale: 0.75,
         opacity: 0.65,
@@ -923,8 +923,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "uranus-atmosphere",
         name: "Atmosfera superioara",
         composition: "Hidrogen, heliu si metan.",
-        role: "Metanul absoarbe rosu si confera nuanta cian.",
-        note: "Inclinarea axei produce sezoane extreme.",
+        role: "Metanul absoarbe lumina rosie si da planetei nuanta albastru-verzuie.",
+        note: "Inclinarea extrema a axei produce sezoane de zeci de ani de intuneric la poli.",
         color: 0x9ad8de,
         scale: 1.02,
         opacity: 0.38,
@@ -940,8 +940,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "neptune-core",
         name: "Nucleu stancos",
         composition: "Silicati si metale.",
-        role: "Nucleu dens al gigantului inghetat.",
-        note: "Contribuie la campul gravitationaI intern.",
+        role: "Nucleu dens al lui Neptun.",
+        note: "Contribuie la campul gravitational intern al planetei.",
         color: 0x5884b8,
         scale: 0.26,
         opacity: 0.94,
@@ -952,8 +952,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "neptune-icy-mantle",
         name: "Mantaua de gheata fierbinte",
         composition: "Apa, amoniac, metan sub presiune.",
-        role: "Regiune dominanta, posibil conductor intern complex.",
-        note: "Poate sustine dinamica campului magnetic inclinat.",
+        role: "Zona dominanta — probabil un conductor intern complex.",
+        note: "Ar putea explica de ce campul magnetic al lui Neptun e asa de inclinat si asimetric.",
         color: 0x3f6fa8,
         scale: 0.76,
         opacity: 0.64,
@@ -964,8 +964,8 @@ const BODY_INTERNAL_STRUCTURE = {
         id: "neptune-atmosphere",
         name: "Atmosfera activa",
         composition: "Hidrogen, heliu si metan.",
-        role: "Gazduieste vanturi extreme si furtuni intense.",
-        note: "Vitezele vantului pot depasi 2,000 km/h.",
+        role: "Gazduieste cele mai rapide vanturi din Sistemul Solar si furtuni intense.",
+        note: "Vitezele vantului pot depasi 2.000 km/h.",
         color: 0x4d8dd8,
         scale: 1.02,
         opacity: 0.39,
@@ -990,6 +990,7 @@ export function initSolarSystem() {
   const layerPanelComposition = document.getElementById("solar-layer-composition");
   const layerPanelRole = document.getElementById("solar-layer-role");
   const layerPanelNote = document.getElementById("solar-layer-note");
+  const structureSummary = document.getElementById("planet-structure-summary");
   const resetButton = document.getElementById("reset-view");
   const section = document.getElementById("solar-system");
 
@@ -1007,6 +1008,7 @@ export function initSolarSystem() {
     !layerPanelComposition ||
     !layerPanelRole ||
     !layerPanelNote ||
+    !structureSummary ||
     !resetButton ||
     !window.THREE
   ) {
@@ -1346,18 +1348,6 @@ export function initSolarSystem() {
       mesh.visible = true;
       mesh.userData.pickLayerId = layerDef.id;
 
-      const outline = new THREE.Mesh(
-        new THREE.SphereGeometry(radius * layerDef.scale * 1.003, 36, 36),
-        new THREE.MeshBasicMaterial({
-          color: 0x8fd4ff,
-          wireframe: true,
-          transparent: true,
-          opacity: 0.08,
-          depthWrite: false
-        })
-      );
-      mesh.add(outline);
-
       group.add(mesh);
 
       return {
@@ -1401,6 +1391,7 @@ export function initSolarSystem() {
   let selectedLayerId = "";
   let modeLabelCache = "";
   let hintLabelCache = "";
+  let structureSummaryCache = "";
 
   function renderPanelDefaults() {
     panel.name.textContent = "Selecteaza o planeta";
@@ -1414,6 +1405,37 @@ export function initSolarSystem() {
     panel.temp.textContent = "-";
     panel.fact1.textContent = "";
     panel.fact2.textContent = "";
+
+    const defaultStructureText =
+      "Selecteaza Soarele sau o planeta pentru a vedea straturile interne disponibile.";
+    structureSummary.textContent = defaultStructureText;
+    structureSummaryCache = defaultStructureText;
+  }
+
+  function getStructureForEntity(entity) {
+    if (!entity || (entity.type !== "sun" && entity.type !== "planet")) return null;
+    return BODY_INTERNAL_STRUCTURE[entity.key] || null;
+  }
+
+  function syncStructureUi() {
+    const structure = getStructureForEntity(selectedEntity);
+    const hasStructure = Boolean(structure && Array.isArray(structure.layers) && structure.layers.length);
+    let summaryText = "Selecteaza Soarele sau o planeta pentru a vedea straturile interne disponibile.";
+
+    if (selectedEntity && selectedEntity.type === "satellite") {
+      summaryText =
+        "Modelul de disociere este disponibil pentru planete si Soare. Pentru sateliti ai doar date descriptive.";
+    }
+
+    if (selectedEntity && hasStructure) {
+      const layerNames = structure.layers.map((entry) => entry.name).join(" -> ");
+      summaryText = `${structure.title}: ${layerNames}.`;
+    }
+
+    if (summaryText !== structureSummaryCache) {
+      structureSummary.textContent = summaryText;
+      structureSummaryCache = summaryText;
+    }
   }
 
   function hideLayerPanel() {
@@ -1464,11 +1486,11 @@ export function initSolarSystem() {
     const exploded = disassemblyCurrent > 0.54;
     const modeText = exploded ? "Mod disociere activ" : expanded ? "Mod marit" : "Mod standard";
 
-    let hintText = "Mareste scena pentru modul disociere interna (triple-click in 1 secunda).";
+    let hintText = "Mareste scena, apoi triple-click (3 click-uri in 1 secunda) pe corpul selectat pentru disociere.";
     if (exploded) {
-      hintText = "Mod disociere activ: click pe straturi pentru detalii. Triple-click pentru revenire.";
+      hintText = "Mod disociere activ: click pe straturi pentru detalii. Triple-click inchide disocierea.";
     } else if (expanded) {
-      hintText = "In modul marit: triple-click (3 click-uri in 1 secunda) pe corpul selectat pentru modul disociere.";
+      hintText = "In modul marit: triple-click (3 click-uri in 1 secunda) pe corpul selectat pentru disociere.";
     }
 
     if (modeText !== modeLabelCache) {
@@ -1480,6 +1502,8 @@ export function initSolarSystem() {
       layerHint.textContent = hintText;
       hintLabelCache = hintText;
     }
+
+    syncStructureUi();
   }
 
   function setDisassemblyMode(nextState, instant = false) {
@@ -1505,6 +1529,15 @@ export function initSolarSystem() {
     disassemblyKey = selectedEntity.key;
     disassemblyTarget = 1;
     rapidTapWindow = [];
+
+    const model = disassemblyModels.get(disassemblyKey);
+    if (model?.layers?.length) {
+      const firstLayer = model.layers[0];
+      selectedLayerId = firstLayer.def.id;
+      setLayerHighlight(model, selectedLayerId);
+      renderLayerPanel(model, firstLayer);
+    }
+
     updateSolarModeUi();
   }
 
@@ -1828,7 +1861,8 @@ export function initSolarSystem() {
       model.group.rotation.z = Math.sin(elapsed * 0.16 + model.radius) * 0.03 * disassemblyCurrent;
 
       model.layers.forEach((layerState) => {
-        const shift = (layerState.def.spread || 1) * disassemblyCurrent;
+        const bodySizeFactor = THREE.MathUtils.clamp(model.radius * 0.55, 1.15, 6.2);
+        const shift = (layerState.def.spread || 1) * disassemblyCurrent * bodySizeFactor;
         layerState.mesh.position.copy(layerState.direction).multiplyScalar(shift);
       });
     });

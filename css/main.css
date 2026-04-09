@@ -123,8 +123,13 @@ body.story-scroll-snap .panel {
 .hero-title {
   font-size: clamp(3.5rem, 10vw, 8.5rem);
   line-height: 0.95;
+  background: linear-gradient(90deg, #e8eaf0 0%, #b8e8ff 28%, #4fc3f7 50%, #e8d5b7 72%, #e8eaf0 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-shadow: 0 0 32px rgba(79, 195, 247, 0.4);
-  animation: titlePulse 6s ease-in-out infinite;
+  animation: titlePulse 6s ease-in-out infinite, titleShimmer 10s ease-in-out infinite;
 }
 
 .hero-subtitle {
@@ -138,6 +143,9 @@ body.story-scroll-snap .panel {
   margin: 0 auto;
   color: rgba(232, 234, 240, 0.78);
   line-height: 1.6;
+  border-left: 2px solid rgba(79, 195, 247, 0.5);
+  padding-left: 1rem;
+  text-align: left;
 }
 
 .scroll-cue,
@@ -160,6 +168,12 @@ body.story-scroll-snap .panel {
   transform: translateY(-2px);
   box-shadow: 0 10px 30px rgba(79, 195, 247, 0.2);
   background: linear-gradient(120deg, rgba(79, 195, 247, 0.26), rgba(232, 213, 183, 0.15));
+}
+
+#scroll-next::after {
+  content: " ↓";
+  display: inline-block;
+  animation: heroScrollBounce 1.8s ease-in-out infinite;
 }
 
 .split-layout {
@@ -390,7 +404,7 @@ body.story-scroll-snap .panel {
 .galaxy-type-card.is-active {
   transform: translateY(-3px);
   border-color: rgba(140, 215, 255, 0.78);
-  box-shadow: 0 18px 45px rgba(4, 14, 30, 0.46);
+  box-shadow: 0 18px 45px rgba(4, 14, 30, 0.46), 0 0 22px rgba(79, 195, 247, 0.13);
   background: linear-gradient(175deg, rgba(18, 40, 77, 0.9), rgba(6, 16, 32, 0.88));
 }
 
@@ -595,6 +609,13 @@ body.story-scroll-snap .panel {
   border-radius: 14px;
   background: rgba(7, 16, 33, 0.58);
   padding: 0.85rem;
+  transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
+}
+
+.note-card:hover {
+  border-color: rgba(100, 195, 247, 0.55);
+  box-shadow: 0 0 20px rgba(79, 195, 247, 0.12), 0 8px 24px rgba(2, 6, 14, 0.3);
+  transform: translateY(-2px);
 }
 
 .note-card h3 {
@@ -1077,6 +1098,7 @@ body.solar-expanded-open {
 }
 
 .solar-layer-hint {
+  display: none;
   margin: 0;
   font-family: "Space Mono", monospace;
   font-size: 0.74rem;
@@ -1159,6 +1181,29 @@ body.solar-expanded-open {
 .planet-extra {
   font-size: 0.95rem;
   line-height: 1.5;
+}
+
+.planet-structure-box {
+  border: 1px solid rgba(79, 195, 247, 0.24);
+  border-radius: 13px;
+  background: rgba(6, 15, 30, 0.6);
+  padding: 0.62rem 0.7rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.planet-structure-title {
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: rgba(182, 222, 252, 0.86);
+  text-transform: uppercase;
+}
+
+.planet-structure-summary {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: rgba(227, 238, 251, 0.88);
 }
 
 .planet-table-wrap {
@@ -1620,8 +1665,10 @@ body.solar-expanded-open {
   height: 100%;
   width: 0%;
   border-radius: inherit;
-  background: linear-gradient(90deg, rgba(79, 195, 247, 0.95), rgba(132, 232, 183, 0.92));
+  background: linear-gradient(90deg, rgba(79, 195, 247, 0.95) 0%, rgba(132, 232, 183, 0.92) 50%, rgba(79, 195, 247, 0.95) 100%);
+  background-size: 200% 100%;
   transition: width 0.35s ease;
+  animation: barShimmer 2s linear infinite;
 }
 
 .quiz-stats {
@@ -1648,6 +1695,19 @@ body.solar-expanded-open {
 .quiz-stats strong {
   font-size: 0.88rem;
   color: rgba(232, 234, 240, 0.95);
+  display: inline-block;
+}
+
+.quiz-stats strong.is-stat-bump {
+  animation: statBump 0.32s ease;
+}
+
+.quiz-card.is-wrong-shake {
+  animation: quizShake 0.4s ease;
+}
+
+.quiz-card.is-correct-pulse {
+  animation: quizCorrectPulse 0.5s ease;
 }
 
 #quiz-question {
@@ -1816,6 +1876,76 @@ body.solar-expanded-open {
   }
 }
 
+@keyframes titleShimmer {
+  0%,
+  100% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes heroScrollBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes barShimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes quizShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(-9px);
+  }
+  36% {
+    transform: translateX(9px);
+  }
+  54% {
+    transform: translateX(-5px);
+  }
+  72% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes quizCorrectPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(118, 242, 162, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(118, 242, 162, 0.35), 0 0 28px rgba(118, 242, 162, 0.18);
+  }
+}
+
+@keyframes statBump {
+  0%,
+  100% {
+    transform: scale(1);
+    color: rgba(232, 234, 240, 0.95);
+  }
+  50% {
+    transform: scale(1.35);
+    color: var(--accent);
+  }
+}
+
 @keyframes markerPulse {
   0% {
     box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.6);
@@ -1909,6 +2039,25 @@ body.solar-expanded-open {
   .universe-visual,
   .universe-visual::before,
   .universe-visual::after {
+    animation: none !important;
+  }
+
+  .hero-title {
+    animation: none !important;
+  }
+
+  #scroll-next::after {
+    animation: none !important;
+  }
+
+  .quiz-meter-fill {
+    animation: none !important;
+    background: linear-gradient(90deg, rgba(79, 195, 247, 0.95), rgba(132, 232, 183, 0.92));
+  }
+
+  .quiz-card.is-wrong-shake,
+  .quiz-card.is-correct-pulse,
+  .quiz-stats strong.is-stat-bump {
     animation: none !important;
   }
 }

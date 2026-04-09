@@ -4,10 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Radusca Core</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon-black-hole.svg">
+  <link rel="shortcut icon" href="assets/images/favicon-black-hole.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Orbitron:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=20260409a">
+  <link rel="stylesheet" href="css/main.css?v=20260409i">
 </head>
 <body>
   <canvas id="starfield-canvas" aria-hidden="true"></canvas>
@@ -19,8 +21,8 @@
       <h1 class="hero-title">COSMOS</h1>
       <p class="hero-subtitle">O calatorie interactiva prin Univers</p>
       <p class="hero-context js-reveal">
-        Acest site urmeaza structura unei prezentari de fizica: de la scara Universului,
-        la galaxii, Calea Lactee, Sistemul Solar, misiunea Voyager si un quiz final.
+        Urmareste prezentarea de fizica pas cu pas — de la marimea Universului pana la
+        galaxii, Calea Lactee, Sistemul Solar, misiunea Voyager si un quiz la final.
       </p>
       <button type="button" id="scroll-next" class="scroll-cue" aria-label="Mergi la urmatoarea sectiune">
         Exploreaza mai jos
@@ -34,14 +36,14 @@
       <div class="split-layout universe-layout">
         <article class="content-pane js-reveal info-stack">
           <p>
-            Universul reprezinta totalitatea spatiului, timpului, materiei si energiei.
-            Modelul cosmologic modern indica faptul ca Universul s-a extins dintr-o stare
-            extrem de densa si fierbinte, iar expansiunea continua si astazi.
+            Universul e totul — spatiu, timp, materie, energie. Conform modelului cosmologic
+            actual, a inceput dintr-o stare incredibil de densa si calda si continua sa se
+            extinda pana in ziua de azi.
           </p>
           <p>
-            Structura pe scara mare este asemanatoare unei retele cosmice: roiuri de galaxii,
-            super-roiuri si goluri vaste. Lumina de la cele mai indepartate obiecte ne arata
-            trecutul Universului, deoarece observam fenomene care au avut loc acum miliarde de ani.
+            La scara mare, arata ca o retea uriasa: grupuri de galaxii, super-roiuri si
+            goluri imense intre ele. Cand privim obiecte extrem de departate, vedem de fapt
+            trecutul — lumina lor a calatorit miliarde de ani pana la noi.
           </p>
           <ul class="fact-list">
             <li>Varsta estimata: aproximativ <strong>13.8 miliarde ani</strong></li>
@@ -73,19 +75,19 @@
       <div class="timeline-list js-reveal">
         <article>
           <h3>Primele minute</h3>
-          <p>Se formeaza particulele elementare si nucleele usoare.</p>
+          <p>Apar primele particule elementare si nuclee usoare.</p>
         </article>
         <article>
           <h3>~380.000 ani</h3>
-          <p>Apare radiatia cosmica de fond dupa recombinare.</p>
+          <p>Dupa recombinare apare radiatia cosmica de fond — o amprenta din acea epoca.</p>
         </article>
         <article>
           <h3>Sute milioane ani</h3>
-          <p>Se nasc primele stele si primele galaxii.</p>
+          <p>Primele stele si galaxii incep sa se formeze.</p>
         </article>
         <article>
           <h3>Astazi</h3>
-          <p>Observam accelerarea expansiunii la scara cosmica.</p>
+          <p>Universul se dilata din ce in ce mai repede — si inca nu stim sigur de ce.</p>
         </article>
       </div>
     </section>
@@ -95,8 +97,9 @@
         <h2>Galaxii</h2>
       </div>
       <p class="section-copy js-reveal">
-        Galaxiile sunt sisteme gravitationale uriase, alcatuite din stele, gaze, praf cosmic
-        si materie intunecata. Forma lor ofera indicii despre evolutie, interactiuni si varsta.
+        Galaxiile sunt sisteme gravitationale imense — stele, gaze, praf si materie intunecata
+        legate laolalta. Forma lor ne spune multe despre cum s-au format, daca au ciocnit alte
+        galaxii si cat de batrane sunt.
       </p>
       <div class="galaxy-showcase js-reveal">
         <div class="galaxy-type-list" id="galaxy-type-list">
@@ -106,12 +109,12 @@
             data-type="Galaxie Spirala"
             data-image="assets/images/galaxies/spiral-ngc1300.jpg?v=20260408fix"
             data-caption="NGC 1300 - galaxie spirala barata observata de Hubble"
-            data-description="Galaxiile spirale au disc aplatizat, nucleu central si brate bogate in gaz, praf si stele tinere. In brate are loc formare stelara activa."
+            data-description="Galaxiile spirale au un disc aplatizat cu brate clare, bogate in gaz, praf si stele tinere. In brate se nasc constant stele noi."
             data-facts="Exemple: Calea Lactee, Andromeda, NGC 1300|Structura: disc + nucleu + brate|Gaz rece abundent: da|Formare stelara: ridicata in brate"
             data-source="Imagine: ESA/Hubble (opo0501a, NGC 1300)"
           >
             <h3>Spiralic</h3>
-            <p>Structura cu brate bine definite, unde apar frecvent stele noi.</p>
+            <p>Disc aplatizat cu brate spirale clare, pline de gaze si stele tinere.</p>
           </article>
 
           <article
@@ -120,12 +123,12 @@
             data-type="Galaxie Eliptica"
             data-image="assets/images/galaxies/elliptical-m87-hubble.jpg?v=20260408fix"
             data-caption="Messier 87 - galaxie gigant eliptica"
-            data-description="Galaxiile eliptice au forma ovala sau aproape sferica, cu mai putin gaz rece si populatii stelare in general mai batrane. Activitatea de formare stelara este redusa."
+            data-description="Galaxiile eliptice au forma ovala sau aproape sferica, cu putin gaz rece si populatii de stele in general mai batrane. Se mai formeaza putine stele noi."
             data-facts="Exemple: M87, galaxii dominante in roiuri|Numar stele tipic: foarte mare in cele gigante|Gaz rece abundent: redus|Formare stelara: scazuta"
             data-source="Imagine: ESA/Hubble (heic0815f, M87)"
           >
             <h3>Elliptic</h3>
-            <p>Aspect neted, fara brate spiralate clare, dominat de stele mature.</p>
+            <p>Forma ovala sau rotunda, fara brate spirale. Predomina stelele mai batrane.</p>
           </article>
 
           <article
@@ -134,12 +137,12 @@
             data-type="Galaxie Neregulata"
             data-image="assets/images/galaxies/irregular-ngc1427a.jpg?v=20260408fix"
             data-caption="NGC 1427A - galaxie neregulata deformata gravitational"
-            data-description="Galaxiile neregulate nu au forma simetrica stabila. Structura lor poate fi deformata de interactiuni gravitationale, iar regiunile de formare stelara pot fi foarte active."
+            data-description="Galaxiile neregulate nu au o forma stabila. Arata asa de obicei din cauza ciocnirilor sau interactiunilor gravitationale, si pot fi foarte active in formarea de stele noi."
             data-facts="Exemple: Norii Magellanici|Structura: fara disc/forma standard|Gaz si praf: variabil, adesea bogat local|Cauze frecvente: interactiuni si perturbatii gravitationale"
             data-source="Imagine: ESA/Hubble (opo0509a, NGC 1427A)"
           >
             <h3>Irregular</h3>
-            <p>Forma haotica, adesea modelata de coliziuni sau de interactiuni cu alte galaxii.</p>
+            <p>Fara o forma stabila — de obicei rezultatul unei coliziuni sau interactiuni cu alta galaxie.</p>
           </article>
         </div>
 
@@ -182,24 +185,24 @@
       </div>
       <div class="notes-grid js-reveal">
         <article class="note-card">
-          <h3>Cum sunt clasificate</h3>
+          <h3>Cum le clasificam</h3>
           <p>
-            Clasificarea Hubble foloseste forma generala: spirale, eliptice, lenticulare
-            si neregulate. Aceasta clasificare nu este doar estetica, ci corelata cu dinamica.
+            Schema Hubble imparte galaxiile dupa forma: spirale, eliptice, lenticulare
+            si neregulate. Nu e doar o chestie de aspect — forma reflecta istoria si dinamica fiecareia.
           </p>
         </article>
         <article class="note-card">
-          <h3>Exemple importante</h3>
+          <h3>Exemple</h3>
           <p>
-            Andromeda este cea mai apropiata galaxie mare de noi. Centaurus A are un nucleu activ.
-            Norii Magellanici sunt sateliti ai Calei Lactee.
+            Andromeda e cea mai apropiata galaxie mare, vizibila chiar cu ochiul liber.
+            Centaurus A are nucleu galactic activ. Norii Magellanici sunt satelitii Calei Lactee.
           </p>
         </article>
         <article class="note-card">
-          <h3>Idee-cheie pentru profesor</h3>
+          <h3>De retinut</h3>
           <p>
-            Forma unei galaxii spune o poveste despre varsta, istoricul coliziunilor si
-            intensitatea formarii de stele.
+            Forma unei galaxii inregistreaza tot ce i s-a intamplat — coliziuni, varsta,
+            cat de active sunt zonele de formare stelara.
           </p>
         </article>
       </div>
@@ -212,13 +215,12 @@
       <div class="split-layout milkyway-layout">
         <article class="content-pane js-reveal info-stack">
           <p>
-            Calea Lactee este galaxia in care se afla Sistemul Solar. Este o galaxie spirala barata,
-            cu un nucleu central dens, un disc bogat in stele si regiuni active de formare stelara.
+            Calea Lactee e galaxia noastra. Este o galaxie spirala barata — are o bara centrala,
+            un disc plin de stele si regiuni unde se nasc stele noi in continuu.
           </p>
           <p>
-            Soarele nu se afla in centru, ci in Bratul Orion, la aproximativ 26.000 ani-lumina
-            de nucleul galactic. O orbita completa in jurul centrului galactic dureaza aproximativ
-            225-250 milioane ani.
+            Soarele nu e la centru — e undeva la periferie, in Bratul Orion, la vreo 26.000 ani-lumina
+            de nucleul galactic. O tura completa in jurul centrului dureaza intre 225 si 250 de milioane de ani.
           </p>
           <ul class="fact-list">
             <li>Diametru: aproximativ <strong>100,000 ani-lumina</strong></li>
@@ -229,11 +231,11 @@
           <div class="notes-grid compact">
             <article class="note-card">
               <h3>Nucleu galactic</h3>
-              <p>Regiune foarte densa, unde se afla gaura neagra supermasiva Sagittarius A*.</p>
+              <p>Zona extrem de densa, cu gaura neagra supermasiva Sagittarius A* in mijloc.</p>
             </article>
             <article class="note-card">
               <h3>Disc galactic</h3>
-              <p>Zona cu brate spirale, praf si gaz, ideala pentru nasterea de stele.</p>
+              <p>Bratele spirale cu praf si gaze — exact locul unde se nasc stele.</p>
             </article>
           </div>
         </article>
@@ -265,9 +267,9 @@
               Imagine de baza:
               <a href="https://www.esa.int/ESA_Multimedia/Images/2023/12/Top-down_view_of_the_Milky_Way" target="_blank" rel="noopener">harta ESA/Gaia a Calei Lactee (top-down)</a>
             </p>
-            <p>Punct + eticheta: pozitia aproximativa a Soarelui in Bratul Orion (~26.000 ani-lumina de centru)</p>
-            <p>Inelul subtire: orbita aproximativa a Soarelui in jurul centrului galactic</p>
-            <p>Apasa pe eticheta pentru tranzitie catre Sistemul Solar</p>
+            <p>Punct + eticheta: pozitia aproximativa a Soarelui in Bratul Orion, la ~26.000 ani-lumina de centru</p>
+            <p>Inelul: orbita aproximativa a Soarelui in jurul centrului galactic</p>
+            <p>Apasa pe eticheta pentru a trece la sectiunea Sistemul Solar</p>
           </div>
         </div>
       </div>
@@ -278,8 +280,8 @@
         <h2>Sistemul Solar</h2>
       </div>
       <p class="section-copy js-reveal solar-intro">
-        Model 3D interactiv: planetele orbiteaza Soarele, iar prin click poti selecta fiecare planeta
-        sau chiar Soarele pentru prezentare focusata. Scara nu este 1:1, dar ordinea orbitala este corecta.
+        Model 3D interactiv — planetele orbiteaza in timp real. Apasa pe orice planeta sau pe Soare
+        pentru detalii. Scara nu e reala, dar ordinea orbitelor e corecta.
       </p>
       <div class="solar-layout">
         <div id="solar-canvas-wrap" class="js-reveal">
@@ -306,7 +308,7 @@
         <div id="solar-expand-backdrop" class="solar-expand-backdrop" hidden></div>
         <aside class="planet-panel js-reveal">
           <h3 id="planet-name">Selecteaza o planeta</h3>
-          <p id="planet-summary">Apasa pe orice planeta sau pe Soare din scena 3D pentru detalii.</p>
+          <p id="planet-summary">Apasa pe orice planeta sau pe Soare pentru detalii.</p>
           <p id="planet-description" class="planet-description"></p>
           <dl class="planet-facts">
             <div><dt>Diametru</dt><dd id="planet-diameter">-</dd></div>
@@ -316,10 +318,16 @@
             <div><dt>Sateliti in scena</dt><dd id="planet-satellites">-</dd></div>
             <div><dt>Temperatura medie</dt><dd id="planet-temp">-</dd></div>
           </dl>
+          <div class="planet-structure-box">
+            <p class="planet-structure-title">Structura interna</p>
+            <p id="planet-structure-summary" class="planet-structure-summary">
+              Selecteaza Soarele sau o planeta pentru a vedea structura interna.
+            </p>
+          </div>
           <p id="planet-fact-1" class="planet-extra"></p>
           <p id="planet-fact-2" class="planet-extra"></p>
           <p id="solar-layer-hint" class="solar-layer-hint">
-            In modul marit: triple-click (3 click-uri in 1 secunda) pe corpul selectat pentru modul disociere.
+            Modul marit: 3 click-uri rapide pe corpul selectat pentru a vedea straturile separate.
           </p>
           <button type="button" id="reset-view" class="ghost-button">Reset View</button>
         </aside>
@@ -359,13 +367,12 @@
       <div class="voyager-layout">
         <article class="content-pane js-reveal info-stack">
           <p>
-            Voyager 1 este cea mai indepartata nava spatiala construita de om.
-            Lansata in 1977, misiunea continua sa ofere date despre heliosfera
-            si mediul interstelar apropiat.
+            Voyager 1 e nava spatiala lansata cel mai departe de pe Pamant. Din 1977
+            pana azi continua sa trimita date despre heliosfera si spatiul interstelar.
           </p>
           <p>
-            Dupa vizitele istorice la Jupiter si Saturn, sonda a continuat drumul spre
-            exteriorul Sistemului Solar. In 2012 a trecut de heliopauza si a intrat in spatiul interstelar.
+            Dupa ce a trecut pe langa Jupiter si Saturn, sonda si-a continuat drumul spre exterior.
+            In 2012 a depasit heliopauza — granita Sistemului Solar — si a intrat in spatiu interstelar.
           </p>
           <ul class="fact-list">
             <li>Lansare: <strong>5 septembrie 1977</strong></li>
@@ -404,7 +411,7 @@
             <div id="voyager-loading" class="voyager-viewer-loading">Se incarca modelul 3D NASA...</div>
             <div class="voyager-viewer-overlay">
               <h3>Model 3D Voyager 1</h3>
-              <p>Model NASA oficial (detaliat): drag pentru rotire, scroll pentru zoom.</p>
+              <p>Model NASA: drag pentru rotire, scroll pentru zoom.</p>
             </div>
             <article id="voyager-part-panel" class="voyager-part-panel" hidden>
               <h4 id="voyager-part-title">Componenta selectata</h4>
@@ -429,11 +436,11 @@
             <p id="interstellar-status">Spatiu interstelar</p>
           </div>
           <p id="voyager-explode-hint" class="voyager-explode-hint">
-            In modul marit: apasa rapid de 3 ori pe Voyager (in 1 secunda) pentru disociere pe componente.
+            Modul marit: 3 click-uri rapide pe Voyager (in 1 secunda) pentru a separa componentele.
           </p>
           <p id="voyager-fallback" class="voyager-fallback" hidden>
-            Modelul NASA detaliat nu a putut fi incarcat, asa ca folosim o versiune 3D simplificata.
-            Sursa model NASA:
+            Modelul NASA nu a putut fi incarcat, asa ca afisam o versiune 3D simplificata.
+            Sursa:
             <a href="https://science.nasa.gov/3d-resources/" target="_blank" rel="noopener">NASA 3D Resources</a>.
           </p>
           <div class="voyager-badges">
@@ -450,9 +457,9 @@
         <h2>Test rapid de verificare</h2>
       </div>
       <p class="section-copy js-reveal">
-        Raspunde pe rand la intrebari. Sistemul acorda punctaj pe trei niveluri:
-        <strong>1p</strong> (corect), <strong>0.5p</strong> (aproape) si <strong>0p</strong> (gresit),
-        plus statistici live, moduri mixte (text, true/false, variante) si raport final detaliat.
+        Raspunde la fiecare intrebare pe rand. Poti primi <strong>1p</strong> (corect),
+        <strong>0.5p</strong> (aproape) sau <strong>0p</strong> (gresit). La final
+        primesti un raport cu ce ai gresit si de ce.
       </p>
       <div class="quiz-card js-reveal">
         <p id="quiz-progress">1/9</p>
@@ -502,7 +509,7 @@
         <li>Distanta estimata fata de Soare: <span id="voyager-distance-live">24.000</span> miliarde km</li>
         <li>Viteza: aproximativ 17 km/s</li>
         <li>Status: activ in spatiu interstelar</li>
-        <li>Incarcatura: Discul de Aur (mesaje, muzica, sunete ale Pamantului)</li>
+        <li>Incarcatura: Discul de Aur — mesaje, muzica si sunete de pe Pamant</li>
       </ul>
     </div>
   </div>
@@ -513,6 +520,6 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script type="module" src="js/main.js?v=20260409c"></script>
+  <script type="module" src="js/main.js?v=20260409g"></script>
 </body>
 </html>
