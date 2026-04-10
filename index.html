@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ro">
 <head>
   <meta charset="utf-8">
@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Orbitron:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=20260409i">
+  <link rel="stylesheet" href="css/main.css?v=20260410b">
 </head>
 <body>
   <canvas id="starfield-canvas" aria-hidden="true"></canvas>
@@ -22,7 +22,8 @@
       <p class="hero-subtitle">O calatorie interactiva prin Univers</p>
       <p class="hero-context js-reveal">
         Urmareste prezentarea de fizica pas cu pas — de la marimea Universului pana la
-        galaxii, Calea Lactee, Sistemul Solar, misiunea Voyager si un quiz la final.
+        galaxii, Calea Lactee, Sistemul Solar, comparatia Pamant vs Kepler-452b,
+        misiunea Voyager si un quiz la final.
       </p>
       <button type="button" id="scroll-next" class="scroll-cue" aria-label="Mergi la urmatoarea sectiune">
         Exploreaza mai jos
@@ -360,6 +361,84 @@
       </p>
     </section>
 
+    <section id="earth-kepler" class="panel reveal-section">
+      <div class="section-head js-reveal">
+        <h2>Pământ vs Kepler-452b</h2>
+      </div>
+      <p class="section-copy js-reveal earth-kepler-intro">
+        Apasa pe una dintre planete pentru a o vedea marita in dreapta. In stanga apar fapte
+        socante si fascinante despre lumea selectata.
+      </p>
+      <div class="earth-kepler-layout">
+        <aside class="earth-kepler-info-panel js-reveal">
+          <p class="earth-kepler-info-kicker">Selecteaza planeta</p>
+          <div class="earth-kepler-selectors" role="tablist" aria-label="Selectare planeta comparata">
+            <button
+              type="button"
+              id="earth-select-btn"
+              class="earth-kepler-select-btn is-active"
+              data-planet="earth"
+              role="tab"
+              aria-selected="true"
+              aria-controls="earth-kepler-facts"
+            >
+              <span class="earth-kepler-select-visual">
+                <canvas id="earth-select-canvas" aria-hidden="true"></canvas>
+              </span>
+              <span class="earth-kepler-select-name">Pământ</span>
+            </button>
+            <button
+              type="button"
+              id="kepler-select-btn"
+              class="earth-kepler-select-btn"
+              data-planet="kepler"
+              role="tab"
+              aria-selected="false"
+              aria-controls="earth-kepler-facts"
+            >
+              <span class="earth-kepler-select-visual">
+                <canvas id="kepler-select-canvas" aria-hidden="true"></canvas>
+              </span>
+              <span class="earth-kepler-select-name">Kepler-452b</span>
+            </button>
+          </div>
+          <h3 id="earth-kepler-facts-title" class="earth-kepler-facts-title">
+            Fapte socante si fascinante despre Pământ
+          </h3>
+          <ul id="earth-kepler-facts" class="earth-kepler-facts-list" aria-live="polite"></ul>
+        </aside>
+
+        <article id="earth-kepler-feature" class="earth-kepler-feature js-reveal">
+          <div id="planet-focus-stage" class="planet-compare-stage planet-compare-stage-featured">
+            <button
+              type="button"
+              id="earth-kepler-expand"
+              class="earth-kepler-expand"
+              aria-label="Mareste scena planetei selectate"
+              aria-pressed="false"
+            >
+              Mareste
+            </button>
+            <p id="earth-kepler-mode-chip" class="earth-kepler-mode-chip">Mod standard</p>
+            <canvas id="planet-focus-canvas" aria-label="Planeta selectata marita"></canvas>
+            <div class="planet-compare-overlay">
+              <h3 id="planet-focus-title">Pamant</h3>
+              <p id="planet-focus-subtitle">Textura Solar System Scope (CC BY 4.0)</p>
+            </div>
+            <article id="earth-kepler-layer-panel" class="earth-kepler-layer-panel" hidden>
+              <h4 id="earth-kepler-layer-title">Strat selectat</h4>
+              <p id="earth-kepler-layer-text"></p>
+            </article>
+          </div>
+          <div id="earth-kepler-expand-backdrop" class="earth-kepler-expand-backdrop" hidden></div>
+          <p id="earth-kepler-disassembly-hint" class="earth-kepler-disassembly-hint">
+            Mod marit: 3 click-uri rapide pe planeta pentru modul disociere pe straturi.
+          </p>
+          <dl id="planet-focus-facts-grid" class="planet-compare-facts planet-compare-facts-featured"></dl>
+        </article>
+      </div>
+    </section>
+
     <section id="voyager" class="panel reveal-section">
       <div class="section-head js-reveal">
         <h2>Voyager 1</h2>
@@ -520,6 +599,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script type="module" src="js/main.js?v=20260409g"></script>
+  <script type="module" src="js/main.js?v=20260410m"></script>
 </body>
 </html>
+

@@ -1,6 +1,7 @@
 import { initStarfield } from "./starfield.js";
 import { initMilkyWay } from "./milkyway.js";
 import { initSolarSystem } from "./solar-system.js?v=20260409g";
+import { initEarthKeplerComparison } from "./earth-kepler.js?v=20260410n";
 import { initVoyager } from "./voyager.js";
 import { initQuiz } from "./quiz.js";
 
@@ -24,6 +25,7 @@ function boot() {
   safeInit("starfield", initStarfield);
   safeInit("milkyway", initMilkyWay);
   safeInit("solar-system", initSolarSystem);
+  safeInit("earth-kepler", initEarthKeplerComparison);
   safeInit("voyager", initVoyager);
   safeInit("quiz", initQuiz);
 }
