@@ -1,7 +1,788 @@
-.panel {
-  min-height: 100svh;
+.reveal-section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: clamp(1.4rem, 4vh, 2.5rem);
+  width: min(220px, 34vw);
+  height: 1px;
+  background: linear-gradient(90deg, var(--section-line), transparent);
+  opacity: 0.88;
+  pointer-events: none;
 }
 
+.section-head {
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+  max-width: min(42rem, 100%);
+}
+
+.section-head::before,
 .section-label {
   font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.section-head::before {
+  content: attr(data-kicker);
+}
+
+.section-head h2,
+.content-pane h3,
+.timeline-list h3,
+.galaxy-type-card h3,
+.galaxy-preview-type,
+.planet-panel h3,
+.planet-table-wrap h3,
+.earth-kepler-facts-title,
+.planet-compare-overlay h3,
+.voyager-viewer-overlay h3,
+.voyager-part-panel h4,
+.milkyway-inline-facts strong,
+.gt-objective-card h3,
+.gt-direction-title,
+.gt-viewer-overlay h3,
+.gt-finale-title,
+.modal-card h3,
+.solar-layer-panel h4,
+.earth-kepler-layer-panel h4 {
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+.section-head h2 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(2.5rem, 5vw, 4.3rem);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+  color: var(--section-text);
+}
+
+.section-copy {
+  margin: 0;
+  max-width: var(--copy-tight);
+  color: var(--text-muted);
+  font-size: clamp(1rem, 0.35vw + 0.95rem, 1.12rem);
+  line-height: 1.72;
+}
+
+.split-layout,
+.solar-layout,
+.earth-kepler-layout,
+.voyager-layout,
+.gaseste-terra-layout {
+  display: grid;
+  gap: clamp(1.1rem, 2.4vw, 2rem);
+}
+
+.content-pane {
+  display: grid;
+  align-content: start;
+  gap: 0.95rem;
+}
+
+.info-stack {
+  gap: 1rem;
+}
+
+.content-pane > p {
+  margin: 0;
+  max-width: var(--copy-width);
+  color: var(--text-muted);
+  line-height: 1.72;
+}
+
+.content-pane > p:first-of-type {
+  max-width: 26ch;
+  font-size: clamp(1.14rem, 0.8vw + 1rem, 1.42rem);
+  line-height: 1.42;
+  color: var(--section-text);
+}
+
+.fact-list {
+  margin: 0.15rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem 1.15rem;
+}
+
+.fact-list li {
+  position: relative;
+  padding-left: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.fact-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--section-accent);
+}
+
+.metrics-grid {
+  margin-top: 0.25rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border-top: 1px solid var(--section-line);
+  border-bottom: 1px solid var(--section-line);
+  background: var(--section-line);
+}
+
+.metric-card {
+  padding: 1rem 0.9rem 1.1rem;
+  min-height: 116px;
+  display: grid;
+  align-content: end;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.metric-value {
+  margin: 0;
+  font-size: clamp(1.28rem, 0.8vw + 1rem, 1.9rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: var(--section-text);
+}
+
+.metric-label {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.timeline-list {
+  margin-top: clamp(0.4rem, 2vh, 1rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.timeline-list article {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--section-line);
+}
+
+.timeline-list h3 {
+  margin: 0;
+  font-size: 0.84rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.timeline-list p {
+  margin: 0.48rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.58;
+}
+
+.timeline-list.mini {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.note-card {
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--section-line);
+}
+
+.note-card h3 {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.note-card p {
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+  line-height: 1.62;
+}
+
+.scroll-cue,
+.ghost-button,
+#quiz-submit,
+.milkyway-details-toggle,
+.galaxy-info-toggle,
+.solar-expand,
+.earth-kepler-expand,
+.voyager-expand,
+.gt-expand,
+.modal-close {
+  border: 1px solid var(--section-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--section-text);
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.72rem 1rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+.scroll-cue:hover,
+.ghost-button:hover,
+#quiz-submit:hover,
+.milkyway-details-toggle:hover,
+.galaxy-info-toggle:hover,
+.solar-expand:hover,
+.earth-kepler-expand:hover,
+.voyager-expand:hover,
+.gt-expand:hover,
+.modal-close:hover,
+.scroll-cue:focus-visible,
+.ghost-button:focus-visible,
+#quiz-submit:focus-visible,
+.milkyway-details-toggle:focus-visible,
+.galaxy-info-toggle:focus-visible,
+.solar-expand:focus-visible,
+.earth-kepler-expand:focus-visible,
+.voyager-expand:focus-visible,
+.gt-expand:focus-visible,
+.modal-close:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--section-accent);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+#scroll-next::after {
+  content: " \2193";
+}
+
+.visual-caption,
+.map-legend,
+.planet-compare-overlay,
+.voyager-viewer-overlay,
+.gt-viewer-overlay,
+.solar-layer-panel,
+.earth-kepler-layer-panel,
+.voyager-part-panel,
+.gt-direction,
+.gt-hint,
+.gt-error.gt-error--badge {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(5, 9, 16, 0.82);
+}
+
+#universe.panel {
+  width: min(var(--wide-width), 97vw);
+}
+
+.universe-layout {
+  grid-template-columns: minmax(260px, 0.72fr) minmax(520px, 1.28fr);
+  align-items: end;
+}
+
+#universe .content-pane {
+  max-width: 34rem;
+  padding-bottom: clamp(0rem, 2vh, 1rem);
+}
+
+.visual-pane {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--section-line);
+  box-shadow: var(--shadow-strong);
+}
+
+.universe-visual {
+  min-height: clamp(30rem, 72vh, 46rem);
+  background:
+    linear-gradient(180deg, rgba(2, 6, 14, 0.08), rgba(2, 6, 14, 0.72)),
+    url("../assets/images/universe-hudf-nasa.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.universe-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 44% 38%, rgba(255, 255, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 72% 64%, rgba(142, 190, 255, 0.18), transparent 46%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.visual-caption {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.85rem 1rem;
+}
+
+.visual-caption p {
+  margin: 0;
+  max-width: 34ch;
+}
+
+.visual-caption p + p {
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+}
+
+.galaxy-showcase {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.44fr) minmax(520px, 1fr);
+  gap: clamp(1.2rem, 2.5vw, 2.2rem);
+  align-items: stretch;
+}
+
+.galaxy-type-list {
+  display: grid;
+  align-content: start;
+}
+
+.galaxy-type-card {
+  padding: 1rem 0 1rem 1rem;
+  border: 0;
+  border-left: 2px solid transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    transform 0.24s ease,
+    border-color 0.24s ease,
+    background 0.24s ease,
+    color 0.24s ease;
+}
+
+.galaxy-type-card:hover,
+.galaxy-type-card:focus-visible,
+.galaxy-type-card.is-active {
+  transform: translateX(4px);
+  border-left-color: var(--section-accent);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.galaxy-type-card h3 {
+  margin: 0;
+  font-size: clamp(1.1rem, 1vw + 0.8rem, 1.45rem);
+  letter-spacing: -0.03em;
+  color: var(--section-text);
+}
+
+.galaxy-type-card p {
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+  line-height: 1.62;
+}
+
+.galaxy-preview {
+  position: relative;
+  min-height: clamp(28rem, 62vw, 40rem);
+  border: 1px solid var(--section-line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #04070d;
+  box-shadow: var(--shadow-soft);
+}
+
+.galaxy-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(3, 5, 8, 0.06) 0%, rgba(3, 5, 8, 0.84) 88%),
+    radial-gradient(circle at 54% 38%, rgba(255, 255, 255, 0.08), transparent 46%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.galaxy-preview-image {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: opacity 0.35s ease, transform 0.7s ease, filter 0.35s ease;
+  z-index: 1;
+}
+
+.galaxy-preview-image.is-changing {
+  opacity: 0.2;
+  transform: scale(1.03);
+  filter: saturate(0.88);
+}
+
+.galaxy-preview-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 1.15rem;
+  background: linear-gradient(180deg, rgba(4, 7, 12, 0) 0%, rgba(4, 7, 12, 0.86) 42%, rgba(4, 7, 12, 0.96) 100%);
+}
+
+.galaxy-preview-overlay-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.galaxy-preview-hint {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.galaxy-info-toggle {
+  padding: 0.46rem 0.7rem;
+  font-size: 0.66rem;
+}
+
+.galaxy-preview-details {
+  display: grid;
+  gap: 0.3rem;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    max-height 0.5s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    padding-top 0.3s ease;
+}
+
+.galaxy-preview.is-info-open .galaxy-preview-details {
+  max-height: 30rem;
+  opacity: 1;
+  transform: translateY(0);
+  padding-top: 0.6rem;
+}
+
+.galaxy-preview-type {
+  margin: 0;
+  font-size: clamp(1.4rem, 1vw + 1rem, 1.95rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.galaxy-preview-caption,
+.galaxy-preview-source {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+.galaxy-preview-caption {
+  color: rgba(234, 240, 248, 0.8);
+}
+
+.galaxy-preview-source {
+  color: var(--text-soft);
+}
+
+.galaxy-preview-description {
+  margin: 0.4rem 0 0;
+  max-width: 46ch;
+  line-height: 1.62;
+  color: var(--text-muted);
+}
+
+.galaxy-preview-facts {
+  margin: 0.35rem 0 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.35rem;
+  color: var(--text-muted);
+}
+
+.galaxy-footnote {
+  margin-top: 0.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--section-line);
+  max-width: 62ch;
+}
+
+.galaxy-footnote p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.milkyway-layout {
+  grid-template-columns: minmax(260px, 0.68fr) minmax(480px, 1.32fr);
+  align-items: center;
+}
+
+.milkyway-map {
+  position: relative;
+  min-height: clamp(28rem, 64vw, 42rem);
+  border: 1px solid var(--section-line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(198, 214, 239, 0.08), transparent 42%),
+    linear-gradient(180deg, rgba(7, 9, 12, 0.94), rgba(5, 7, 10, 0.98));
+  box-shadow: var(--shadow-soft);
+}
+
+.milkyway-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.82) 0 1px, transparent 2px),
+    radial-gradient(circle at 76% 30%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2px),
+    radial-gradient(circle at 34% 66%, rgba(255, 255, 255, 0.62) 0 1px, transparent 2px),
+    radial-gradient(circle at 62% 76%, rgba(255, 255, 255, 0.78) 0 1px, transparent 2px);
+  pointer-events: none;
+}
+
+.milkyway-details-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 8;
+  padding: 0.48rem 0.72rem;
+}
+
+.milkyway-disc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(92%, 640px);
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(4, 6, 10, 0.05), rgba(4, 6, 10, 0.38) 72%, rgba(4, 6, 10, 0.84) 100%),
+    url("../assets/images/milky-way-esa-topdown.jpg");
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    inset 0 0 110px rgba(2, 5, 8, 0.72),
+    0 26px 80px rgba(0, 0, 0, 0.42);
+  z-index: 2;
+}
+
+.milkyway-disc::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.milkyway-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0.55;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.solar-orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 52%;
+  height: 52%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.34);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.galactic-center-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(255, 233, 198, 0.92);
+  box-shadow: 0 0 16px rgba(255, 233, 198, 0.48);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.galaxy-core,
+.spiral-arm {
+  display: none;
+}
+
+#solar-system-marker {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.84);
+  border-radius: 50%;
+  background: var(--section-accent);
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  z-index: 6;
+}
+
+.marker-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(8deg);
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: rgba(245, 248, 252, 0.88);
+  z-index: 6;
+  white-space: nowrap;
+}
+
+.marker-label-btn {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.map-legend {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 7;
+  width: min(360px, calc(100% - 2rem));
+  padding: 0.85rem 0.95rem;
+}
+
+.map-legend p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.map-legend p + p {
+  margin-top: 0.35rem;
+}
+
+.milkyway-map.is-details-ready .marker-label,
+.milkyway-map.is-details-ready .map-legend {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.milkyway-map.is-details-open .marker-label,
+.milkyway-map.is-details-open .map-legend {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.milkyway-inline-facts {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--section-line);
+}
+
+.milkyway-inline-facts p {
+  margin: 0;
+  max-width: 46ch;
+  line-height: 1.68;
+  color: var(--text-muted);
+}
+
+#solar-system.is-targeted {
+  animation: sectionHighlight 1.2s ease;
+}
+
+@media (max-width: 1100px) {
+  .universe-layout,
+  .galaxy-showcase,
+  .milkyway-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-list,
+  .timeline-list.mini {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .panel {
+    width: min(var(--max-width), 94vw);
+    padding: clamp(3.75rem, 8vh, 5.5rem) 0;
+  }
+
+  .reveal-section::before {
+    width: 34vw;
+  }
+
+  .section-head h2 {
+    max-width: 10ch;
+    font-size: clamp(2.15rem, 10vw, 3.1rem);
+  }
+
+  .timeline-list,
+  .timeline-list.mini {
+    grid-template-columns: 1fr;
+  }
+
+  .galaxy-preview {
+    min-height: 24rem;
+  }
+
+  .milkyway-map {
+    min-height: 24rem;
+  }
+
+  .map-legend {
+    width: calc(100% - 2rem);
+  }
 }

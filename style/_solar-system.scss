@@ -1,7 +1,1043 @@
-#solar-canvas-wrap {
-  border: 1px solid rgba(79, 195, 247, 0.28);
+.solar-layout {
+  grid-template-columns: minmax(0, 1.24fr) minmax(290px, 0.76fr);
+  align-items: start;
 }
 
-.planet-panel {
-  background: rgba(6, 16, 34, 0.82);
+#solar-canvas-wrap,
+.planet-compare-stage,
+.voyager-viewer,
+.gt-viewer {
+  position: relative;
+  border: 1px solid var(--section-line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+#solar-canvas-wrap {
+  min-height: clamp(30rem, 60vw, 44rem);
+  background:
+    radial-gradient(circle at 50% 14%, rgba(242, 194, 111, 0.18), transparent 28%),
+    radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.06), transparent 38%),
+    linear-gradient(180deg, rgba(9, 7, 4, 0.98), rgba(5, 4, 3, 0.99));
+}
+
+#solar-canvas-wrap::after,
+.planet-compare-stage::after,
+.voyager-viewer::after,
+.gt-viewer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 18%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.22), transparent 22%);
+}
+
+#solar-canvas {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+#solar-canvas.is-grabbing,
+#planet-focus-canvas.is-grabbing,
+#voyager-canvas.is-grabbing,
+#gt-canvas.is-grabbing {
+  cursor: grabbing;
+}
+
+#planet-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.planet-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: rgba(247, 240, 227, 0.92);
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.84);
+  white-space: nowrap;
+}
+
+.planet-label-satellite {
+  font-size: 0.64rem;
+  color: rgba(233, 222, 202, 0.82);
+}
+
+.solar-expand,
+.voyager-expand,
+.earth-kepler-expand,
+.gt-expand {
+  position: absolute;
+  top: 0.95rem;
+  right: 0.95rem;
+  z-index: 8;
+  padding: 0.52rem 0.78rem;
+}
+
+.solar-mode-chip,
+.voyager-mode-chip,
+.earth-kepler-mode-chip,
+.gt-mode-chip {
+  position: absolute;
+  top: 0.95rem;
+  left: 0.95rem;
+  z-index: 8;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(5, 7, 11, 0.72);
+  color: rgba(244, 240, 235, 0.84);
+  font-family: "Space Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.32rem 0.54rem;
+  pointer-events: none;
+}
+
+.solar-expand-backdrop,
+.earth-kepler-expand-backdrop,
+.voyager-expand-backdrop,
+.gt-expand-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 74;
+  background: rgba(2, 4, 8, 0.84);
+}
+
+.solar-expand-backdrop[hidden],
+.earth-kepler-expand-backdrop[hidden],
+.voyager-expand-backdrop[hidden],
+.gt-expand-backdrop[hidden] {
+  display: none;
+}
+
+#solar-canvas-wrap.is-expanded,
+#planet-focus-stage.is-expanded,
+.voyager-viewer.is-expanded,
+.gt-viewer.is-expanded {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: min(95vw, 1500px);
+  height: 90vh;
+  min-height: 0;
+  transform: translate(-50%, -50%);
+  z-index: 75;
+  border-color: rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  box-shadow: 0 48px 100px rgba(0, 0, 0, 0.64);
+}
+
+#solar-canvas-wrap:fullscreen,
+#planet-focus-stage:fullscreen,
+.voyager-viewer:fullscreen,
+.gt-viewer:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.solar-focus-title {
+  position: absolute;
+  left: 50%;
+  top: 1.4rem;
+  z-index: 7;
+  margin: 0;
+  transform: translate(-50%, -10px);
+  opacity: 0;
+  pointer-events: none;
+  font-size: clamp(1rem, 1.1vw + 0.9rem, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: rgba(255, 240, 209, 0.94);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.solar-focus-title.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.planet-panel,
+.earth-kepler-info-panel,
+.earth-kepler-feature,
+.voyager-stage,
+.gt-stage {
+  display: grid;
+  align-content: start;
+  gap: 0.95rem;
+  padding: clamp(1rem, 2.4vw, 1.4rem);
+  border: 1px solid var(--section-line);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 22%),
+    var(--section-surface);
+}
+
+.planet-panel h3 {
+  margin: 0;
+  font-size: clamp(1.8rem, 1vw + 1.35rem, 2.6rem);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  color: var(--section-text);
+}
+
+#planet-summary {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.planet-panel p,
+.planet-description,
+.planet-extra,
+.solar-source-note,
+.earth-kepler-disassembly-hint,
+#voyager-explode-hint,
+.voyager-fallback,
+.gt-loading-status,
+.gt-error-sub,
+.gt-direction-text,
+.gt-hint-text,
+.gt-overlay-copy {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.planet-description {
+  line-height: 1.7;
+}
+
+.planet-facts {
+  margin: 0.15rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.planet-facts div,
+.planet-compare-facts div {
+  display: grid;
+  gap: 0.24rem;
+  padding: 0.72rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.planet-facts dt,
+.planet-compare-facts dt {
+  font-family: "Space Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.planet-facts dd,
+.planet-compare-facts dd {
+  margin: 0;
+  font-size: 0.96rem;
+  color: var(--section-text);
+}
+
+.planet-structure-box {
+  display: grid;
+  gap: 0.42rem;
+  padding: 0.8rem 0.86rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.planet-structure-title {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.planet-structure-summary {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.solar-layer-panel,
+.earth-kepler-layer-panel,
+.voyager-part-panel {
+  position: absolute;
+  top: 3.2rem;
+  left: 1rem;
+  z-index: 8;
+  width: min(380px, calc(100% - 2rem));
+  padding: 0.82rem 0.9rem;
+}
+
+.solar-layer-panel h4,
+.earth-kepler-layer-panel h4,
+.voyager-part-panel h4 {
+  margin: 0;
+  font-size: 0.96rem;
+  letter-spacing: -0.02em;
+  color: var(--section-text);
+}
+
+.solar-layer-panel p,
+.earth-kepler-layer-panel p,
+.voyager-part-panel p {
+  margin: 0.32rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.solar-layer-panel[hidden],
+.earth-kepler-layer-panel[hidden],
+.voyager-part-panel[hidden] {
+  display: none;
+}
+
+.solar-layer-hint,
+.earth-kepler-disassembly-hint,
+#voyager-explode-hint {
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.planet-table-wrap {
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--section-line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.03);
+  overflow-x: auto;
+}
+
+.planet-table-wrap h3 {
+  margin: 0 0 0.8rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.planet-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+}
+
+.planet-table th,
+.planet-table td {
+  padding: 0.68rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.planet-table th {
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.planet-table td {
+  color: var(--section-text);
+}
+
+.planet-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.earth-kepler-layout {
+  grid-template-columns: minmax(280px, 0.84fr) minmax(420px, 1.16fr);
+  align-items: start;
+}
+
+.earth-kepler-info-kicker {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.earth-kepler-selectors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.earth-kepler-select-btn {
+  display: grid;
+  gap: 0.52rem;
+  text-align: left;
+  color: var(--section-text);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.62rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.earth-kepler-select-btn:hover,
+.earth-kepler-select-btn:focus-visible,
+.earth-kepler-select-btn.is-active {
+  transform: translateY(-1px);
+  border-color: var(--section-line);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.earth-kepler-select-visual {
+  position: relative;
+  min-height: 120px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(150, 214, 196, 0.22), transparent 48%),
+    url("../assets/images/starfield-eso-allsky.jpg"),
+    linear-gradient(180deg, rgba(4, 10, 20, 0.96), rgba(2, 5, 10, 0.98));
+  background-size: auto, cover, auto;
+}
+
+#earth-select-canvas,
+#kepler-select-canvas,
+#planet-focus-canvas,
+#voyager-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.earth-kepler-select-name {
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.earth-kepler-facts-title {
+  margin: 0.15rem 0 0;
+  font-size: clamp(1.3rem, 0.8vw + 1.05rem, 1.8rem);
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+}
+
+.earth-kepler-facts-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.58rem;
+}
+
+.earth-kepler-facts-list li {
+  padding: 0.72rem 0.82rem;
+  border-left: 2px solid var(--section-accent);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-muted);
+  line-height: 1.58;
+}
+
+.earth-kepler-feature.is-switching {
+  transform: scale(0.992);
+  opacity: 0.92;
+}
+
+.planet-compare-stage {
+  min-height: clamp(28rem, 60vw, 42rem);
+  background:
+    radial-gradient(circle at 16% 18%, rgba(150, 214, 196, 0.22), transparent 38%),
+    radial-gradient(circle at 82% 86%, rgba(230, 255, 247, 0.06), transparent 46%),
+    url("../assets/images/starfield-eso-allsky.jpg"),
+    linear-gradient(180deg, rgba(4, 10, 16, 0.96), rgba(2, 5, 10, 0.98));
+  background-size: auto, auto, cover, auto;
+}
+
+.planet-compare-stage-featured {
+  min-height: clamp(31rem, 64vw, 46rem);
+}
+
+.planet-compare-overlay,
+.voyager-viewer-overlay,
+.gt-viewer-overlay {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 7;
+  padding: 0.8rem 0.9rem;
+}
+
+.planet-compare-overlay h3,
+.voyager-viewer-overlay h3,
+.gt-viewer-overlay h3 {
+  margin: 0;
+  font-size: clamp(1.1rem, 0.6vw + 1rem, 1.4rem);
+  letter-spacing: -0.04em;
+}
+
+.planet-compare-overlay p,
+.voyager-viewer-overlay p,
+.gt-viewer-overlay p {
+  margin: 0.25rem 0 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.planet-compare-facts {
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.planet-compare-facts-featured {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.planet-compare-stage.is-3d-unavailable::after,
+.earth-kepler-select-visual.is-3d-unavailable::after {
+  content: "3D indisponibil";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.4rem 0.68rem;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(4, 8, 14, 0.88);
+  color: var(--text);
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.voyager-layout {
+  grid-template-columns: minmax(260px, 0.7fr) minmax(440px, 1.3fr);
+  align-items: start;
+}
+
+#voyager .content-pane {
+  padding-top: clamp(2rem, 8vh, 6rem);
+}
+
+.voyager-viewer {
+  min-height: clamp(30rem, 62vw, 44rem);
+  background:
+    radial-gradient(circle at 22% 20%, rgba(211, 183, 145, 0.2), transparent 34%),
+    radial-gradient(circle at 82% 78%, rgba(255, 255, 255, 0.06), transparent 40%),
+    url("../assets/images/starfield-eso-allsky.jpg"),
+    linear-gradient(180deg, rgba(12, 10, 8, 0.98), rgba(5, 4, 3, 0.98));
+  background-size: auto, auto, cover, auto;
+}
+
+#voyager-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.voyager-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.72rem;
+}
+
+.voyager-controls .ghost-button {
+  padding: 0.62rem 0.92rem;
+}
+
+#interstellar-status {
+  margin: 0 0 0 auto;
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#interstellar-status.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.voyager-badges {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--section-line);
+}
+
+.voyager-badges div {
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.voyager-badges span {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.voyager-badges strong {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--section-text);
+}
+
+.voyager-viewer-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  padding: 0.46rem 0.74rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(4, 6, 10, 0.82);
+  color: var(--text);
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.voyager-viewer-loading[hidden],
+.voyager-fallback[hidden] {
+  display: none;
+}
+
+.voyager-fallback {
+  padding: 0.82rem 0.9rem;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  line-height: 1.62;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(2, 4, 8, 0.84);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease;
+  --section-accent: #d3b791;
+  --section-line: rgba(211, 183, 145, 0.28);
+  --section-text: #edf2f7;
+}
+
+.modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  position: relative;
+  width: min(620px, 92vw);
+  padding: 1.25rem 1.3rem;
+  border: 1px solid var(--section-line);
+  border-radius: var(--radius-lg);
+  background: rgba(10, 9, 8, 0.96);
+  box-shadow: var(--shadow-soft);
+}
+
+.modal-card h3 {
+  margin: 0 2.5rem 0.8rem 0;
+  font-size: clamp(1.45rem, 1vw + 1.2rem, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.modal-card ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.modal-close {
+  position: absolute;
+  right: 0.8rem;
+  top: 0.8rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+}
+
+.gaseste-terra-layout {
+  grid-template-columns: minmax(280px, 0.76fr) minmax(420px, 1.24fr);
+  align-items: start;
+}
+
+.gt-copy-pane {
+  gap: 1rem;
+}
+
+.gt-objective-card,
+.gt-note-card {
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.gt-panel-kicker {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.gt-objective-card h3 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.25rem, 0.8vw + 1rem, 1.7rem);
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+}
+
+.gt-side-grid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.gt-stage {
+  gap: 1rem;
+}
+
+.gt-viewer {
+  min-height: clamp(30rem, 60vw, 42rem);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(136, 180, 226, 0.22), transparent 36%),
+    radial-gradient(circle at 82% 82%, rgba(255, 255, 255, 0.06), transparent 42%),
+    url("../assets/images/starfield-eso-allsky.jpg"),
+    linear-gradient(180deg, rgba(5, 10, 18, 0.98), rgba(2, 5, 9, 0.99));
+  background-size: auto, auto, cover, auto;
+}
+
+#gt-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  z-index: 1;
+}
+
+.gt-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  gap: 0.85rem;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(4, 8, 14, 0.92);
+}
+
+.gt-loading[hidden] {
+  display: none;
+}
+
+.gt-loading-label {
+  margin: 0;
+  font-size: clamp(1rem, 1vw + 0.9rem, 1.3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--section-text);
+}
+
+.gt-progress-track {
+  width: min(360px, calc(100% - 2rem));
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.gt-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--section-accent), rgba(255, 255, 255, 0.88));
+  transition: width 0.3s ease;
+}
+
+.gt-error {
+  display: none;
+}
+
+.gt-error[hidden] {
+  display: none;
+}
+
+.gt-error.gt-error--badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 8;
+  padding: 0.55rem 0.85rem;
+  pointer-events: none;
+}
+
+.gt-error p {
+  margin: 0;
+  font-size: 0.7rem;
+  font-family: "Space Mono", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ff9b88;
+}
+
+.gt-hint,
+.gt-direction {
+  position: absolute;
+  z-index: 7;
+  width: min(300px, calc(100% - 2rem));
+  padding: 0.78rem 0.88rem;
+  pointer-events: none;
+}
+
+.gt-hint {
+  top: 3.2rem;
+  left: 1rem;
+}
+
+.gt-direction {
+  right: 1rem;
+  bottom: 5.4rem;
+}
+
+.gt-hint-step,
+.gt-direction-label,
+.gt-minimap-label {
+  margin: 0 0 0.28rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--section-accent);
+}
+
+.gt-hint-text,
+.gt-direction-text {
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.gt-direction-title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  color: var(--section-text);
+}
+
+.gt-minimap {
+  position: absolute;
+  top: 3.2rem;
+  right: 1rem;
+  z-index: 7;
+  width: 138px;
+  height: 138px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(5, 10, 18, 0.82);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.gt-minimap-label {
+  position: absolute;
+  top: calc(3.2rem + 138px + 0.32rem);
+  right: 1rem;
+  width: 138px;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.gt-finale {
+  position: absolute;
+  inset: 0;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 2rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(2, 4, 8, 0);
+  transition: opacity 0.8s ease, background 0.8s ease;
+}
+
+.gt-finale[hidden] {
+  display: none;
+}
+
+.gt-finale.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(2, 4, 8, 0.74);
+}
+
+.gt-finale-title {
+  margin: 0;
+  font-size: clamp(2.3rem, 5vw, 4.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  color: var(--section-text);
+}
+
+.gt-finale-sub {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: clamp(0.98rem, 1vw + 0.9rem, 1.3rem);
+}
+
+.gt-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.gt-toolbar-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+#gt-speed,
+#gt-distance {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.2rem;
+  padding: 0.45rem 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+@media (max-width: 1120px) {
+  .solar-layout,
+  .earth-kepler-layout,
+  .voyager-layout,
+  .gaseste-terra-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .planet-compare-facts-featured,
+  .voyager-badges {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  #solar-canvas-wrap,
+  .planet-compare-stage,
+  .voyager-viewer,
+  .gt-viewer {
+    min-height: 24rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .planet-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .solar-layer-panel,
+  .earth-kepler-layer-panel,
+  .voyager-part-panel,
+  .gt-hint,
+  .gt-direction {
+    width: calc(100% - 2rem);
+  }
+
+  .gt-minimap {
+    width: 104px;
+    height: 104px;
+  }
+
+  .gt-minimap-label {
+    top: calc(3.2rem + 104px + 0.3rem);
+    width: 104px;
+  }
+
+  .gt-direction {
+    left: 1rem;
+    right: 1rem;
+    bottom: 5.2rem;
+  }
+
+  .gt-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gt-toolbar-meta {
+    justify-content: space-between;
+  }
 }

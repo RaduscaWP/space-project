@@ -1,9 +1,199 @@
+@keyframes driftA {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-1.5rem, 1rem, 0) scale(1.03);
+  }
+}
+
+@keyframes driftB {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(1rem, -1rem, 0) scale(1.02);
+  }
+}
+
 @keyframes titlePulse {
   0%,
   100% {
-    text-shadow: 0 0 24px rgba(79, 195, 247, 0.33);
+    text-shadow:
+      0 0 24px rgba(142, 190, 255, 0.16),
+      0 0 60px rgba(142, 190, 255, 0.08);
   }
   50% {
-    text-shadow: 0 0 40px rgba(79, 195, 247, 0.62);
+    text-shadow:
+      0 0 32px rgba(142, 190, 255, 0.24),
+      0 0 88px rgba(142, 190, 255, 0.14);
+  }
+}
+
+@keyframes sectionHighlight {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.02);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes quizShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes quizCorrectPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.012);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes statBump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.nebula-a {
+  animation: driftA 28s ease-in-out infinite;
+}
+
+.nebula-b {
+  animation: driftB 32s ease-in-out infinite;
+}
+
+.hero-title {
+  animation: titlePulse 7s ease-in-out infinite;
+}
+
+.section-head,
+.section-copy,
+.content-pane,
+.galaxy-preview,
+.milkyway-map,
+#solar-canvas-wrap,
+.planet-panel,
+.earth-kepler-info-panel,
+.earth-kepler-feature,
+.voyager-stage,
+.voyager-viewer,
+.gt-stage,
+.gt-viewer,
+.quiz-card,
+.credits {
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease,
+    border-color 0.55s ease,
+    box-shadow 0.55s ease,
+    background 0.55s ease;
+}
+
+.panel:not(.is-active) .section-head,
+.panel:not(.is-active) .section-copy,
+.panel:not(.is-active) .content-pane,
+.panel:not(.is-active) .galaxy-preview,
+.panel:not(.is-active) .milkyway-map,
+.panel:not(.is-active) #solar-canvas-wrap,
+.panel:not(.is-active) .planet-panel,
+.panel:not(.is-active) .earth-kepler-info-panel,
+.panel:not(.is-active) .earth-kepler-feature,
+.panel:not(.is-active) .voyager-stage,
+.panel:not(.is-active) .voyager-viewer,
+.panel:not(.is-active) .gt-stage,
+.panel:not(.is-active) .gt-viewer,
+.panel:not(.is-active) .quiz-card,
+.panel:not(.is-active) .credits {
+  opacity: 0.88;
+}
+
+.panel.is-active .section-head,
+.panel.is-active .section-copy,
+.panel.is-active .content-pane,
+.panel.is-active .galaxy-preview,
+.panel.is-active .milkyway-map,
+.panel.is-active #solar-canvas-wrap,
+.panel.is-active .planet-panel,
+.panel.is-active .earth-kepler-info-panel,
+.panel.is-active .earth-kepler-feature,
+.panel.is-active .voyager-stage,
+.panel.is-active .voyager-viewer,
+.panel.is-active .gt-stage,
+.panel.is-active .gt-viewer,
+.panel.is-active .quiz-card,
+.panel.is-active .credits {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.quiz-card.is-wrong-shake {
+  animation: quizShake 0.4s ease;
+}
+
+.quiz-card.is-correct-pulse {
+  animation: quizCorrectPulse 0.5s ease;
+}
+
+.quiz-stats strong.is-stat-bump {
+  animation: statBump 0.32s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js-reveal,
+  .js-reveal.in-view,
+  .panel.is-active .section-head,
+  .panel.is-active .section-copy,
+  .panel.is-active .content-pane,
+  .panel.is-active .galaxy-preview,
+  .panel.is-active .milkyway-map,
+  .panel.is-active #solar-canvas-wrap,
+  .panel.is-active .planet-panel,
+  .panel.is-active .earth-kepler-info-panel,
+  .panel.is-active .earth-kepler-feature,
+  .panel.is-active .voyager-stage,
+  .panel.is-active .voyager-viewer,
+  .panel.is-active .gt-stage,
+  .panel.is-active .gt-viewer,
+  .panel.is-active .quiz-card,
+  .panel.is-active .credits {
+    transition: none;
+    transform: none;
+  }
+
+  .hero-title,
+  .nebula-a,
+  .nebula-b {
+    animation: none;
   }
 }
