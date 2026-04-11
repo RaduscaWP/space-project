@@ -1,335 +1,54 @@
-# COSMOS — Interactive Physics Presentation
-## Claude.md — Project Brief for Claude Code
+# COSMOS — Interactive Space Storytelling Website
 
----
+COSMOS is an interactive educational web project focused on astronomy and space exploration.  
+It presents scientific concepts through a cinematic scrolling experience, combining modern UI, immersive visuals, animations, and 3D elements.
 
-## 1. PROJECT OVERVIEW
+The project was built as both:
+- an interactive physics presentation
+- a flagship front-end portfolio piece
 
-**What this is:** A scrollytelling interactive website about galaxies and the universe, built as a physics school presentation. This is also a flagship portfolio piece.
+## Overview
 
-**Presentation context:** A teacher walks through pre-defined topics in order. The site must follow that flow exactly — scrolling reveals sections in sequence. The experience must feel like a cinematic space journey, not a PowerPoint.
+The website guides the user through a structured journey across major astronomy topics:
 
-**Stack:**
+- The Universe
+- Types of Galaxies
+- The Milky Way
+- The Solar System
+- Voyager 1
+- Final Quiz
+
+Instead of feeling like a static school presentation, the experience is designed as a storytelling website with smooth transitions, visual hierarchy, and interactive exploration.
+
+## Features
+
+- Cinematic single-page scrollytelling experience
+- Modern space-themed UI
+- Interactive educational sections
+- 3D Solar System built with Three.js
+- Smooth animations powered by GSAP and ScrollTrigger
+- Galaxy and Voyager themed visual storytelling
+- Quiz section for knowledge recap
+- Responsive structure for modern browsers
+
+## Tech Stack
+
 - HTML5
-- CSS3 + SASS/SCSS
+- CSS3
+- SCSS
 - Vanilla JavaScript (ES6+)
-- Three.js (via CDN, no npm, no build tools)
-- GSAP + ScrollTrigger (via CDN) for scroll animations
-
-**No frameworks. No npm. Everything runs from a single `index.html` opened locally in a browser.**
-
----
-
-## 2. VISUAL DIRECTION
-
-**Aesthetic:** Dark, cinematic, space-grade. Think NASA meets Apple product page.
-
-**Color palette:**
-- Background: `#020408` (near-black, deep space)
-- Primary accent: `#4FC3F7` (cold blue, star light)
-- Secondary accent: `#E8D5B7` (warm gold, nebula)
-- Text: `#E8EAF0` (off-white)
-- Subtle glow: `rgba(79, 195, 247, 0.15)`
-
-**Typography:**
-- Display/headings: `Orbitron` (Google Fonts) — geometric, futuristic
-- Body text: `Inter` or `DM Sans` — readable, modern
-- Section labels: `Space Mono` — monospace terminal feel
-
-**Atmosphere:**
-- Starfield background (animated CSS or Three.js particles) — always visible
-- Parallax depth on scroll
-- Sections fade/slide in as they enter viewport
-- Subtle nebula glow effects behind content cards
-- No white backgrounds anywhere. Everything is transparent over space.
-
----
-
-## 3. SITE STRUCTURE & SECTIONS
-
-The site is a single long-scroll page. Each section maps to a teacher's curriculum topic.
-
-```
-[INTRO / HERO]
-      ↓
-[SECTION 1 — The Universe]
-      ↓
-[SECTION 2 — Galaxies Overview]
-      ↓
-[SECTION 3 — The Milky Way] → INTERACTIVE: click to explore
-      ↓
-[SECTION 4 — Our Solar System] → INTERACTIVE: 3D planets
-      ↓
-[SECTION 5 — Voyager] → INTERACTIVE: animated probe
-      ↓
-[QUIZ]
-      ↓
-[OUTRO]
-```
-
----
-
-## 4. SECTION SPECIFICATIONS
-
-### HERO
-- Full-screen, animated starfield background (Three.js particles or CSS)
-- Large centered title: **"COSMOS"** with subtle glow animation
-- Subtitle: "O călătorie interactivă prin Univers"
-- Scroll-down indicator (animated arrow or text)
-- No navigation bar — pure immersion
-
----
-
-### SECTION 1 — Universul
-**Content:** What is the universe, scale, age, composition  
-**Layout:** Text card (left) + visual (right) — nebula image or generated visual  
-**Animation:** Fade in on scroll (ScrollTrigger)  
-**Data to include:**
-- Vârsta: ~13.8 miliarde ani
-- Diametru observabil: ~93 miliarde ani-lumină
-- Compoziție: 68% energie întunecată, 27% materie întunecată, 5% materie obișnuită
-
----
-
-### SECTION 2 — Galaxii
-**Content:** Types of galaxies (spiral, elliptical, irregular), examples  
-**Layout:** Horizontal scroll cards OR grid of galaxy types  
-**Animation:** Cards slide in from sides on scroll  
-**Interactive:** Hover over each galaxy type = info tooltip  
-**Examples to include:**
-- Calea Lactee (spiral)
-- Andromeda (spiral)
-- Centaurus A (elliptical)
-- Magellanic Clouds (irregular)
-
----
-
-### SECTION 3 — Calea Lactee
-**Content:** Our galaxy — structure, size, position of Solar System  
-**Layout:** Full-width section with overhead galaxy map  
-**THE KEY INTERACTION:**
-- Display a top-down 2D illustration of the Milky Way (CSS/canvas, or SVG)
-- A glowing dot marks our Solar System's position (Orion Arm)
-- User clicks the dot → smooth zoom/transition → Section 4 (Solar System) loads or appears
-- If full zoom transition is too complex: animated scroll-to with camera pan effect  
-**Data to include:**
-- Diametru: ~100,000 ani-lumină
-- Număr stele estimate: 100-400 miliarde
-- Tipul brațului nostru: Brațul Orion (minor)
-- Distanța de la centru: ~26,000 ani-lumină
-
----
-
-### SECTION 4 — Sistemul Solar (THREE.JS CORE FEATURE)
-**This is the centerpiece of the project.**
-
-**Layout:** Three.js canvas takes 60-70% of the screen. Info panel on the right.
-
-**3D Scene:**
-- Dark space background (match site bg)
-- Sun at center — emissive yellow/orange sphere with glow shader
-- All 8 planets in correct relative order (not to scale — too hard to see)
-- Each planet: textured sphere using NASA texture maps
-- Planets orbit the Sun continuously (slow, elegant)
-- OrbitControls enabled — user can drag to rotate the whole scene
-
-**Planet textures (NASA free):**
-```
-Mercury, Venus, Earth, Mars, Jupiter, Saturn (+ rings), Uranus, Neptune
-```
-
-**Planet interaction:**
-- Click on any planet → orbit camera zooms to that planet
-- Info panel updates with:
-  - Planet name (large)
-  - Key facts: diameter, distance from Sun, orbital period, number of moons, surface temperature
-  - 1-2 interesting facts
-
-**UI controls:**
-- Small "Reset View" button to return to full system view
-- Planet names always visible as floating labels (CSS sprites above each planet)
-
-**Saturn specifically:** Must have visible ring system (Three.js RingGeometry)
-
----
-
-### SECTION 5 — Voyager
-**Content:** Voyager 1 mission — humanity's farthest spacecraft
-
-**Layout:** Semi-dark section, Milky Way edge illustration in background
-
-**Animation:**
-- Animated trajectory line from Earth toward edge of Solar System
-- Small Voyager probe model (simple geometric shape or SVG) travels along the line
-- Line reveals progressively as it animates (DrawSVG or JS path animation)
-- Probe arrives at edge of heliosphere → blinks, text appears: "Spațiu interstelar"
-
-**Clickable probe:**
-When user clicks Voyager:
-- Modal or side panel opens
-- Shows: launch date (Sept 5, 1977), current distance (~24 billion km from Sun), speed (~17 km/s), mission status, what it carries (Golden Record)
-
-**Data to display:**
-- Lansare: 5 septembrie 1977
-- Distanța actuală: ~24 miliarde km de Soare (actualizată periodic)
-- Viteza: ~17 km/s (61,200 km/h)
-- A ieșit din heliosferă: 25 august 2012
-- Conține: Discul de Aur — mesaje, muzică, sunete de pe Pământ
-
----
-
-### QUIZ
-**Mechanic:** Free text input — substring matching (case-insensitive)
-
-**Format:**
-- 5-7 questions, one at a time
-- Question displayed in center
-- Input field below
-- Submit button OR Enter key to confirm
-- Correct: green flash + next question
-- Wrong: red flash + retry allowed (or show correct answer after 2 attempts)
-- Final score screen at the end
-
-**Sample questions:**
-```
-1. "Care este vârsta aproximativă a Universului?" → ["13.8", "13,8"]
-2. "Cum se numește galaxia noastră?" → ["calea lactee", "lactee"]
-3. "Câte planete are Sistemul Solar?" → ["8", "opt"]
-4. "Ce misiune a ieșit primul din Sistemul Solar?" → ["voyager"]
-5. "Ce tip de galaxie este Calea Lactee?" → ["spirală", "spirala"]
-6. "Câte miliarde de stele conține aproximativ Calea Lactee?" → ["100", "200", "400"]
-```
-
-**UI:** Dark card, monospace font for input, progress indicator (1/6, 2/6...)
-
----
-
-### OUTRO
-- Simple dark screen
-- Text: "Universul nu are capăt. Curiozitatea ta nici atât."
-- Small credits line
-- Optional: "Apasă orice tastă pentru a relua" → returns to top
-
----
-
-## 5. FILE STRUCTURE
-
-```
-cosmos/
-├── index.html
-├── style/
-│   ├── main.scss          (imports everything)
-│   ├── _variables.scss    (colors, fonts, spacing)
-│   ├── _reset.scss
-│   ├── _hero.scss
-│   ├── _sections.scss
-│   ├── _solar-system.scss
-│   ├── _quiz.scss
-│   └── _animations.scss
-├── js/
-│   ├── main.js            (init + scroll setup)
-│   ├── starfield.js       (background stars)
-│   ├── solar-system.js    (Three.js scene)
-│   ├── voyager.js         (Voyager animation)
-│   ├── quiz.js            (quiz logic)
-│   └── milkyway.js        (galaxy map interaction)
-├── assets/
-│   ├── textures/          (NASA planet textures — .jpg)
-│   │   ├── sun.jpg
-│   │   ├── mercury.jpg
-│   │   ├── venus.jpg
-│   │   ├── earth.jpg
-│   │   ├── mars.jpg
-│   │   ├── jupiter.jpg
-│   │   ├── saturn.jpg
-│   │   ├── saturn_ring.png
-│   │   ├── uranus.jpg
-│   │   └── neptune.jpg
-│   └── images/            (any static images)
-└── css/
-    └── main.css           (compiled SASS output)
-```
-
----
-
-## 6. TECHNICAL NOTES FOR CLAUDE CODE
-
-### Three.js setup (CDN only):
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-```
-
-Note: `THREE.OrbitControls` is NOT included in r128 core. Load separately:
-```html
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-```
-
-### GSAP setup (CDN):
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-```
-
-### Performance rules:
-- The Three.js canvas runs only when Section 4 is in viewport (pause renderer otherwise)
-- Use `requestAnimationFrame` correctly — cancel when tab is hidden
-- Textures: compress JPGs to under 1MB each before loading
-- No texture loading in a loop — preload all at init
-
-### SASS compilation:
-- Use VS Code Live Sass Compiler extension or `sass --watch style/main.scss:css/main.css`
-- All colors and fonts defined only in `_variables.scss`
-
-### Compatibility:
-- Must work on Chrome (latest) — presentation will be on Chrome
-- No IE support needed
-- Mobile not priority — this is a desktop school presentation
-
----
-
-## 7. PLANET DATA REFERENCE
-
-| Planet   | Diameter (km) | Distance from Sun (AU) | Orbital Period | Moons |
-|----------|---------------|------------------------|----------------|-------|
-| Mercury  | 4,879         | 0.39                   | 88 days        | 0     |
-| Venus    | 12,104        | 0.72                   | 225 days       | 0     |
-| Earth    | 12,742        | 1.00                   | 365 days       | 1     |
-| Mars     | 6,779         | 1.52                   | 687 days       | 2     |
-| Jupiter  | 139,820       | 5.20                   | 11.9 years     | 95    |
-| Saturn   | 116,460       | 9.58                   | 29.4 years     | 146   |
-| Uranus   | 50,724        | 19.22                  | 84 years       | 28    |
-| Neptune  | 49,244        | 30.05                  | 164.8 years    | 16    |
-
----
-
-## 8. BUILD ORDER (for Claude Code — do in this order)
-
-1. `index.html` scaffold + CDN links
-2. `_variables.scss` + `_reset.scss` + basic layout
-3. Starfield background (JS particles)
-4. Hero section (static, animated title)
-5. Sections 1 & 2 (text + scroll animations)
-6. Milky Way map (Section 3) — click interaction
-7. Solar System — Three.js scene (Section 4) — this is the hardest part
-8. Voyager animation (Section 5)
-9. Quiz logic
-10. Polish: transitions, glow effects, typography refinement
-11. Outro
-
-**Do NOT jump ahead. Each step must work before moving to the next.**
-
----
-
-## 9. WHAT SUCCESS LOOKS LIKE
-
-A person who knows nothing about coding opens this on a laptop and says "wow."
-
-A physics teacher sees the scientific content is correct and complete.
-
-A developer looks at the GitHub repo and sees clean, structured code with no spaghetti.
-
-You can present this confidently because you understand every line.
-
----
-
-*Document version: 1.0 | Project: COSMOS | Author: Radu-Ștefan Grozav*
+- Three.js
+- GSAP
+- ScrollTrigger
+
+## Project Structure
+
+```bash
+space-project/
+├── assets/        # images, textures, icons and static resources
+├── css/           # compiled CSS files
+├── js/            # JavaScript logic and interactivity
+├── style/         # SCSS source files
+├── index.html     # main entry point
+├── README.md
+└── .gitignore
