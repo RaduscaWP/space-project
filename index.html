@@ -3,7 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Radusca Core</title>
+    <title>COSMOS | O calatorie interactiva prin Univers</title>
+    <meta
+      name="description"
+      content="COSMOS este o experienta educationala interactiva despre Univers, galaxii, Sistemul Solar, Voyager 1 si orientarea noastra in spatiu."
+    />
     <link
       rel="icon"
       type="image/jpeg"
@@ -21,7 +25,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Orbitron:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/main.css?v=20260411b" />
+    <link rel="stylesheet" href="css/main.css?v=20260411c" />
   </head>
   <body>
     <canvas id="starfield-canvas" aria-hidden="true"></canvas>
@@ -405,53 +409,62 @@
             hidden
           ></div>
           <aside class="planet-panel js-reveal">
-            <h3 id="planet-name">Selecteaza o planeta</h3>
-            <p id="planet-summary">
-              Apasa pe orice planeta sau pe Soare pentru detalii.
-            </p>
-            <p id="planet-description" class="planet-description"></p>
-            <dl class="planet-facts">
-              <div>
-                <dt>Diametru</dt>
-                <dd id="planet-diameter">-</dd>
-              </div>
-              <div>
-                <dt>Distanta fata de Soare</dt>
-                <dd id="planet-distance">-</dd>
-              </div>
-              <div>
-                <dt>Perioada orbitala</dt>
-                <dd id="planet-orbit">-</dd>
-              </div>
-              <div>
-                <dt>Numar luni</dt>
-                <dd id="planet-moons">-</dd>
-              </div>
-              <div>
-                <dt>Sateliti in scena</dt>
-                <dd id="planet-satellites">-</dd>
-              </div>
-              <div>
-                <dt>Temperatura medie</dt>
-                <dd id="planet-temp">-</dd>
-              </div>
-            </dl>
-            <div class="planet-structure-box">
-              <p class="planet-structure-title">Structura interna</p>
-              <p id="planet-structure-summary" class="planet-structure-summary">
-                Selecteaza Soarele sau o planeta pentru a vedea structura
-                interna.
+            <div class="planet-panel-main">
+              <h3 id="planet-name">Selecteaza o planeta</h3>
+              <p id="planet-summary">
+                Apasa pe orice planeta sau pe Soare pentru detalii.
               </p>
+              <p id="planet-description" class="planet-description"></p>
             </div>
-            <p id="planet-fact-1" class="planet-extra"></p>
-            <p id="planet-fact-2" class="planet-extra"></p>
-            <p id="solar-layer-hint" class="solar-layer-hint">
-              Modul marit: 3 click-uri rapide pe corpul selectat pentru a vedea
-              straturile separate.
-            </p>
-            <button type="button" id="reset-view" class="ghost-button">
-              Reset View
-            </button>
+            <div class="planet-panel-support">
+              <dl class="planet-facts">
+                <div>
+                  <dt>Diametru</dt>
+                  <dd id="planet-diameter">-</dd>
+                </div>
+                <div>
+                  <dt>Distanta fata de Soare</dt>
+                  <dd id="planet-distance">-</dd>
+                </div>
+                <div>
+                  <dt>Perioada orbitala</dt>
+                  <dd id="planet-orbit">-</dd>
+                </div>
+                <div>
+                  <dt>Numar luni</dt>
+                  <dd id="planet-moons">-</dd>
+                </div>
+                <div>
+                  <dt>Sateliti in scena</dt>
+                  <dd id="planet-satellites">-</dd>
+                </div>
+                <div>
+                  <dt>Temperatura medie</dt>
+                  <dd id="planet-temp">-</dd>
+                </div>
+              </dl>
+              <div class="planet-structure-box">
+                <p class="planet-structure-title">Structura interna</p>
+                <p
+                  id="planet-structure-summary"
+                  class="planet-structure-summary"
+                >
+                  Selecteaza Soarele sau o planeta pentru a vedea structura
+                  interna.
+                </p>
+              </div>
+            </div>
+            <div class="planet-panel-helper">
+              <p id="planet-fact-1" class="planet-extra"></p>
+              <p id="planet-fact-2" class="planet-extra"></p>
+              <p id="solar-layer-hint" class="solar-layer-hint">
+                Modul marit: 3 click-uri rapide pe corpul selectat pentru a
+                vedea straturile separate.
+              </p>
+              <button type="button" id="reset-view" class="ghost-button">
+                Reset View
+              </button>
+            </div>
           </aside>
         </div>
         <div class="planet-table-wrap js-reveal">
@@ -533,49 +546,59 @@
         </p>
         <div class="earth-kepler-layout">
           <aside class="earth-kepler-info-panel js-reveal">
-            <p class="earth-kepler-info-kicker">Selecteaza planeta</p>
-            <div
-              class="earth-kepler-selectors"
-              role="tablist"
-              aria-label="Selectare planeta comparata"
-            >
-              <button
-                type="button"
-                id="earth-select-btn"
-                class="earth-kepler-select-btn is-active"
-                data-planet="earth"
-                role="tab"
-                aria-selected="true"
-                aria-controls="earth-kepler-facts"
+            <div class="earth-kepler-info-head">
+              <p class="earth-kepler-info-kicker">Selecteaza planeta</p>
+              <div
+                class="earth-kepler-selectors"
+                role="tablist"
+                aria-label="Selectare planeta comparata"
               >
-                <span class="earth-kepler-select-visual">
-                  <canvas id="earth-select-canvas" aria-hidden="true"></canvas>
-                </span>
-                <span class="earth-kepler-select-name">Pământ</span>
-              </button>
-              <button
-                type="button"
-                id="kepler-select-btn"
-                class="earth-kepler-select-btn"
-                data-planet="kepler"
-                role="tab"
-                aria-selected="false"
-                aria-controls="earth-kepler-facts"
-              >
-                <span class="earth-kepler-select-visual">
-                  <canvas id="kepler-select-canvas" aria-hidden="true"></canvas>
-                </span>
-                <span class="earth-kepler-select-name">Kepler-452b</span>
-              </button>
+                <button
+                  type="button"
+                  id="earth-select-btn"
+                  class="earth-kepler-select-btn is-active"
+                  data-planet="earth"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="earth-kepler-facts"
+                >
+                  <span class="earth-kepler-select-visual">
+                    <canvas id="earth-select-canvas" aria-hidden="true"></canvas>
+                  </span>
+                  <span class="earth-kepler-select-name">Pământ</span>
+                </button>
+                <button
+                  type="button"
+                  id="kepler-select-btn"
+                  class="earth-kepler-select-btn"
+                  data-planet="kepler"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="earth-kepler-facts"
+                >
+                  <span class="earth-kepler-select-visual">
+                    <canvas
+                      id="kepler-select-canvas"
+                      aria-hidden="true"
+                    ></canvas>
+                  </span>
+                  <span class="earth-kepler-select-name">Kepler-452b</span>
+                </button>
+              </div>
             </div>
-            <h3 id="earth-kepler-facts-title" class="earth-kepler-facts-title">
-              Fapte socante si fascinante despre Pământ
-            </h3>
-            <ul
-              id="earth-kepler-facts"
-              class="earth-kepler-facts-list"
-              aria-live="polite"
-            ></ul>
+            <div class="earth-kepler-info-body">
+              <h3
+                id="earth-kepler-facts-title"
+                class="earth-kepler-facts-title"
+              >
+                Fapte socante si fascinante despre Pământ
+              </h3>
+              <ul
+                id="earth-kepler-facts"
+                class="earth-kepler-facts-list"
+                aria-live="polite"
+              ></ul>
+            </div>
           </aside>
 
           <article
@@ -622,17 +645,19 @@
               class="earth-kepler-expand-backdrop"
               hidden
             ></div>
-            <p
-              id="earth-kepler-disassembly-hint"
-              class="earth-kepler-disassembly-hint"
-            >
-              Mod marit: 3 click-uri rapide pe planeta pentru modul disociere pe
-              straturi.
-            </p>
-            <dl
-              id="planet-focus-facts-grid"
-              class="planet-compare-facts planet-compare-facts-featured"
-            ></dl>
+            <div class="earth-kepler-feature-support">
+              <p
+                id="earth-kepler-disassembly-hint"
+                class="earth-kepler-disassembly-hint"
+              >
+                Mod marit: 3 click-uri rapide pe planeta pentru modul disociere
+                pe straturi.
+              </p>
+              <dl
+                id="planet-focus-facts-grid"
+                class="planet-compare-facts planet-compare-facts-featured"
+              ></dl>
+            </div>
           </article>
         </div>
       </section>
@@ -726,43 +751,45 @@
               class="voyager-expand-backdrop"
               hidden
             ></div>
-            <div class="voyager-controls">
-              <button
-                type="button"
-                id="voyager-probe"
-                class="ghost-button"
-                aria-label="Afiseaza detalii despre Voyager"
-              >
-                Deschide date misiune
-              </button>
-              <button
-                type="button"
-                id="voyager-reset"
-                class="ghost-button"
-                aria-label="Reseteaza camera 3D Voyager"
-              >
-                Reset camera
-              </button>
-              <p id="interstellar-status">Spatiu interstelar</p>
-            </div>
-            <p id="voyager-explode-hint" class="voyager-explode-hint">
-              Modul marit: 3 click-uri rapide pe Voyager (in 1 secunda) pentru a
-              separa componentele.
-            </p>
-            <p id="voyager-fallback" class="voyager-fallback" hidden>
-              Modelul NASA nu a putut fi incarcat, asa ca afisam o versiune 3D
-              simplificata. Sursa:
-              <a
-                href="https://science.nasa.gov/3d-resources/"
-                target="_blank"
-                rel="noopener"
-                >NASA 3D Resources</a
-              >.
-            </p>
-            <div class="voyager-badges">
-              <div><span>Distanta</span><strong>~24 mld km</strong></div>
-              <div><span>Status</span><strong>Activ</strong></div>
-              <div><span>Mesaj</span><strong>Golden Record</strong></div>
+            <div class="voyager-support">
+              <div class="voyager-controls">
+                <button
+                  type="button"
+                  id="voyager-probe"
+                  class="ghost-button"
+                  aria-label="Afiseaza detalii despre Voyager"
+                >
+                  Deschide date misiune
+                </button>
+                <button
+                  type="button"
+                  id="voyager-reset"
+                  class="ghost-button"
+                  aria-label="Reseteaza camera 3D Voyager"
+                >
+                  Reset camera
+                </button>
+                <p id="interstellar-status">Spatiu interstelar</p>
+              </div>
+              <p id="voyager-explode-hint" class="voyager-explode-hint">
+                Modul marit: 3 click-uri rapide pe Voyager (in 1 secunda) pentru
+                a separa componentele.
+              </p>
+              <p id="voyager-fallback" class="voyager-fallback" hidden>
+                Modelul NASA nu a putut fi incarcat, asa ca afisam o versiune 3D
+                simplificata. Sursa:
+                <a
+                  href="https://science.nasa.gov/3d-resources/"
+                  target="_blank"
+                  rel="noopener"
+                  >NASA 3D Resources</a
+                >.
+              </p>
+              <div class="voyager-badges">
+                <div><span>Distanta</span><strong>~24 mld km</strong></div>
+                <div><span>Status</span><strong>Activ</strong></div>
+                <div><span>Mesaj</span><strong>Golden Record</strong></div>
+              </div>
             </div>
           </div>
         </div>
@@ -911,16 +938,18 @@
               hidden
             ></div>
 
-            <div class="gt-toolbar">
-              <button type="button" id="gt-recenter" class="ghost-button">
-                Recentreaza spre tinta
-              </button>
-              <button type="button" id="gt-reset" class="ghost-button">
-                Reset camera
-              </button>
-              <div class="gt-toolbar-meta">
-                <span id="gt-speed">viteza 1.2 pc/s</span>
-                <span id="gt-distance">distanta tinta: -</span>
+            <div class="gt-support">
+              <div class="gt-toolbar">
+                <button type="button" id="gt-recenter" class="ghost-button">
+                  Recentreaza spre tinta
+                </button>
+                <button type="button" id="gt-reset" class="ghost-button">
+                  Reset camera
+                </button>
+                <div class="gt-toolbar-meta">
+                  <span id="gt-speed">viteza 1.2 pc/s</span>
+                  <span id="gt-distance">distanta tinta: -</span>
+                </div>
               </div>
             </div>
           </div>

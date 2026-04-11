@@ -17,6 +17,18 @@
   --wide-width: 1380px;
   --copy-width: 64ch;
   --copy-tight: 46ch;
+  --helper-text: rgba(185, 197, 214, 0.52);
+  --surface-primary-fill: rgba(4, 8, 14, 0.78);
+  --surface-primary-border: rgba(255, 255, 255, 0.14);
+  --surface-primary-shadow: 0 30px 78px rgba(0, 0, 0, 0.38);
+  --surface-secondary-fill: rgba(255, 255, 255, 0.02);
+  --surface-secondary-fill-strong: rgba(255, 255, 255, 0.04);
+  --surface-secondary-border: rgba(255, 255, 255, 0.07);
+  --surface-secondary-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+  --surface-quiet-fill: rgba(255, 255, 255, 0.015);
+  --surface-quiet-fill-strong: rgba(255, 255, 255, 0.028);
+  --surface-quiet-border: rgba(255, 255, 255, 0.05);
+  --surface-quiet-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
   --section-accent: #8fbef8;
   --section-accent-soft: rgba(143, 190, 248, 0.16);
   --section-line: rgba(143, 190, 248, 0.34);
@@ -32,6 +44,18 @@
   --section-surface: rgba(8, 14, 24, 0.84);
   --section-surface-strong: rgba(5, 10, 18, 0.94);
   --section-text: #edf2f7;
+  --helper-text: rgba(185, 197, 214, 0.52);
+  --surface-primary-fill: rgba(4, 8, 14, 0.78);
+  --surface-primary-border: rgba(255, 255, 255, 0.14);
+  --surface-primary-shadow: 0 30px 78px rgba(0, 0, 0, 0.38);
+  --surface-secondary-fill: rgba(255, 255, 255, 0.02);
+  --surface-secondary-fill-strong: rgba(255, 255, 255, 0.04);
+  --surface-secondary-border: rgba(255, 255, 255, 0.07);
+  --surface-secondary-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+  --surface-quiet-fill: rgba(255, 255, 255, 0.015);
+  --surface-quiet-fill-strong: rgba(255, 255, 255, 0.028);
+  --surface-quiet-border: rgba(255, 255, 255, 0.05);
+  --surface-quiet-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
 }
 
 #hero,
@@ -210,7 +234,7 @@ canvas {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(1rem, 2vw, 1.55rem);
+  gap: clamp(0.95rem, 1.9vw, 1.4rem);
   color: var(--section-text);
 }
 
@@ -221,7 +245,7 @@ body.story-scroll-snap .panel {
 
 .js-reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(14px);
 }
 
 .js-reveal.in-view {
@@ -243,9 +267,9 @@ body.story-scroll-snap .panel {
 
 .section-head {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.38rem;
   align-content: start;
-  max-width: min(42rem, 100%);
+  max-width: min(40rem, 100%);
 }
 
 .section-head::before,
@@ -295,10 +319,10 @@ body.story-scroll-snap .panel {
 
 .section-copy {
   margin: 0;
-  max-width: var(--copy-tight);
+  max-width: min(48ch, 100%);
   color: var(--text-muted);
   font-size: clamp(1rem, 0.35vw + 0.95rem, 1.12rem);
-  line-height: 1.72;
+  line-height: 1.68;
 }
 
 .split-layout,
@@ -307,17 +331,17 @@ body.story-scroll-snap .panel {
 .voyager-layout,
 .gaseste-terra-layout {
   display: grid;
-  gap: clamp(1.1rem, 2.4vw, 2rem);
+  gap: clamp(1rem, 2.1vw, 1.8rem);
 }
 
 .content-pane {
   display: grid;
   align-content: start;
-  gap: 0.95rem;
+  gap: 0.85rem;
 }
 
 .info-stack {
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
 .content-pane > p {
@@ -328,9 +352,9 @@ body.story-scroll-snap .panel {
 }
 
 .content-pane > p:first-of-type {
-  max-width: 26ch;
-  font-size: clamp(1.14rem, 0.8vw + 1rem, 1.42rem);
-  line-height: 1.42;
+  max-width: 24ch;
+  font-size: clamp(1.12rem, 0.78vw + 1rem, 1.38rem);
+  line-height: 1.38;
   color: var(--section-text);
 }
 
@@ -362,22 +386,22 @@ body.story-scroll-snap .panel {
 }
 
 .metrics-grid {
-  margin-top: 0.25rem;
+  margin-top: 0.4rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
-  border-top: 1px solid var(--section-line);
-  border-bottom: 1px solid var(--section-line);
-  background: var(--section-line);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .metric-card {
-  padding: 1rem 0.9rem 1.1rem;
-  min-height: 116px;
+  padding: 0.9rem 0.9rem 0.95rem;
+  min-height: 98px;
   display: grid;
   align-content: end;
-  gap: 0.35rem;
-  background: rgba(255, 255, 255, 0.02);
+  gap: 0.28rem;
+  background: linear-gradient(180deg, var(--surface-quiet-fill-strong), var(--surface-quiet-fill));
 }
 
 .metric-value {
@@ -391,21 +415,21 @@ body.story-scroll-snap .panel {
 
 .metric-label {
   margin: 0;
-  color: var(--text-soft);
-  font-size: 0.88rem;
+  color: var(--helper-text);
+  font-size: 0.84rem;
   line-height: 1.45;
 }
 
 .timeline-list {
-  margin-top: clamp(0.4rem, 2vh, 1rem);
+  margin-top: clamp(0.3rem, 1.8vh, 0.85rem);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .timeline-list article {
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--section-line);
+  padding-top: 0.78rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .timeline-list h3 {
@@ -418,8 +442,8 @@ body.story-scroll-snap .panel {
 
 .timeline-list p {
   margin: 0.48rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.92rem;
+  color: var(--helper-text);
+  font-size: 0.88rem;
   line-height: 1.58;
 }
 
@@ -428,23 +452,23 @@ body.story-scroll-snap .panel {
 }
 
 .note-card {
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--section-line);
+  padding-top: 0.72rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .note-card h3 {
   margin: 0;
   font-family: "Space Mono", monospace;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--text-soft);
 }
 
 .note-card p {
-  margin: 0.45rem 0 0;
-  color: var(--text-muted);
-  line-height: 1.62;
+  margin: 0.38rem 0 0;
+  color: var(--helper-text);
+  line-height: 1.58;
 }
 
 .scroll-cue,
@@ -457,16 +481,17 @@ body.story-scroll-snap .panel {
 .voyager-expand,
 .gt-expand,
 .modal-close {
-  border: 1px solid var(--section-line);
+  border: 1px solid var(--surface-quiet-border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--section-text);
+  background: var(--surface-quiet-fill);
+  color: rgba(237, 242, 247, 0.76);
   font-family: "Space Mono", monospace;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.72rem 1rem;
+  padding: 0.64rem 0.92rem;
   cursor: pointer;
+  backdrop-filter: blur(14px);
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
@@ -491,9 +516,10 @@ body.story-scroll-snap .panel {
 .gt-expand:focus-visible,
 .modal-close:focus-visible {
   transform: translateY(-1px);
-  border-color: var(--section-accent);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-quiet-fill-strong);
+  box-shadow: var(--surface-quiet-shadow);
+  color: var(--section-text);
 }
 
 #scroll-next::after {
@@ -511,9 +537,11 @@ body.story-scroll-snap .panel {
 .gt-direction,
 .gt-hint,
 .gt-error.gt-error--badge {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(5, 9, 16, 0.82);
+  background: rgba(5, 9, 16, 0.58);
+  box-shadow: var(--surface-quiet-shadow);
+  backdrop-filter: blur(14px);
 }
 
 #universe.panel {
@@ -534,8 +562,9 @@ body.story-scroll-snap .panel {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-xl);
-  border: 1px solid var(--section-line);
-  box-shadow: var(--shadow-strong);
+  border: 1px solid var(--surface-primary-border);
+  box-shadow: var(--surface-primary-shadow);
+  background-color: var(--surface-primary-fill);
 }
 
 .universe-visual {
@@ -557,9 +586,10 @@ body.story-scroll-snap .panel {
 .visual-caption {
   position: absolute;
   left: 1rem;
-  right: 1rem;
+  right: auto;
   bottom: 1rem;
-  padding: 0.85rem 1rem;
+  max-width: min(360px, 100% - 2rem);
+  padding: 0.78rem 0.9rem;
 }
 
 .visual-caption p {
@@ -569,7 +599,7 @@ body.story-scroll-snap .panel {
 
 .visual-caption p + p {
   margin-top: 0.25rem;
-  color: var(--text-soft);
+  color: var(--helper-text);
   font-size: 0.88rem;
 }
 
@@ -620,11 +650,11 @@ body.story-scroll-snap .panel {
 .galaxy-preview {
   position: relative;
   min-height: clamp(28rem, 62vw, 40rem);
-  border: 1px solid var(--section-line);
+  border: 1px solid var(--surface-primary-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: #04070d;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--surface-primary-shadow);
 }
 
 .galaxy-preview::before {
@@ -658,7 +688,7 @@ body.story-scroll-snap .panel {
   right: 0;
   bottom: 0;
   z-index: 3;
-  padding: 1.15rem;
+  padding: 1rem 1.05rem;
   background: linear-gradient(180deg, rgba(4, 7, 12, 0) 0%, rgba(4, 7, 12, 0.86) 42%, rgba(4, 7, 12, 0.96) 100%);
 }
 
@@ -672,15 +702,16 @@ body.story-scroll-snap .panel {
 .galaxy-preview-hint {
   margin: 0;
   font-family: "Space Mono", monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--helper-text);
 }
 
 .galaxy-info-toggle {
-  padding: 0.46rem 0.7rem;
-  font-size: 0.66rem;
+  padding: 0.4rem 0.66rem;
+  font-size: 0.62rem;
+  color: var(--helper-text);
 }
 
 .galaxy-preview-details {
@@ -716,39 +747,39 @@ body.story-scroll-snap .panel {
 }
 
 .galaxy-preview-caption {
-  color: rgba(234, 240, 248, 0.8);
+  color: rgba(234, 240, 248, 0.74);
 }
 
 .galaxy-preview-source {
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .galaxy-preview-description {
   margin: 0.4rem 0 0;
-  max-width: 46ch;
-  line-height: 1.62;
-  color: var(--text-muted);
+  max-width: 42ch;
+  line-height: 1.58;
+  color: rgba(222, 229, 238, 0.7);
 }
 
 .galaxy-preview-facts {
   margin: 0.35rem 0 0;
   padding-left: 1rem;
   display: grid;
-  gap: 0.35rem;
-  color: var(--text-muted);
+  gap: 0.28rem;
+  color: var(--helper-text);
 }
 
 .galaxy-footnote {
-  margin-top: 0.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--section-line);
+  margin-top: 0.15rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--surface-quiet-border);
   max-width: 62ch;
 }
 
 .galaxy-footnote p {
   margin: 0;
   line-height: 1.7;
-  color: var(--text-muted);
+  color: var(--helper-text);
 }
 
 .milkyway-layout {
@@ -759,11 +790,11 @@ body.story-scroll-snap .panel {
 .milkyway-map {
   position: relative;
   min-height: clamp(28rem, 64vw, 42rem);
-  border: 1px solid var(--section-line);
+  border: 1px solid var(--surface-primary-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: radial-gradient(circle at 50% 50%, rgba(198, 214, 239, 0.08), transparent 42%), linear-gradient(180deg, rgba(7, 9, 12, 0.94), rgba(5, 7, 10, 0.98));
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--surface-primary-shadow);
 }
 
 .milkyway-map::before {
@@ -777,10 +808,11 @@ body.story-scroll-snap .panel {
 
 .milkyway-details-toggle {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.9rem;
+  right: 0.9rem;
   z-index: 8;
-  padding: 0.48rem 0.72rem;
+  padding: 0.42rem 0.68rem;
+  opacity: 0.82;
 }
 
 .milkyway-disc {
@@ -891,15 +923,15 @@ body.story-scroll-snap .panel {
   left: 1rem;
   bottom: 1rem;
   z-index: 7;
-  width: min(360px, 100% - 2rem);
-  padding: 0.85rem 0.95rem;
+  width: min(320px, 100% - 2rem);
+  padding: 0.72rem 0.82rem;
 }
 
 .map-legend p {
   margin: 0;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  line-height: 1.55;
+  color: var(--helper-text);
+  font-size: 0.76rem;
+  line-height: 1.52;
 }
 
 .map-legend p + p {
@@ -922,17 +954,17 @@ body.story-scroll-snap .panel {
 
 .milkyway-inline-facts {
   display: grid;
-  gap: 0.85rem;
-  margin-top: 0.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--section-line);
+  gap: 0.72rem;
+  margin-top: 0.15rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .milkyway-inline-facts p {
   margin: 0;
   max-width: 46ch;
-  line-height: 1.68;
-  color: var(--text-muted);
+  line-height: 1.62;
+  color: var(--helper-text);
 }
 
 #solar-system.is-targeted {
@@ -989,10 +1021,10 @@ body.story-scroll-snap .panel {
 .voyager-viewer,
 .gt-viewer {
   position: relative;
-  border: 1px solid var(--section-line);
+  border: 1px solid var(--surface-primary-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--surface-primary-shadow);
 }
 
 #solar-canvas-wrap {
@@ -1051,10 +1083,10 @@ body.story-scroll-snap .panel {
 .earth-kepler-expand,
 .gt-expand {
   position: absolute;
-  top: 0.95rem;
-  right: 0.95rem;
+  top: 0.85rem;
+  right: 0.85rem;
   z-index: 8;
-  padding: 0.52rem 0.78rem;
+  padding: 0.44rem 0.68rem;
 }
 
 .solar-mode-chip,
@@ -1062,19 +1094,20 @@ body.story-scroll-snap .panel {
 .earth-kepler-mode-chip,
 .gt-mode-chip {
   position: absolute;
-  top: 0.95rem;
-  left: 0.95rem;
+  top: 0.85rem;
+  left: 0.85rem;
   z-index: 8;
   margin: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-quiet-border);
   border-radius: 999px;
-  background: rgba(5, 7, 11, 0.72);
-  color: rgba(244, 240, 235, 0.84);
+  background: rgba(5, 7, 11, 0.56);
+  color: var(--helper-text);
   font-family: "Space Mono", monospace;
-  font-size: 0.66rem;
+  font-size: 0.6rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.32rem 0.54rem;
+  padding: 0.28rem 0.5rem;
+  backdrop-filter: blur(12px);
   pointer-events: none;
 }
 
@@ -1145,17 +1178,47 @@ body.story-scroll-snap .panel {
 }
 
 .planet-panel,
-.earth-kepler-info-panel,
+.earth-kepler-info-panel {
+  display: grid;
+  align-content: start;
+  gap: 0.95rem;
+  padding: clamp(1rem, 2.2vw, 1.3rem);
+  border: 1px solid var(--surface-secondary-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--surface-secondary-fill-strong), transparent 18%), var(--section-surface);
+  box-shadow: var(--surface-secondary-shadow);
+}
+
 .earth-kepler-feature,
 .voyager-stage,
 .gt-stage {
   display: grid;
   align-content: start;
-  gap: 0.95rem;
-  padding: clamp(1rem, 2.4vw, 1.4rem);
-  border: 1px solid var(--section-line);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 22%), var(--section-surface);
+  gap: 0.78rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.planet-panel-main,
+.planet-panel-support,
+.planet-panel-helper,
+.earth-kepler-info-head,
+.earth-kepler-info-body,
+.earth-kepler-feature-support,
+.voyager-support,
+.gt-support {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.planet-panel-helper,
+.earth-kepler-info-body,
+.earth-kepler-feature-support,
+.voyager-support,
+.gt-support {
+  padding-top: 0.72rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .planet-panel h3 {
@@ -1173,6 +1236,7 @@ body.story-scroll-snap .panel {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--section-accent);
+  opacity: 0.78;
 }
 
 .planet-panel p,
@@ -1192,24 +1256,24 @@ body.story-scroll-snap .panel {
 }
 
 .planet-description {
-  line-height: 1.7;
+  line-height: 1.64;
 }
 
 .planet-facts {
-  margin: 0.15rem 0 0;
+  margin: 0.05rem 0 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .planet-facts div,
 .planet-compare-facts div {
   display: grid;
   gap: 0.24rem;
-  padding: 0.72rem 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.64rem 0.72rem;
+  border: 1px solid var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-quiet-fill);
 }
 
 .planet-facts dt,
@@ -1218,23 +1282,23 @@ body.story-scroll-snap .panel {
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .planet-facts dd,
 .planet-compare-facts dd {
   margin: 0;
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   color: var(--section-text);
 }
 
 .planet-structure-box {
   display: grid;
-  gap: 0.42rem;
-  padding: 0.8rem 0.86rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 0.36rem;
+  padding: 0.72rem 0.78rem;
+  border: 1px solid var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background: linear-gradient(180deg, var(--surface-quiet-fill-strong), var(--surface-quiet-fill));
 }
 
 .planet-structure-title {
@@ -1243,7 +1307,7 @@ body.story-scroll-snap .panel {
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--text-soft);
 }
 
 .planet-structure-summary {
@@ -1256,11 +1320,11 @@ body.story-scroll-snap .panel {
 .earth-kepler-layer-panel,
 .voyager-part-panel {
   position: absolute;
-  top: 3.2rem;
-  left: 1rem;
+  top: 3rem;
+  left: 0.9rem;
   z-index: 8;
-  width: min(380px, 100% - 2rem);
-  padding: 0.82rem 0.9rem;
+  width: min(340px, 100% - 1.8rem);
+  padding: 0.76rem 0.82rem;
 }
 
 .solar-layer-panel h4,
@@ -1277,8 +1341,8 @@ body.story-scroll-snap .panel {
 .voyager-part-panel p {
   margin: 0.32rem 0 0;
   color: var(--text-muted);
-  font-size: 0.82rem;
-  line-height: 1.55;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .solar-layer-panel[hidden],
@@ -1291,16 +1355,27 @@ body.story-scroll-snap .panel {
 .earth-kepler-disassembly-hint,
 #voyager-explode-hint {
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--helper-text);
+}
+
+.planet-extra {
+  font-size: 0.94rem;
+  line-height: 1.56;
+}
+
+.planet-panel-helper .ghost-button {
+  justify-self: start;
 }
 
 .planet-table-wrap {
   padding: 1rem 1.05rem;
-  border: 1px solid var(--section-line);
+  border: 1px solid var(--surface-secondary-border);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.03);
+  background: linear-gradient(180deg, var(--surface-secondary-fill-strong), transparent 18%), var(--surface-secondary-fill);
+  box-shadow: var(--surface-secondary-shadow);
   overflow-x: auto;
 }
 
@@ -1358,7 +1433,7 @@ body.story-scroll-snap .panel {
 .earth-kepler-selectors {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.7rem;
+  gap: 0.6rem;
 }
 
 .earth-kepler-select-btn {
@@ -1366,9 +1441,9 @@ body.story-scroll-snap .panel {
   gap: 0.52rem;
   text-align: left;
   color: var(--section-text);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-secondary-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface-quiet-fill);
   padding: 0.62rem;
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
@@ -1378,17 +1453,17 @@ body.story-scroll-snap .panel {
 .earth-kepler-select-btn:focus-visible,
 .earth-kepler-select-btn.is-active {
   transform: translateY(-1px);
-  border-color: var(--section-line);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-secondary-fill-strong);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 .earth-kepler-select-visual {
   position: relative;
-  min-height: 120px;
+  min-height: 112px;
   border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-quiet-border);
   background: radial-gradient(circle at 18% 18%, rgba(150, 214, 196, 0.22), transparent 48%), url("../assets/images/starfield-eso-allsky.jpg"), linear-gradient(180deg, rgba(4, 10, 20, 0.96), rgba(2, 5, 10, 0.98));
   background-size: auto, cover, auto;
 }
@@ -1423,11 +1498,11 @@ body.story-scroll-snap .panel {
 }
 
 .earth-kepler-facts-list li {
-  padding: 0.72rem 0.82rem;
-  border-left: 2px solid var(--section-accent);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text-muted);
-  line-height: 1.58;
+  padding: 0.66rem 0 0.18rem 0.82rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(90deg, var(--surface-quiet-fill-strong), transparent 68%);
+  color: rgba(222, 229, 238, 0.72);
+  line-height: 1.54;
 }
 
 .earth-kepler-feature.is-switching {
@@ -1450,10 +1525,11 @@ body.story-scroll-snap .panel {
 .gt-viewer-overlay {
   position: absolute;
   left: 1rem;
-  right: 1rem;
+  right: auto;
   bottom: 1rem;
   z-index: 7;
-  padding: 0.8rem 0.9rem;
+  max-width: min(420px, 100% - 2rem);
+  padding: 0.74rem 0.84rem;
 }
 
 .planet-compare-overlay h3,
@@ -1469,16 +1545,16 @@ body.story-scroll-snap .panel {
 .gt-viewer-overlay p {
   margin: 0.25rem 0 0;
   font-family: "Space Mono", monospace;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .planet-compare-facts {
   margin: 0;
   display: grid;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .planet-compare-facts-featured {
@@ -1510,7 +1586,7 @@ body.story-scroll-snap .panel {
 }
 
 #voyager .content-pane {
-  padding-top: clamp(2rem, 8vh, 6rem);
+  padding-top: clamp(1.4rem, 6vh, 4rem);
 }
 
 .voyager-viewer {
@@ -1530,20 +1606,20 @@ body.story-scroll-snap .panel {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.72rem;
+  gap: 0.58rem;
 }
 
 .voyager-controls .ghost-button {
-  padding: 0.62rem 0.92rem;
+  padding: 0.56rem 0.82rem;
 }
 
 #interstellar-status {
   margin: 0 0 0 auto;
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--helper-text);
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1557,28 +1633,28 @@ body.story-scroll-snap .panel {
 .voyager-badges {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.85rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--section-line);
+  gap: 0.65rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .voyager-badges div {
-  padding-top: 0.65rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .voyager-badges span {
   display: block;
   margin-bottom: 0.2rem;
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .voyager-badges strong {
-  font-size: 1rem;
+  font-size: 0.94rem;
   font-weight: 700;
   color: var(--section-text);
 }
@@ -1589,13 +1665,13 @@ body.story-scroll-snap .panel {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 9;
-  padding: 0.46rem 0.74rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 0.42rem 0.68rem;
+  border: 1px solid var(--surface-quiet-border);
   border-radius: 999px;
-  background: rgba(4, 6, 10, 0.82);
-  color: var(--text);
+  background: rgba(4, 6, 10, 0.68);
+  color: var(--helper-text);
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   pointer-events: none;
@@ -1607,11 +1683,13 @@ body.story-scroll-snap .panel {
 }
 
 .voyager-fallback {
-  padding: 0.82rem 0.9rem;
-  border: 1px dashed rgba(255, 255, 255, 0.14);
+  padding: 0.72rem 0.78rem;
+  border: 1px dashed var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.02);
-  line-height: 1.62;
+  background: var(--surface-quiet-fill);
+  color: var(--helper-text);
+  font-size: 0.88rem;
+  line-height: 1.58;
 }
 
 .modal {
@@ -1670,21 +1748,37 @@ body.story-scroll-snap .panel {
   font-size: 0.72rem;
 }
 
+#gaseste-terra.panel {
+  min-height: auto;
+  justify-content: flex-start;
+  padding: clamp(3.35rem, 7vh, 4.8rem) 0 clamp(2.75rem, 5vh, 3.8rem);
+  gap: clamp(0.8rem, 1.7vw, 1.25rem);
+}
+
 .gaseste-terra-layout {
-  grid-template-columns: minmax(280px, 0.76fr) minmax(420px, 1.24fr);
+  grid-template-columns: minmax(290px, 0.8fr) minmax(460px, 1.2fr);
   align-items: start;
 }
 
 .gt-copy-pane {
-  gap: 1rem;
+  gap: 0.9rem;
+  padding-top: 0.18rem;
 }
 
-.gt-objective-card,
-.gt-note-card {
-  padding: 0.95rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.gt-objective-card {
+  padding: 1rem 1.05rem 1.05rem;
+  border: 1px solid var(--surface-secondary-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background: linear-gradient(180deg, var(--surface-secondary-fill-strong), transparent 18%), var(--surface-secondary-fill);
+  box-shadow: var(--surface-secondary-shadow);
+}
+
+.gt-note-card {
+  padding: 0.85rem 0.95rem;
+  border-top: 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-quiet-border);
+  background: var(--surface-quiet-fill);
 }
 
 .gt-panel-kicker {
@@ -1693,7 +1787,7 @@ body.story-scroll-snap .panel {
   font-size: 0.66rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--text-soft);
 }
 
 .gt-objective-card h3 {
@@ -1705,15 +1799,15 @@ body.story-scroll-snap .panel {
 
 .gt-side-grid {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.58rem;
 }
 
 .gt-stage {
-  gap: 1rem;
+  gap: 0.72rem;
 }
 
 .gt-viewer {
-  min-height: clamp(30rem, 60vw, 42rem);
+  min-height: clamp(26rem, 50vw, 35rem);
   background: radial-gradient(circle at 18% 18%, rgba(136, 180, 226, 0.22), transparent 36%), radial-gradient(circle at 82% 82%, rgba(255, 255, 255, 0.06), transparent 42%), url("../assets/images/starfield-eso-allsky.jpg"), linear-gradient(180deg, rgba(5, 10, 18, 0.98), rgba(2, 5, 9, 0.99));
   background-size: auto, auto, cover, auto;
 }
@@ -1733,10 +1827,10 @@ body.story-scroll-snap .panel {
   z-index: 10;
   display: grid;
   place-items: center;
-  gap: 0.85rem;
-  padding: 2rem;
+  gap: 0.65rem;
+  padding: 1.6rem;
   text-align: center;
-  background: rgba(4, 8, 14, 0.92);
+  background: rgba(4, 8, 14, 0.88);
 }
 
 .gt-loading[hidden] {
@@ -1745,14 +1839,14 @@ body.story-scroll-snap .panel {
 
 .gt-loading-label {
   margin: 0;
-  font-size: clamp(1rem, 1vw + 0.9rem, 1.3rem);
+  font-size: clamp(0.95rem, 0.7vw + 0.9rem, 1.14rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--section-text);
 }
 
 .gt-progress-track {
-  width: min(360px, 100% - 2rem);
+  width: min(300px, 100% - 2rem);
   height: 6px;
   border-radius: 999px;
   overflow: hidden;
@@ -1802,19 +1896,19 @@ body.story-scroll-snap .panel {
 .gt-direction {
   position: absolute;
   z-index: 7;
-  width: min(300px, 100% - 2rem);
-  padding: 0.78rem 0.88rem;
+  width: min(280px, 100% - 2rem);
+  padding: 0.68rem 0.78rem;
   pointer-events: none;
 }
 
 .gt-hint {
-  top: 3.2rem;
+  top: 3rem;
   left: 1rem;
 }
 
 .gt-direction {
-  right: 1rem;
-  bottom: 5.4rem;
+  right: 0.9rem;
+  bottom: 4.55rem;
 }
 
 .gt-hint-step,
@@ -1822,21 +1916,21 @@ body.story-scroll-snap .panel {
 .gt-minimap-label {
   margin: 0 0 0.28rem;
   font-family: "Space Mono", monospace;
-  font-size: 0.64rem;
+  font-size: 0.6rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--helper-text);
 }
 
 .gt-hint-text,
 .gt-direction-text {
-  font-size: 0.82rem;
-  line-height: 1.55;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .gt-direction-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.18;
   letter-spacing: -0.03em;
   color: var(--section-text);
@@ -1844,25 +1938,25 @@ body.story-scroll-snap .panel {
 
 .gt-minimap {
   position: absolute;
-  top: 3.2rem;
-  right: 1rem;
+  top: 3rem;
+  right: 0.9rem;
   z-index: 7;
-  width: 138px;
-  height: 138px;
+  width: 124px;
+  height: 124px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(5, 10, 18, 0.82);
+  border: 1px solid var(--surface-quiet-border);
+  background: rgba(5, 10, 18, 0.72);
   overflow: hidden;
   pointer-events: none;
 }
 
 .gt-minimap-label {
   position: absolute;
-  top: calc(3.2rem + 138px + 0.32rem);
-  right: 1rem;
-  width: 138px;
+  top: calc(3rem + 124px + 0.28rem);
+  right: 0.9rem;
+  width: 124px;
   text-align: center;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .gt-finale {
@@ -1910,30 +2004,33 @@ body.story-scroll-snap .panel {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .gt-toolbar-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
+  gap: 0.45rem;
+  margin-left: auto;
 }
 
 #gt-speed,
 #gt-distance {
   display: inline-flex;
   align-items: center;
-  min-height: 2.2rem;
-  padding: 0.45rem 0.72rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 2rem;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--surface-quiet-border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-quiet-fill);
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 @media (max-width: 1120px) {
@@ -1967,17 +2064,17 @@ body.story-scroll-snap .panel {
     width: calc(100% - 2rem);
   }
   .gt-minimap {
-    width: 104px;
-    height: 104px;
+    width: 96px;
+    height: 96px;
   }
   .gt-minimap-label {
-    top: calc(3.2rem + 104px + 0.3rem);
-    width: 104px;
+    top: calc(3rem + 96px + 0.28rem);
+    width: 96px;
   }
   .gt-direction {
     left: 1rem;
     right: 1rem;
-    bottom: 5.2rem;
+    bottom: 4.1rem;
   }
   .gt-toolbar {
     flex-direction: column;
@@ -1997,9 +2094,10 @@ body.story-scroll-snap .panel {
   padding: clamp(1rem, 2.2vw, 1.5rem);
   display: grid;
   gap: 0.9rem;
-  border: 1px solid var(--section-line);
+  border: 1px solid var(--surface-secondary-border);
   border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 18%), var(--section-surface);
+  background: linear-gradient(180deg, var(--surface-secondary-fill-strong), transparent 18%), var(--section-surface);
+  box-shadow: var(--surface-secondary-shadow);
 }
 
 #quiz-progress,
@@ -2016,8 +2114,8 @@ body.story-scroll-snap .panel {
   width: fit-content;
   padding: 0.34rem 0.56rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--text-soft);
+  border: 1px solid var(--surface-quiet-border);
+  color: var(--helper-text);
   font-size: 0.68rem;
 }
 
@@ -2026,8 +2124,8 @@ body.story-scroll-snap .panel {
   width: fit-content;
   padding: 0.34rem 0.56rem;
   border-radius: 999px;
-  border: 1px solid var(--section-line);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--surface-quiet-border);
+  background: var(--surface-quiet-fill);
   color: var(--section-accent);
   font-size: 0.68rem;
 }
@@ -2055,16 +2153,16 @@ body.story-scroll-snap .panel {
 
 .quiz-stats div {
   padding: 0.62rem 0.68rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-quiet-fill);
   display: grid;
   gap: 0.2rem;
 }
 
 .quiz-stats span {
   font-size: 0.62rem;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .quiz-stats strong {
@@ -2085,9 +2183,9 @@ body.story-scroll-snap .panel {
 #quiz-answer,
 .quiz-option {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-quiet-fill);
   color: var(--section-text);
 }
 
@@ -2123,8 +2221,8 @@ body.story-scroll-snap .panel {
 .quiz-option:focus-visible,
 .quiz-option.is-selected {
   transform: translateY(-1px);
-  border-color: var(--section-line);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-secondary-fill-strong);
 }
 
 .quiz-actions {
@@ -2144,8 +2242,8 @@ body.story-scroll-snap .panel {
 .quiz-explanation {
   margin: 0;
   padding-left: 0.8rem;
-  border-left: 1px solid var(--section-line);
-  color: var(--text-muted);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--helper-text);
   line-height: 1.68;
 }
 
@@ -2169,8 +2267,8 @@ body.story-scroll-snap .panel {
 
 .quiz-review-item {
   padding: 0.72rem 0.82rem;
-  border-left: 2px solid var(--section-accent);
-  background: rgba(255, 255, 255, 0.03);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--surface-quiet-fill);
 }
 
 .quiz-review-item p {
@@ -2204,7 +2302,7 @@ body.story-scroll-snap .panel {
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 .hero::before {
@@ -2248,23 +2346,25 @@ body.story-scroll-snap .panel {
 
 .hero-subtitle {
   margin: 0;
-  max-width: 24ch;
+  max-width: 22ch;
   font-size: clamp(1.15rem, 1vw + 1rem, 1.75rem);
-  line-height: 1.15;
+  line-height: 1.1;
   letter-spacing: -0.03em;
   color: rgba(240, 245, 251, 0.92);
 }
 
 .hero-context {
   margin: 0;
-  max-width: 36ch;
+  max-width: 34ch;
   color: rgba(213, 225, 239, 0.76);
   font-size: clamp(1rem, 0.3vw + 0.95rem, 1.12rem);
-  line-height: 1.7;
+  line-height: 1.64;
 }
 
 .scroll-cue {
-  margin-top: 0.35rem;
+  margin-top: 0.55rem;
+  padding-inline: 1.15rem;
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .outro {
@@ -2402,7 +2502,7 @@ body.story-scroll-snap .panel {
 .gt-viewer,
 .quiz-card,
 .credits {
-  transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.55s ease, box-shadow 0.55s ease, background 0.55s ease;
+  transition: opacity 0.48s ease, transform 0.48s ease, border-color 0.48s ease, box-shadow 0.48s ease, background 0.48s ease;
 }
 
 .panel:not(.is-active) .section-head,
@@ -2439,7 +2539,7 @@ body.story-scroll-snap .panel {
 .panel.is-active .quiz-card,
 .panel.is-active .credits {
   opacity: 1;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .quiz-card.is-wrong-shake {

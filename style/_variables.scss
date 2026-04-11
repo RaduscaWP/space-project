@@ -16,6 +16,18 @@
   --wide-width: 1380px;
   --copy-width: 64ch;
   --copy-tight: 46ch;
+  --helper-text: rgba(185, 197, 214, 0.52);
+  --surface-primary-fill: rgba(4, 8, 14, 0.78);
+  --surface-primary-border: rgba(255, 255, 255, 0.14);
+  --surface-primary-shadow: 0 30px 78px rgba(0, 0, 0, 0.38);
+  --surface-secondary-fill: rgba(255, 255, 255, 0.02);
+  --surface-secondary-fill-strong: rgba(255, 255, 255, 0.04);
+  --surface-secondary-border: rgba(255, 255, 255, 0.07);
+  --surface-secondary-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+  --surface-quiet-fill: rgba(255, 255, 255, 0.015);
+  --surface-quiet-fill-strong: rgba(255, 255, 255, 0.028);
+  --surface-quiet-border: rgba(255, 255, 255, 0.05);
+  --surface-quiet-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
   --section-accent: #8fbef8;
   --section-accent-soft: rgba(143, 190, 248, 0.16);
   --section-line: rgba(143, 190, 248, 0.34);
@@ -31,6 +43,18 @@
   --section-surface: rgba(8, 14, 24, 0.84);
   --section-surface-strong: rgba(5, 10, 18, 0.94);
   --section-text: #edf2f7;
+  --helper-text: rgba(185, 197, 214, 0.52);
+  --surface-primary-fill: rgba(4, 8, 14, 0.78);
+  --surface-primary-border: rgba(255, 255, 255, 0.14);
+  --surface-primary-shadow: 0 30px 78px rgba(0, 0, 0, 0.38);
+  --surface-secondary-fill: rgba(255, 255, 255, 0.02);
+  --surface-secondary-fill-strong: rgba(255, 255, 255, 0.04);
+  --surface-secondary-border: rgba(255, 255, 255, 0.07);
+  --surface-secondary-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+  --surface-quiet-fill: rgba(255, 255, 255, 0.015);
+  --surface-quiet-fill-strong: rgba(255, 255, 255, 0.028);
+  --surface-quiet-border: rgba(255, 255, 255, 0.05);
+  --surface-quiet-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
 }
 
 #hero,

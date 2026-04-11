@@ -8,10 +8,10 @@
 .voyager-viewer,
 .gt-viewer {
   position: relative;
-  border: 1px solid var(--section-line);
+  border: 1px solid var(--surface-primary-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--surface-primary-shadow);
 }
 
 #solar-canvas-wrap {
@@ -75,10 +75,10 @@
 .earth-kepler-expand,
 .gt-expand {
   position: absolute;
-  top: 0.95rem;
-  right: 0.95rem;
+  top: 0.85rem;
+  right: 0.85rem;
   z-index: 8;
-  padding: 0.52rem 0.78rem;
+  padding: 0.44rem 0.68rem;
 }
 
 .solar-mode-chip,
@@ -86,19 +86,20 @@
 .earth-kepler-mode-chip,
 .gt-mode-chip {
   position: absolute;
-  top: 0.95rem;
-  left: 0.95rem;
+  top: 0.85rem;
+  left: 0.85rem;
   z-index: 8;
   margin: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-quiet-border);
   border-radius: 999px;
-  background: rgba(5, 7, 11, 0.72);
-  color: rgba(244, 240, 235, 0.84);
+  background: rgba(5, 7, 11, 0.56);
+  color: var(--helper-text);
   font-family: "Space Mono", monospace;
-  font-size: 0.66rem;
+  font-size: 0.6rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.32rem 0.54rem;
+  padding: 0.28rem 0.5rem;
+  backdrop-filter: blur(12px);
   pointer-events: none;
 }
 
@@ -169,19 +170,49 @@
 }
 
 .planet-panel,
-.earth-kepler-info-panel,
+.earth-kepler-info-panel {
+  display: grid;
+  align-content: start;
+  gap: 0.95rem;
+  padding: clamp(1rem, 2.2vw, 1.3rem);
+  border: 1px solid var(--surface-secondary-border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, var(--surface-secondary-fill-strong), transparent 18%),
+    var(--section-surface);
+  box-shadow: var(--surface-secondary-shadow);
+}
+
 .earth-kepler-feature,
 .voyager-stage,
 .gt-stage {
   display: grid;
   align-content: start;
-  gap: 0.95rem;
-  padding: clamp(1rem, 2.4vw, 1.4rem);
-  border: 1px solid var(--section-line);
-  border-radius: var(--radius-lg);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 22%),
-    var(--section-surface);
+  gap: 0.78rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.planet-panel-main,
+.planet-panel-support,
+.planet-panel-helper,
+.earth-kepler-info-head,
+.earth-kepler-info-body,
+.earth-kepler-feature-support,
+.voyager-support,
+.gt-support {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.planet-panel-helper,
+.earth-kepler-info-body,
+.earth-kepler-feature-support,
+.voyager-support,
+.gt-support {
+  padding-top: 0.72rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .planet-panel h3 {
@@ -199,6 +230,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--section-accent);
+  opacity: 0.78;
 }
 
 .planet-panel p,
@@ -218,24 +250,24 @@
 }
 
 .planet-description {
-  line-height: 1.7;
+  line-height: 1.64;
 }
 
 .planet-facts {
-  margin: 0.15rem 0 0;
+  margin: 0.05rem 0 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .planet-facts div,
 .planet-compare-facts div {
   display: grid;
   gap: 0.24rem;
-  padding: 0.72rem 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.64rem 0.72rem;
+  border: 1px solid var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-quiet-fill);
 }
 
 .planet-facts dt,
@@ -244,23 +276,24 @@
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .planet-facts dd,
 .planet-compare-facts dd {
   margin: 0;
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   color: var(--section-text);
 }
 
 .planet-structure-box {
   display: grid;
-  gap: 0.42rem;
-  padding: 0.8rem 0.86rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 0.36rem;
+  padding: 0.72rem 0.78rem;
+  border: 1px solid var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background:
+    linear-gradient(180deg, var(--surface-quiet-fill-strong), var(--surface-quiet-fill));
 }
 
 .planet-structure-title {
@@ -269,7 +302,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--text-soft);
 }
 
 .planet-structure-summary {
@@ -282,11 +315,11 @@
 .earth-kepler-layer-panel,
 .voyager-part-panel {
   position: absolute;
-  top: 3.2rem;
-  left: 1rem;
+  top: 3rem;
+  left: 0.9rem;
   z-index: 8;
-  width: min(380px, calc(100% - 2rem));
-  padding: 0.82rem 0.9rem;
+  width: min(340px, calc(100% - 1.8rem));
+  padding: 0.76rem 0.82rem;
 }
 
 .solar-layer-panel h4,
@@ -303,8 +336,8 @@
 .voyager-part-panel p {
   margin: 0.32rem 0 0;
   color: var(--text-muted);
-  font-size: 0.82rem;
-  line-height: 1.55;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .solar-layer-panel[hidden],
@@ -317,16 +350,29 @@
 .earth-kepler-disassembly-hint,
 #voyager-explode-hint {
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--helper-text);
+}
+
+.planet-extra {
+  font-size: 0.94rem;
+  line-height: 1.56;
+}
+
+.planet-panel-helper .ghost-button {
+  justify-self: start;
 }
 
 .planet-table-wrap {
   padding: 1rem 1.05rem;
-  border: 1px solid var(--section-line);
+  border: 1px solid var(--surface-secondary-border);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.03);
+  background:
+    linear-gradient(180deg, var(--surface-secondary-fill-strong), transparent 18%),
+    var(--surface-secondary-fill);
+  box-shadow: var(--surface-secondary-shadow);
   overflow-x: auto;
 }
 
@@ -384,7 +430,7 @@
 .earth-kepler-selectors {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.7rem;
+  gap: 0.6rem;
 }
 
 .earth-kepler-select-btn {
@@ -392,9 +438,9 @@
   gap: 0.52rem;
   text-align: left;
   color: var(--section-text);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-secondary-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface-quiet-fill);
   padding: 0.62rem;
   cursor: pointer;
   transition:
@@ -408,17 +454,17 @@
 .earth-kepler-select-btn:focus-visible,
 .earth-kepler-select-btn.is-active {
   transform: translateY(-1px);
-  border-color: var(--section-line);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--surface-secondary-fill-strong);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 .earth-kepler-select-visual {
   position: relative;
-  min-height: 120px;
+  min-height: 112px;
   border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-quiet-border);
   background:
     radial-gradient(circle at 18% 18%, rgba(150, 214, 196, 0.22), transparent 48%),
     url("../assets/images/starfield-eso-allsky.jpg"),
@@ -456,11 +502,11 @@
 }
 
 .earth-kepler-facts-list li {
-  padding: 0.72rem 0.82rem;
-  border-left: 2px solid var(--section-accent);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text-muted);
-  line-height: 1.58;
+  padding: 0.66rem 0 0.18rem 0.82rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(90deg, var(--surface-quiet-fill-strong), transparent 68%);
+  color: rgba(222, 229, 238, 0.72);
+  line-height: 1.54;
 }
 
 .earth-kepler-feature.is-switching {
@@ -487,10 +533,11 @@
 .gt-viewer-overlay {
   position: absolute;
   left: 1rem;
-  right: 1rem;
+  right: auto;
   bottom: 1rem;
   z-index: 7;
-  padding: 0.8rem 0.9rem;
+  max-width: min(420px, calc(100% - 2rem));
+  padding: 0.74rem 0.84rem;
 }
 
 .planet-compare-overlay h3,
@@ -506,16 +553,16 @@
 .gt-viewer-overlay p {
   margin: 0.25rem 0 0;
   font-family: "Space Mono", monospace;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .planet-compare-facts {
   margin: 0;
   display: grid;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .planet-compare-facts-featured {
@@ -547,7 +594,7 @@
 }
 
 #voyager .content-pane {
-  padding-top: clamp(2rem, 8vh, 6rem);
+  padding-top: clamp(1.4rem, 6vh, 4rem);
 }
 
 .voyager-viewer {
@@ -571,20 +618,20 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.72rem;
+  gap: 0.58rem;
 }
 
 .voyager-controls .ghost-button {
-  padding: 0.62rem 0.92rem;
+  padding: 0.56rem 0.82rem;
 }
 
 #interstellar-status {
   margin: 0 0 0 auto;
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--helper-text);
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -598,28 +645,28 @@
 .voyager-badges {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.85rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--section-line);
+  gap: 0.65rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .voyager-badges div {
-  padding-top: 0.65rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .voyager-badges span {
   display: block;
   margin-bottom: 0.2rem;
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .voyager-badges strong {
-  font-size: 1rem;
+  font-size: 0.94rem;
   font-weight: 700;
   color: var(--section-text);
 }
@@ -630,13 +677,13 @@
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 9;
-  padding: 0.46rem 0.74rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 0.42rem 0.68rem;
+  border: 1px solid var(--surface-quiet-border);
   border-radius: 999px;
-  background: rgba(4, 6, 10, 0.82);
-  color: var(--text);
+  background: rgba(4, 6, 10, 0.68);
+  color: var(--helper-text);
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   pointer-events: none;
@@ -648,11 +695,13 @@
 }
 
 .voyager-fallback {
-  padding: 0.82rem 0.9rem;
-  border: 1px dashed rgba(255, 255, 255, 0.14);
+  padding: 0.72rem 0.78rem;
+  border: 1px dashed var(--surface-quiet-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.02);
-  line-height: 1.62;
+  background: var(--surface-quiet-fill);
+  color: var(--helper-text);
+  font-size: 0.88rem;
+  line-height: 1.58;
 }
 
 .modal {
@@ -711,21 +760,39 @@
   font-size: 0.72rem;
 }
 
+#gaseste-terra.panel {
+  min-height: auto;
+  justify-content: flex-start;
+  padding: clamp(3.35rem, 7vh, 4.8rem) 0 clamp(2.75rem, 5vh, 3.8rem);
+  gap: clamp(0.8rem, 1.7vw, 1.25rem);
+}
+
 .gaseste-terra-layout {
-  grid-template-columns: minmax(280px, 0.76fr) minmax(420px, 1.24fr);
+  grid-template-columns: minmax(290px, 0.8fr) minmax(460px, 1.2fr);
   align-items: start;
 }
 
 .gt-copy-pane {
-  gap: 1rem;
+  gap: 0.9rem;
+  padding-top: 0.18rem;
 }
 
-.gt-objective-card,
-.gt-note-card {
-  padding: 0.95rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.gt-objective-card {
+  padding: 1rem 1.05rem 1.05rem;
+  border: 1px solid var(--surface-secondary-border);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background:
+    linear-gradient(180deg, var(--surface-secondary-fill-strong), transparent 18%),
+    var(--surface-secondary-fill);
+  box-shadow: var(--surface-secondary-shadow);
+}
+
+.gt-note-card {
+  padding: 0.85rem 0.95rem;
+  border-top: 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-quiet-border);
+  background: var(--surface-quiet-fill);
 }
 
 .gt-panel-kicker {
@@ -734,7 +801,7 @@
   font-size: 0.66rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--text-soft);
 }
 
 .gt-objective-card h3 {
@@ -746,15 +813,15 @@
 
 .gt-side-grid {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.58rem;
 }
 
 .gt-stage {
-  gap: 1rem;
+  gap: 0.72rem;
 }
 
 .gt-viewer {
-  min-height: clamp(30rem, 60vw, 42rem);
+  min-height: clamp(26rem, 50vw, 35rem);
   background:
     radial-gradient(circle at 18% 18%, rgba(136, 180, 226, 0.22), transparent 36%),
     radial-gradient(circle at 82% 82%, rgba(255, 255, 255, 0.06), transparent 42%),
@@ -778,10 +845,10 @@
   z-index: 10;
   display: grid;
   place-items: center;
-  gap: 0.85rem;
-  padding: 2rem;
+  gap: 0.65rem;
+  padding: 1.6rem;
   text-align: center;
-  background: rgba(4, 8, 14, 0.92);
+  background: rgba(4, 8, 14, 0.88);
 }
 
 .gt-loading[hidden] {
@@ -790,14 +857,14 @@
 
 .gt-loading-label {
   margin: 0;
-  font-size: clamp(1rem, 1vw + 0.9rem, 1.3rem);
+  font-size: clamp(0.95rem, 0.7vw + 0.9rem, 1.14rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--section-text);
 }
 
 .gt-progress-track {
-  width: min(360px, calc(100% - 2rem));
+  width: min(300px, calc(100% - 2rem));
   height: 6px;
   border-radius: 999px;
   overflow: hidden;
@@ -847,19 +914,19 @@
 .gt-direction {
   position: absolute;
   z-index: 7;
-  width: min(300px, calc(100% - 2rem));
-  padding: 0.78rem 0.88rem;
+  width: min(280px, calc(100% - 2rem));
+  padding: 0.68rem 0.78rem;
   pointer-events: none;
 }
 
 .gt-hint {
-  top: 3.2rem;
+  top: 3rem;
   left: 1rem;
 }
 
 .gt-direction {
-  right: 1rem;
-  bottom: 5.4rem;
+  right: 0.9rem;
+  bottom: 4.55rem;
 }
 
 .gt-hint-step,
@@ -867,21 +934,21 @@
 .gt-minimap-label {
   margin: 0 0 0.28rem;
   font-family: "Space Mono", monospace;
-  font-size: 0.64rem;
+  font-size: 0.6rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--section-accent);
+  color: var(--helper-text);
 }
 
 .gt-hint-text,
 .gt-direction-text {
-  font-size: 0.82rem;
-  line-height: 1.55;
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
 
 .gt-direction-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.18;
   letter-spacing: -0.03em;
   color: var(--section-text);
@@ -889,25 +956,25 @@
 
 .gt-minimap {
   position: absolute;
-  top: 3.2rem;
-  right: 1rem;
+  top: 3rem;
+  right: 0.9rem;
   z-index: 7;
-  width: 138px;
-  height: 138px;
+  width: 124px;
+  height: 124px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(5, 10, 18, 0.82);
+  border: 1px solid var(--surface-quiet-border);
+  background: rgba(5, 10, 18, 0.72);
   overflow: hidden;
   pointer-events: none;
 }
 
 .gt-minimap-label {
   position: absolute;
-  top: calc(3.2rem + 138px + 0.32rem);
-  right: 1rem;
-  width: 138px;
+  top: calc(3rem + 124px + 0.28rem);
+  right: 0.9rem;
+  width: 124px;
   text-align: center;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 .gt-finale {
@@ -955,30 +1022,33 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--surface-quiet-border);
 }
 
 .gt-toolbar-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
+  gap: 0.45rem;
+  margin-left: auto;
 }
 
 #gt-speed,
 #gt-distance {
   display: inline-flex;
   align-items: center;
-  min-height: 2.2rem;
-  padding: 0.45rem 0.72rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 2rem;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--surface-quiet-border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-quiet-fill);
   font-family: "Space Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--helper-text);
 }
 
 @media (max-width: 1120px) {
@@ -1017,19 +1087,19 @@
   }
 
   .gt-minimap {
-    width: 104px;
-    height: 104px;
+    width: 96px;
+    height: 96px;
   }
 
   .gt-minimap-label {
-    top: calc(3.2rem + 104px + 0.3rem);
-    width: 104px;
+    top: calc(3rem + 96px + 0.28rem);
+    width: 96px;
   }
 
   .gt-direction {
     left: 1rem;
     right: 1rem;
-    bottom: 5.2rem;
+    bottom: 4.1rem;
   }
 
   .gt-toolbar {

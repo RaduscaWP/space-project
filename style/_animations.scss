@@ -109,11 +109,11 @@
 .quiz-card,
 .credits {
   transition:
-    opacity 0.55s ease,
-    transform 0.55s ease,
-    border-color 0.55s ease,
-    box-shadow 0.55s ease,
-    background 0.55s ease;
+    opacity 0.48s ease,
+    transform 0.48s ease,
+    border-color 0.48s ease,
+    box-shadow 0.48s ease,
+    background 0.48s ease;
 }
 
 .panel:not(.is-active) .section-head,
@@ -150,7 +150,7 @@
 .panel.is-active .quiz-card,
 .panel.is-active .credits {
   opacity: 1;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .quiz-card.is-wrong-shake {
