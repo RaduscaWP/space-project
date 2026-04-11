@@ -1,15 +1,86 @@
-$bg: #020408;
-$bg-soft: #050b18;
-$text: #e8eaf0;
-$accent: #4fc3f7;
-$accent-warm: #e8d5b7;
-$glow: rgba(79, 195, 247, 0.15);
-
 :root {
-  --bg: #{$bg};
-  --bg-soft: #{$bg-soft};
-  --text: #{$text};
-  --accent: #{$accent};
-  --accent-warm: #{$accent-warm};
-  --glow: #{$glow};
+  --bg: #020408;
+  --bg-deep: #060b14;
+  --bg-soft: #0b111c;
+  --text: #edf2f7;
+  --text-muted: rgba(222, 229, 238, 0.76);
+  --text-soft: rgba(185, 197, 214, 0.58);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.28);
+  --shadow-strong: 0 42px 96px rgba(0, 0, 0, 0.46);
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 42px;
+  --max-width: 1160px;
+  --wide-width: 1380px;
+  --copy-width: 64ch;
+  --copy-tight: 46ch;
+  --section-accent: #8fbef8;
+  --section-accent-soft: rgba(143, 190, 248, 0.16);
+  --section-line: rgba(143, 190, 248, 0.34);
+  --section-surface: rgba(8, 14, 24, 0.84);
+  --section-surface-strong: rgba(5, 10, 18, 0.94);
+  --section-text: #edf2f7;
+}
+
+.panel {
+  --section-accent: #8fbef8;
+  --section-accent-soft: rgba(143, 190, 248, 0.16);
+  --section-line: rgba(143, 190, 248, 0.34);
+  --section-surface: rgba(8, 14, 24, 0.84);
+  --section-surface-strong: rgba(5, 10, 18, 0.94);
+  --section-text: #edf2f7;
+}
+
+#hero,
+#universe {
+  --section-accent: #8ebeff;
+  --section-accent-soft: rgba(142, 190, 255, 0.18);
+  --section-line: rgba(142, 190, 255, 0.32);
+  --section-surface: rgba(8, 14, 26, 0.76);
+  --section-surface-strong: rgba(4, 8, 16, 0.94);
+}
+
+#galaxies,
+#milkyway {
+  --section-accent: #c7d6ef;
+  --section-accent-soft: rgba(199, 214, 239, 0.14);
+  --section-line: rgba(199, 214, 239, 0.26);
+  --section-surface: rgba(12, 15, 22, 0.84);
+  --section-surface-strong: rgba(6, 9, 14, 0.96);
+}
+
+#solar-system {
+  --section-accent: #f2c26f;
+  --section-accent-soft: rgba(242, 194, 111, 0.18);
+  --section-line: rgba(242, 194, 111, 0.28);
+  --section-surface: rgba(18, 13, 8, 0.82);
+  --section-surface-strong: rgba(8, 6, 4, 0.95);
+}
+
+#earth-kepler {
+  --section-accent: #96d6c4;
+  --section-accent-soft: rgba(150, 214, 196, 0.18);
+  --section-line: rgba(150, 214, 196, 0.28);
+  --section-surface: rgba(6, 16, 17, 0.84);
+  --section-surface-strong: rgba(3, 9, 10, 0.95);
+}
+
+#voyager,
+#outro {
+  --section-accent: #d3b791;
+  --section-accent-soft: rgba(211, 183, 145, 0.16);
+  --section-line: rgba(211, 183, 145, 0.28);
+  --section-surface: rgba(14, 12, 10, 0.84);
+  --section-surface-strong: rgba(8, 7, 6, 0.96);
+}
+
+#gaseste-terra,
+#quiz {
+  --section-accent: #88b4e2;
+  --section-accent-soft: rgba(136, 180, 226, 0.16);
+  --section-line: rgba(136, 180, 226, 0.28);
+  --section-surface: rgba(8, 13, 21, 0.84);
+  --section-surface-strong: rgba(4, 8, 14, 0.95);
 }
