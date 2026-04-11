@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(wc -l \"/c/Users/GZv0x00/OneDrive/Desktop/Elaborare Software/Projects/js\"/*.js)"
+      "Bash(wc -l \"/c/Users/GZv0x00/OneDrive/Desktop/Elaborare Software/Projects/js\"/*.js)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }
