@@ -1,8 +1,9 @@
 import { initStarfield } from "./starfield.js";
 import { initMilkyWay } from "./milkyway.js";
 import { initSolarSystem } from "./solar-system.js?v=20260409g";
-import { initEarthKeplerComparison } from "./earth-kepler.js?v=20260410n";
+import { initEarthKeplerComparison } from "./earth-kepler.js?v=20260411a";
 import { initVoyager } from "./voyager.js";
+import { initGasesteTerra } from "./gaseste-terra.js";
 import { initQuiz } from "./quiz.js";
 
 if ("scrollRestoration" in window.history) {
@@ -27,6 +28,7 @@ function boot() {
   safeInit("solar-system", initSolarSystem);
   safeInit("earth-kepler", initEarthKeplerComparison);
   safeInit("voyager", initVoyager);
+  safeInit("gaseste-terra", initGasesteTerra);
   safeInit("quiz", initQuiz);
 }
 
@@ -36,7 +38,9 @@ function initGalaxyShowcase() {
   const previewImage = document.getElementById("galaxy-preview-image");
   const previewType = document.getElementById("galaxy-preview-type");
   const previewCaption = document.getElementById("galaxy-preview-caption");
-  const previewDescription = document.getElementById("galaxy-preview-description");
+  const previewDescription = document.getElementById(
+    "galaxy-preview-description",
+  );
   const previewFacts = document.getElementById("galaxy-preview-facts");
   const previewSource = document.getElementById("galaxy-preview-source");
   const infoToggle = document.getElementById("galaxy-info-toggle");
@@ -81,13 +85,16 @@ function initGalaxyShowcase() {
     previewType.textContent = card.dataset.type || "";
     previewCaption.textContent = card.dataset.caption || "";
     previewDescription.textContent = card.dataset.description || "";
-    previewSource.textContent = card.dataset.source || "Imagine: NASA/ESA/Hubble";
+    previewSource.textContent =
+      card.dataset.source || "Imagine: NASA/ESA/Hubble";
 
     const facts = (card.dataset.facts || "")
       .split("|")
       .map((fact) => fact.trim())
       .filter(Boolean);
-    previewFacts.innerHTML = facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("");
+    previewFacts.innerHTML = facts
+      .map((fact) => `<li>${escapeHtml(fact)}</li>`)
+      .join("");
 
     previewImage.classList.add("is-changing");
     if (swapTimer) window.clearTimeout(swapTimer);
@@ -110,7 +117,9 @@ function initGalaxyShowcase() {
     card.addEventListener("click", () => setActiveCard(card));
   });
 
-  setActiveCard(cards.find((card) => card.classList.contains("is-active")) || cards[0]);
+  setActiveCard(
+    cards.find((card) => card.classList.contains("is-active")) || cards[0],
+  );
   setInfoOpen(false);
 }
 
@@ -154,7 +163,9 @@ function initScrollReveals() {
   const revealItems = Array.from(document.querySelectorAll(".js-reveal"));
   if (!revealItems.length) return;
 
-  const hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
+  const hasGsap =
+    typeof window.gsap !== "undefined" &&
+    typeof window.ScrollTrigger !== "undefined";
 
   if (!hasGsap) {
     revealItems.forEach((item, index) => {
@@ -179,9 +190,9 @@ function initScrollReveals() {
         onComplete: () => item.classList.add("in-view"),
         scrollTrigger: {
           trigger: item,
-          start: "top 86%"
-        }
-      }
+          start: "top 86%",
+        },
+      },
     );
   });
 }
@@ -191,12 +202,18 @@ function initStoryScrollTransitions() {
   if (panels.length < 2) return;
 
   const reduceMotionQuery =
-    typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    typeof window.matchMedia === "function"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)")
+      : null;
   const reducedMotion = Boolean(reduceMotionQuery && reduceMotionQuery.matches);
 
   const finePointerQuery =
-    typeof window.matchMedia === "function" ? window.matchMedia("(pointer: fine)") : null;
-  const prefersFinePointer = Boolean(finePointerQuery && finePointerQuery.matches);
+    typeof window.matchMedia === "function"
+      ? window.matchMedia("(pointer: fine)")
+      : null;
+  const prefersFinePointer = Boolean(
+    finePointerQuery && finePointerQuery.matches,
+  );
   const desktopViewport = window.innerWidth >= 980;
 
   document.body.classList.remove("story-scroll-snap");
@@ -204,7 +221,9 @@ function initStoryScrollTransitions() {
     document.body.classList.add("story-scroll-snap");
   }
 
-  const hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
+  const hasGsap =
+    typeof window.gsap !== "undefined" &&
+    typeof window.ScrollTrigger !== "undefined";
   if (!hasGsap || reducedMotion) return;
 
   window.gsap.registerPlugin(window.ScrollTrigger);
@@ -212,7 +231,48 @@ function initStoryScrollTransitions() {
     window.gsap.set(panel, { willChange: "transform, opacity" });
   });
 
+  const depthSelector = [
+    ".universe-visual",
+    ".galaxy-preview",
+    ".milkyway-map",
+    "#solar-canvas-wrap",
+    ".planet-compare-stage",
+    ".voyager-viewer",
+    ".gt-viewer",
+  ].join(", ");
+
   panels.forEach((panel, index) => {
+    window.ScrollTrigger.create({
+      trigger: panel,
+      start: "top 58%",
+      end: "bottom 42%",
+      onToggle: (trigger) => {
+        panel.classList.toggle("is-active", trigger.isActive);
+      },
+    });
+
+    const depthTargets = panel.querySelectorAll(depthSelector);
+    depthTargets.forEach((target) => {
+      window.gsap.fromTo(
+        target,
+        {
+          yPercent: -1.4,
+          scale: 0.99,
+        },
+        {
+          yPercent: 1.4,
+          scale: 1.01,
+          ease: "none",
+          scrollTrigger: {
+            trigger: panel,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.1,
+          },
+        },
+      );
+    });
+
     if (index === 0) return;
     const previousPanel = panels[index - 1];
 
@@ -221,7 +281,7 @@ function initStoryScrollTransitions() {
       {
         autoAlpha: 0.66,
         yPercent: 5,
-        scale: 0.985
+        scale: 0.985,
       },
       {
         autoAlpha: 1,
@@ -232,16 +292,16 @@ function initStoryScrollTransitions() {
           trigger: panel,
           start: "top 92%",
           end: "top 44%",
-          scrub: 0.85
-        }
-      }
+          scrub: 0.85,
+        },
+      },
     );
 
     window.gsap.fromTo(
       previousPanel,
       {
         autoAlpha: 1,
-        scale: 1
+        scale: 1,
       },
       {
         autoAlpha: 0.86,
@@ -251,9 +311,9 @@ function initStoryScrollTransitions() {
           trigger: panel,
           start: "top 92%",
           end: "top 44%",
-          scrub: 0.85
-        }
-      }
+          scrub: 0.85,
+        },
+      },
     );
   });
 }

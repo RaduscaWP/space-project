@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"/c/Users/GZv0x00/OneDrive/Desktop/Elaborare Software/Projects/js\"/*.js)"
+    ]
+  }
+}

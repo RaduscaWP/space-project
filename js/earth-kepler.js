@@ -18,14 +18,14 @@ const PLANETS = {
       ["Diametru", "12.742 km"],
       ["Distanta fata de stea", "1 AU"],
       ["Perioada orbitala", "365 zile"],
-      ["Temperatura medie", "15 C"]
+      ["Temperatura medie", "15 C"],
     ],
     facts: [
       "Pamantul nu este perfect rotund. Este turtit la poli si umflat la ecuator din cauza rotatiei.",
       "O zi siderala nu dureaza 24 ore. Are 23 ore, 56 minute si 4 secunde.",
       "Pamantul se indeparteaza de Luna cu ~3.8 cm pe an. In viitorul indepartat eclipsele totale devin imposibile.",
       "Miezul Pamantului are temperaturi apropiate de suprafata Soarelui, in jur de 5.500 C.",
-      "Pamantul este singurul corp cunoscut cu placi tectonice active. Fara ele, viata complexa ar fi fost mult mai putin probabila."
+      "Pamantul este singurul corp cunoscut cu placi tectonice active. Fara ele, viata complexa ar fi fost mult mai putin probabila.",
     ],
     layers: [
       {
@@ -42,8 +42,7 @@ const PLANETS = {
         metalness: 0.01,
         depthScale: 0.58,
         palette: [0x8b7049, 0xb3915d, 0xd0b77d, 0x6c583a],
-        info:
-          "Scoarta e extrem de subtire: ~30 km din 6371 km raza medie. Proportional, mai subtire decat coaja unui mar raportata la fruct."
+        info: "Scoarta e extrem de subtire: ~30 km din 6371 km raza medie. Proportional, mai subtire decat coaja unui mar raportata la fruct.",
       },
       {
         id: "earth-upper-mantle",
@@ -59,8 +58,7 @@ const PLANETS = {
         metalness: 0.03,
         depthScale: 0.56,
         palette: [0x692414, 0xbb3b1e, 0xe3692e, 0x35120c],
-        info:
-          "Placi tectonice intregi aluneca pe aceasta zona plastica si schimba fata planetei prin cutremure, vulcani si reciclarea crustei."
+        info: "Placi tectonice intregi aluneca pe aceasta zona plastica si schimba fata planetei prin cutremure, vulcani si reciclarea crustei.",
       },
       {
         id: "earth-lower-mantle",
@@ -76,8 +74,7 @@ const PLANETS = {
         metalness: 0.04,
         depthScale: 0.54,
         palette: [0x3a0708, 0x8e0f12, 0xc32318, 0x170303],
-        info:
-          "Mantia, desi solida, curge lent pe timp geologic. Un circuit convectiv complet al unei roci poate dura 50-100 milioane de ani."
+        info: "Mantia, desi solida, curge lent pe timp geologic. Un circuit convectiv complet al unei roci poate dura 50-100 milioane de ani.",
       },
       {
         id: "earth-outer-core",
@@ -95,8 +92,7 @@ const PLANETS = {
         emissiveIntensity: 0.32,
         depthScale: 0.62,
         palette: [0x8b290c, 0xff8a2f, 0xffbe63, 0xf26f1a],
-        info:
-          "Fierul lichid in miscare genereaza campul magnetic al Pamantului, scutul invizibil care ne protejeaza de radiatiile solare mortale."
+        info: "Fierul lichid in miscare genereaza campul magnetic al Pamantului, scutul invizibil care ne protejeaza de radiatiile solare mortale.",
       },
       {
         id: "earth-inner-core",
@@ -114,15 +110,14 @@ const PLANETS = {
         emissive: 0xfff0a6,
         emissiveIntensity: 0.52,
         palette: [0xe7d59d, 0xfff4bc, 0xffe692, 0xd6bf7a],
-        info:
-          "Mai fierbinte decat suprafata Soarelui. Desi e la 5500 C, presiunea uriasa mentine fierul solid. Conform modelelor, poate contine cristale de fier imense."
-      }
-    ]
+        info: "Mai fierbinte decat suprafata Soarelui. Desi e la 5500 C, presiunea uriasa mentine fierul solid. Conform modelelor, poate contine cristale de fier imense.",
+      },
+    ],
   },
   kepler: {
     key: "kepler",
     name: "Kepler-452b",
-    subtitle: "Textura super-Terra compusa din harti Solar System Scope (CC BY 4.0)",
+    subtitle: "Textura dedicata Kepler-452b din proiect + date NASA",
     radius: 4.48,
     cameraDistance: 14.6,
     spin: 0.17,
@@ -132,14 +127,14 @@ const PLANETS = {
       ["Diametru estimat", "~17.000 km"],
       ["Distanta fata de stea", "1.046 AU"],
       ["Perioada orbitala", "385 zile"],
-      ["Temperatura medie", "Necunoscuta"]
+      ["Temperatura medie", "Necunoscuta"],
     ],
     facts: [
       "Daca ai sta pe Kepler-452b, gravitatia ar putea parea aproape dubla fata de Terra.",
       "Steaua ei are aproximativ 6 miliarde de ani, cu ~1.5 miliarde peste varsta Soarelui.",
       "Daca exista viata acolo, a avut teoretic cu 1.5 miliarde de ani in plus pentru evolutie.",
       "Oceanele sale, daca exista, pot fierbe lent pe masura ce steaua gazda devine mai calda.",
-      "Este atat de departe incat un semnal radio trimis azi ar ajunge acolo abia in anul 3426."
+      "Este atat de departe incat un semnal radio trimis azi ar ajunge acolo abia in anul 3426.",
     ],
     layers: [
       {
@@ -151,7 +146,7 @@ const PLANETS = {
         opacity: 0.96,
         offset: [0, 0, 0],
         spread: 0,
-        info: "Modelele de super-Terra indica un nucleu metalic voluminos, sub presiuni capabile sa stabilizeze faze exotice ale fierului."
+        info: "Modelele de super-Terra indica un nucleu metalic voluminos, sub presiuni capabile sa stabilizeze faze exotice ale fierului.",
       },
       {
         id: "kepler-outer-core",
@@ -163,7 +158,7 @@ const PLANETS = {
         opacity: 0.88,
         offset: [1, 0.08, 0.15],
         spread: 1.1,
-        info: "Un nucleu lichid bogat in fier-nichel ar putea genera un camp magnetic puternic, daca planeta are convectie interna activa."
+        info: "Un nucleu lichid bogat in fier-nichel ar putea genera un camp magnetic puternic, daca planeta are convectie interna activa.",
       },
       {
         id: "kepler-lower-mantle",
@@ -174,7 +169,7 @@ const PLANETS = {
         opacity: 0.74,
         offset: [0, 1, 0],
         spread: 0.96,
-        info: "Silicatii la inalta presiune pot pastra caldura interna pe timp foarte lung, permitand o geologie activa in epoci mai batrane."
+        info: "Silicatii la inalta presiune pot pastra caldura interna pe timp foarte lung, permitand o geologie activa in epoci mai batrane.",
       },
       {
         id: "kepler-upper-mantle",
@@ -185,7 +180,7 @@ const PLANETS = {
         opacity: 0.56,
         offset: [0, -1, 0],
         spread: 0.92,
-        info: "Daca exista tectonica, aceasta zona ar controla vulcanismul, degazarea si stabilitatea climei pe sute de milioane de ani."
+        info: "Daca exista tectonica, aceasta zona ar controla vulcanismul, degazarea si stabilitatea climei pe sute de milioane de ani.",
       },
       {
         id: "kepler-crust",
@@ -196,10 +191,10 @@ const PLANETS = {
         opacity: 0.32,
         offset: [-0.75, 0.24, 0.34],
         spread: 1.16,
-        info: "Straturile externe pot fi dominate de roci bogate in fier oxidat si o atmosfera variabila, de la densa si fierbinte la mai temperata."
-      }
-    ]
-  }
+        info: "Straturile externe pot fi dominate de roci bogate in fier oxidat si o atmosfera variabila, de la densa si fierbinte la mai temperata.",
+      },
+    ],
+  },
 };
 
 function rng(seed) {
@@ -231,13 +226,20 @@ function cloudTexture(seed, tint = [255, 255, 255], density = 1000) {
 
     const grad = ctx.createLinearGradient(0, y, canvas.width, y + rand() * 26);
     grad.addColorStop(0, `rgba(${tint[0]}, ${tint[1]}, ${tint[2]}, 0)`);
-    grad.addColorStop(0.35, `rgba(${tint[0]}, ${tint[1]}, ${tint[2]}, ${alphaPeak.toFixed(3)})`);
-    grad.addColorStop(0.65, `rgba(${tint[0]}, ${tint[1]}, ${tint[2]}, ${alphaPeak.toFixed(3)})`);
+    grad.addColorStop(
+      0.35,
+      `rgba(${tint[0]}, ${tint[1]}, ${tint[2]}, ${alphaPeak.toFixed(3)})`,
+    );
+    grad.addColorStop(
+      0.65,
+      `rgba(${tint[0]}, ${tint[1]}, ${tint[2]}, ${alphaPeak.toFixed(3)})`,
+    );
     grad.addColorStop(1, `rgba(${tint[0]}, ${tint[1]}, ${tint[2]}, 0)`);
     ctx.fillStyle = grad;
 
     for (let x = 0; x < canvas.width; x += waviness) {
-      const offsetY = Math.sin((x / waviness) * 1.7 + rand() * TAU) * (h * 0.45);
+      const offsetY =
+        Math.sin((x / waviness) * 1.7 + rand() * TAU) * (h * 0.45);
       ctx.fillRect(x - 8, y + offsetY, waviness + 14, h);
     }
   }
@@ -256,45 +258,23 @@ function setupTexture(tex, renderer) {
   tex.encoding = THREE.sRGBEncoding;
   tex.wrapS = THREE.RepeatWrapping;
   tex.wrapT = THREE.ClampToEdgeWrapping;
-  tex.anisotropy = Math.max(4, Math.min(12, renderer.capabilities.getMaxAnisotropy()));
+  tex.anisotropy = Math.max(
+    4,
+    Math.min(12, renderer.capabilities.getMaxAnisotropy()),
+  );
   tex.needsUpdate = true;
   return tex;
 }
 
 function loadTexture(loader, renderer, file) {
   return new Promise((resolve, reject) => {
-    loader.load(`${TEXTURE_DIR}/${file}?v=${TEXTURE_REV}`, (tex) => resolve(setupTexture(tex, renderer)), undefined, reject);
+    loader.load(
+      `${TEXTURE_DIR}/${file}?v=${TEXTURE_REV}`,
+      (tex) => resolve(setupTexture(tex, renderer)),
+      undefined,
+      reject,
+    );
   });
-}
-
-function blendKeplerMap(marsImg, venusImg) {
-  const c = document.createElement("canvas");
-  c.width = 2048;
-  c.height = 1024;
-  const ctx = c.getContext("2d");
-
-  if (marsImg) ctx.drawImage(marsImg, 0, 0, c.width, c.height);
-  if (venusImg) {
-    ctx.globalCompositeOperation = "soft-light";
-    ctx.globalAlpha = 0.45;
-    ctx.drawImage(venusImg, 0, 0, c.width, c.height);
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = "source-over";
-  }
-
-  const grad = ctx.createLinearGradient(0, 0, 0, c.height);
-  grad.addColorStop(0, "rgba(228, 186, 132, 0.18)");
-  grad.addColorStop(0.5, "rgba(210, 150, 96, 0)");
-  grad.addColorStop(1, "rgba(150, 94, 52, 0.2)");
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, c.width, c.height);
-
-  const clouds = cloudTexture(452452, [250, 236, 214], 1800);
-  ctx.globalAlpha = 0.28;
-  ctx.drawImage(clouds, 0, 0, c.width, c.height);
-  ctx.globalAlpha = 1;
-
-  return c;
 }
 
 function rgbFromHex(hex) {
@@ -327,16 +307,31 @@ function layerTexture(seed, palette, grain = 1900) {
       const waveA = 0.5 + 0.5 * Math.sin(x * 0.014 + y * 0.005 + phaseA);
       const waveB = 0.5 + 0.5 * Math.sin(x * 0.006 - y * 0.018 + phaseB);
       const waveC = 0.5 + 0.5 * Math.sin((x + y) * 0.011 + phaseC);
-      const mix = Math.max(0, Math.min(1, 0.45 * waveA + 0.35 * waveB + 0.2 * waveC));
+      const mix = Math.max(
+        0,
+        Math.min(1, 0.45 * waveA + 0.35 * waveB + 0.2 * waveC),
+      );
       const grainNoise = (rand() - 0.5) * 0.1;
 
-      const r = c0[0] * (1 - mix) + c1[0] * mix + (c2[0] - c1[0]) * waveC * 0.35;
-      const g = c0[1] * (1 - mix) + c1[1] * mix + (c2[1] - c1[1]) * waveC * 0.35;
-      const b = c0[2] * (1 - mix) + c1[2] * mix + (c2[2] - c1[2]) * waveC * 0.35;
+      const r =
+        c0[0] * (1 - mix) + c1[0] * mix + (c2[0] - c1[0]) * waveC * 0.35;
+      const g =
+        c0[1] * (1 - mix) + c1[1] * mix + (c2[1] - c1[1]) * waveC * 0.35;
+      const b =
+        c0[2] * (1 - mix) + c1[2] * mix + (c2[2] - c1[2]) * waveC * 0.35;
 
-      data[index] = Math.max(0, Math.min(255, Math.round(r + 255 * grainNoise)));
-      data[index + 1] = Math.max(0, Math.min(255, Math.round(g + 255 * grainNoise)));
-      data[index + 2] = Math.max(0, Math.min(255, Math.round(b + 255 * grainNoise)));
+      data[index] = Math.max(
+        0,
+        Math.min(255, Math.round(r + 255 * grainNoise)),
+      );
+      data[index + 1] = Math.max(
+        0,
+        Math.min(255, Math.round(g + 255 * grainNoise)),
+      );
+      data[index + 2] = Math.max(
+        0,
+        Math.min(255, Math.round(b + 255 * grainNoise)),
+      );
       data[index + 3] = 255;
       index += 4;
     }
@@ -351,7 +346,10 @@ function layerTexture(seed, palette, grain = 1900) {
     const alphaPeak = 0.05 + rand() * 0.16;
     const band = ctx.createLinearGradient(0, y, width, y + rand() * 16);
     band.addColorStop(0, `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0)`);
-    band.addColorStop(0.5, `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${alphaPeak.toFixed(3)})`);
+    band.addColorStop(
+      0.5,
+      `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${alphaPeak.toFixed(3)})`,
+    );
     band.addColorStop(1, `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0)`);
     ctx.fillStyle = band;
     ctx.fillRect(0, y, width, thickness);
@@ -362,7 +360,7 @@ function layerTexture(seed, palette, grain = 1900) {
 
 function createLayerMaterial(layer, options = {}) {
   const opacity = options.opacity ?? layer.opacity;
-  const transparent = options.transparent ?? (opacity < 0.985);
+  const transparent = options.transparent ?? opacity < 0.985;
   return new THREE.MeshStandardMaterial({
     color: layer.color,
     transparent,
@@ -371,10 +369,13 @@ function createLayerMaterial(layer, options = {}) {
     metalness: layer.metalness ?? 0.04,
     emissive: layer.emissive ?? 0x000000,
     emissiveIntensity: layer.emissiveIntensity ?? 0,
-    side: options.side ?? (layer.doubleSide ? THREE.DoubleSide : THREE.FrontSide),
+    side:
+      options.side ?? (layer.doubleSide ? THREE.DoubleSide : THREE.FrontSide),
     depthTest: options.depthTest ?? true,
     depthWrite: options.depthWrite ?? !transparent,
-    ...(options.clippingPlanes ? { clippingPlanes: options.clippingPlanes } : {})
+    ...(options.clippingPlanes
+      ? { clippingPlanes: options.clippingPlanes }
+      : {}),
   });
 }
 
@@ -386,23 +387,32 @@ function disassemblyState(def) {
     const dir = new THREE.Vector3(...(layer.offset || [0, 0, 0]));
     if (dir.lengthSq() > 0.001) dir.normalize();
 
-    const hasSlice = typeof layer.sliceStart === "number" && typeof layer.sliceLength === "number";
-    const geo = layer.shape === "torus"
-      ? new THREE.TorusGeometry(def.radius * layer.torusR, def.radius * layer.torusTube, 40, 120)
-      : new THREE.SphereGeometry(
-          layer.radius ?? def.radius * layer.scale,
-          hasSlice ? 92 : 68,
-          hasSlice ? 74 : 68,
-          hasSlice ? layer.sliceStart : 0,
-          hasSlice ? layer.sliceLength : TAU
-        );
+    const hasSlice =
+      typeof layer.sliceStart === "number" &&
+      typeof layer.sliceLength === "number";
+    const geo =
+      layer.shape === "torus"
+        ? new THREE.TorusGeometry(
+            def.radius * layer.torusR,
+            def.radius * layer.torusTube,
+            40,
+            120,
+          )
+        : new THREE.SphereGeometry(
+            layer.radius ?? def.radius * layer.scale,
+            hasSlice ? 92 : 68,
+            hasSlice ? 74 : 68,
+            hasSlice ? layer.sliceStart : 0,
+            hasSlice ? layer.sliceLength : TAU,
+          );
 
     const mat = createLayerMaterial(layer);
     const mesh = new THREE.Mesh(geo, mat);
     mesh.userData.layerId = layer.id;
     if (layer.shape === "torus") mesh.rotation.x = Math.PI * 0.5;
     if (typeof layer.scaleX === "number") mesh.scale.x = layer.scaleX;
-    if (typeof layer.renderOrder === "number") mesh.renderOrder = layer.renderOrder;
+    if (typeof layer.renderOrder === "number")
+      mesh.renderOrder = layer.renderOrder;
     const materials = [mat];
     const textureMaterials = [mat];
 
@@ -411,7 +421,11 @@ function disassemblyState(def) {
     return {
       def: layer,
       dir,
-      stack: new THREE.Vector3(layer.stackX || 0, layer.stackY || 0, layer.stackZ || 0),
+      stack: new THREE.Vector3(
+        layer.stackX || 0,
+        layer.stackY || 0,
+        layer.stackZ || 0,
+      ),
       mesh,
       materials,
       textureMaterials,
@@ -419,8 +433,10 @@ function disassemblyState(def) {
         material,
         baseOpacity: material.opacity,
         baseEmissive: material.emissiveIntensity || 0,
-        baseEmissiveHex: material.emissive ? material.emissive.getHex() : 0x000000
-      }))
+        baseEmissiveHex: material.emissive
+          ? material.emissive.getHex()
+          : 0x000000,
+      })),
     };
   });
 
@@ -433,10 +449,13 @@ function createPlanet(def) {
     roughness: def.key === "earth" ? 0.8 : 0.86,
     metalness: 0.01,
     emissive: def.key === "earth" ? 0x142a42 : 0x1c120a,
-    emissiveIntensity: 0.1
+    emissiveIntensity: 0.1,
   });
 
-  const surface = new THREE.Mesh(new THREE.SphereGeometry(def.radius, 96, 96), surfaceMat);
+  const surface = new THREE.Mesh(
+    new THREE.SphereGeometry(def.radius, 96, 96),
+    surfaceMat,
+  );
   surface.userData.pickPlanet = def.key;
   surface.renderOrder = 1;
   root.add(surface);
@@ -449,8 +468,8 @@ function createPlanet(def) {
       opacity: def.cloudOpacity,
       roughness: 0.95,
       metalness: 0,
-      depthWrite: false
-    })
+      depthWrite: false,
+    }),
   );
   clouds.renderOrder = 2;
   root.add(clouds);
@@ -462,14 +481,15 @@ function createPlanet(def) {
       transparent: true,
       opacity: 0.16,
       side: THREE.BackSide,
-      depthWrite: false
-    })
+      depthWrite: false,
+    }),
   );
   root.add(atmosphere);
 
-  const disassembly = def.key === "earth"
-    ? { group: new THREE.Group(), layers: [] }
-    : disassemblyState(def);
+  const disassembly =
+    def.key === "earth"
+      ? { group: new THREE.Group(), layers: [] }
+      : disassemblyState(def);
   root.add(disassembly.group);
   root.visible = false;
 
@@ -477,7 +497,11 @@ function createPlanet(def) {
 }
 
 function createPreview(canvas, def) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+  });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
   renderer.outputEncoding = THREE.sRGBEncoding;
 
@@ -498,7 +522,7 @@ function createPreview(canvas, def) {
     roughness: 0.84,
     metalness: 0.01,
     emissive: 0x0e1a2a,
-    emissiveIntensity: 0.08
+    emissiveIntensity: 0.08,
   });
 
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(1.56, 58, 58), material);
@@ -513,7 +537,16 @@ function createPreview(canvas, def) {
   };
 
   resize();
-  return { canvas, renderer, scene, camera, mesh, material, spin: def.spin, resize };
+  return {
+    canvas,
+    renderer,
+    scene,
+    camera,
+    mesh,
+    material,
+    spin: def.spin,
+    resize,
+  };
 }
 
 export function initEarthKeplerComparison() {
@@ -531,7 +564,9 @@ export function initEarthKeplerComparison() {
   const focusSubtitle = document.getElementById("planet-focus-subtitle");
   const grid = document.getElementById("planet-focus-facts-grid");
   const expandBtn = document.getElementById("earth-kepler-expand");
-  const expandBackdrop = document.getElementById("earth-kepler-expand-backdrop");
+  const expandBackdrop = document.getElementById(
+    "earth-kepler-expand-backdrop",
+  );
   const modeChip = document.getElementById("earth-kepler-mode-chip");
   const hint = document.getElementById("earth-kepler-disassembly-hint");
   const layerPanel = document.getElementById("earth-kepler-layer-panel");
@@ -572,11 +607,19 @@ export function initEarthKeplerComparison() {
     factsList.innerHTML = p.facts.map((f) => `<li>${f}</li>`).join("");
     focusTitle.textContent = p.name;
     focusSubtitle.textContent = p.subtitle;
-    grid.innerHTML = p.stats.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
+    grid.innerHTML = p.stats
+      .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`)
+      .join("");
     earthBtn.classList.toggle("is-active", selected === "earth");
     keplerBtn.classList.toggle("is-active", selected === "kepler");
-    earthBtn.setAttribute("aria-selected", selected === "earth" ? "true" : "false");
-    keplerBtn.setAttribute("aria-selected", selected === "kepler" ? "true" : "false");
+    earthBtn.setAttribute(
+      "aria-selected",
+      selected === "earth" ? "true" : "false",
+    );
+    keplerBtn.setAttribute(
+      "aria-selected",
+      selected === "kepler" ? "true" : "false",
+    );
   };
 
   renderText();
@@ -587,7 +630,8 @@ export function initEarthKeplerComparison() {
     keplerCanvas.parentElement?.classList.add("is-3d-unavailable");
     expandBtn.disabled = true;
     modeChip.textContent = "3D indisponibil";
-    hint.textContent = "Browserul/dispozitivul nu poate randa scena 3D in aceasta sesiune.";
+    hint.textContent =
+      "Browserul/dispozitivul nu poate randa scena 3D in aceasta sesiune.";
     earthBtn.addEventListener("click", () => {
       selected = "earth";
       renderText();
@@ -599,7 +643,11 @@ export function initEarthKeplerComparison() {
     return;
   }
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+  });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -649,7 +697,13 @@ export function initEarthKeplerComparison() {
       g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
       return g;
     })(),
-    new THREE.PointsMaterial({ color: 0xb9dfff, size: 0.72, transparent: true, opacity: 0.55, depthWrite: false })
+    new THREE.PointsMaterial({
+      color: 0xb9dfff,
+      size: 0.72,
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+    }),
   );
   scene.add(stars);
 
@@ -701,11 +755,18 @@ export function initEarthKeplerComparison() {
       const active = entry.def.id === layerId;
       entry.materialStates.forEach((stateEntry) => {
         const m = stateEntry.material;
-        m.opacity = active ? Math.min(1, stateEntry.baseOpacity + 0.1) : stateEntry.baseOpacity;
+        m.opacity = active
+          ? Math.min(1, stateEntry.baseOpacity + 0.1)
+          : stateEntry.baseOpacity;
         if (m.emissive) {
-          const activeEmissiveHex = stateEntry.baseEmissive > 0 ? stateEntry.baseEmissiveHex : 0xffd18a;
-          m.emissive.setHex(active ? activeEmissiveHex : stateEntry.baseEmissiveHex);
-          m.emissiveIntensity = active ? Math.max(0.18, stateEntry.baseEmissive + 0.16) : stateEntry.baseEmissive;
+          const activeEmissiveHex =
+            stateEntry.baseEmissive > 0 ? stateEntry.baseEmissiveHex : 0xffd18a;
+          m.emissive.setHex(
+            active ? activeEmissiveHex : stateEntry.baseEmissiveHex,
+          );
+          m.emissiveIntensity = active
+            ? Math.max(0.18, stateEntry.baseEmissive + 0.16)
+            : stateEntry.baseEmissive;
         }
         m.needsUpdate = true;
       });
@@ -715,13 +776,20 @@ export function initEarthKeplerComparison() {
   const setModeUi = () => {
     const expanded = fallbackExpanded || document.fullscreenElement === stage;
     const exploded = disassemblyCurrent > 0.55;
-    modeChip.textContent = exploded ? "Mod disociere activ" : expanded ? "Mod marit" : "Mod standard";
+    modeChip.textContent = exploded
+      ? "Mod disociere activ"
+      : expanded
+        ? "Mod marit"
+        : "Mod standard";
     if (exploded) {
-      hint.textContent = "Mod disociere activ: click pe strat pentru informatii. Triple-click rapid inchide disocierea.";
+      hint.textContent =
+        "Mod disociere activ: click pe strat pentru informatii. Triple-click rapid inchide disocierea.";
     } else if (expanded) {
-      hint.textContent = "Mod marit: triple-click rapid (3 click-uri in 1 secunda) pe planeta pentru disociere.";
+      hint.textContent =
+        "Mod marit: triple-click rapid (3 click-uri in 1 secunda) pe planeta pentru disociere.";
     } else {
-      hint.textContent = "Apasa Mareste pentru fullscreen. In modul marit ai scroll pentru zoom si triple-click pentru disociere.";
+      hint.textContent =
+        "Apasa Mareste pentru fullscreen. In modul marit ai scroll pentru zoom si triple-click pentru disociere.";
     }
   };
 
@@ -739,7 +807,15 @@ export function initEarthKeplerComparison() {
 
     const offset = camera.position.clone().sub(controls.target);
     if (offset.lengthSq() < 0.001) offset.set(0.6, 0.2, 1);
-    offset.normalize().multiplyScalar(THREE.MathUtils.clamp(p.cameraDistance, controls.minDistance * 1.05, controls.maxDistance * 0.85));
+    offset
+      .normalize()
+      .multiplyScalar(
+        THREE.MathUtils.clamp(
+          p.cameraDistance,
+          controls.minDistance * 1.05,
+          controls.maxDistance * 0.85,
+        ),
+      );
     camera.position.copy(controls.target).add(offset);
     controls.update();
   };
@@ -749,15 +825,21 @@ export function initEarthKeplerComparison() {
     if (direction.lengthSq() < 0.001) direction.set(0, 0.12, 1);
     direction.normalize();
 
-    const aspect = Math.max(0.38, stage.clientWidth / Math.max(1, stage.clientHeight));
+    const aspect = Math.max(
+      0.38,
+      stage.clientWidth / Math.max(1, stage.clientHeight),
+    );
     const cutawaySpan = 12.2;
     const fovRadians = THREE.MathUtils.degToRad(camera.fov);
-    const distanceForWidth = cutawaySpan / (2 * Math.tan(fovRadians * 0.5) * aspect);
+    const distanceForWidth =
+      cutawaySpan / (2 * Math.tan(fovRadians * 0.5) * aspect);
     const distance = Math.max(15.8, Math.min(38, distanceForWidth * 1.08));
     const targetX = aspect < 0.72 ? -1.85 : -2.05;
 
     controls.target.set(targetX, aspect < 0.72 ? -0.25 : 0, 0);
-    camera.position.copy(controls.target).add(direction.multiplyScalar(distance));
+    camera.position
+      .copy(controls.target)
+      .add(direction.multiplyScalar(distance));
     controls.minDistance = Math.max(12.8, distance * 0.72);
     controls.maxDistance = Math.max(30, distance * 2);
     controls.update();
@@ -785,7 +867,9 @@ export function initEarthKeplerComparison() {
           s.surface.scale.setScalar(1);
           s.clouds.scale.setScalar(1);
           s.atmosphere.scale.setScalar(1);
-          s.disassembly.layers.forEach((entry) => entry.mesh.position.set(0, 0, 0));
+          s.disassembly.layers.forEach((entry) =>
+            entry.mesh.position.set(0, 0, 0),
+          );
           setLayerHighlight(s, "");
         });
       }
@@ -801,7 +885,9 @@ export function initEarthKeplerComparison() {
     if (selected === "earth") frameEarthCutaway();
     const layers = activeState().disassembly.layers;
     const first =
-      (selected === "earth" ? layers.find((entry) => entry.def.id === "earth-crust") : null) || layers[0];
+      (selected === "earth"
+        ? layers.find((entry) => entry.def.id === "earth-crust")
+        : null) || layers[0];
     if (first) {
       selectedLayer = first.def.id;
       setLayerHighlight(activeState(), selectedLayer);
@@ -846,7 +932,10 @@ export function initEarthKeplerComparison() {
     if (!s.disassembly.group.visible) return null;
 
     raycaster.setFromCamera(pointer, camera);
-    const hits = raycaster.intersectObjects(s.disassembly.layers.map((entry) => entry.mesh), true);
+    const hits = raycaster.intersectObjects(
+      s.disassembly.layers.map((entry) => entry.mesh),
+      true,
+    );
     if (!hits.length) return null;
 
     let node = hits[0].object;
@@ -854,7 +943,9 @@ export function initEarthKeplerComparison() {
     const layerId = node?.userData.layerId;
     if (!layerId) return null;
 
-    const layer = s.disassembly.layers.find((entry) => entry.def.id === layerId);
+    const layer = s.disassembly.layers.find(
+      (entry) => entry.def.id === layerId,
+    );
     if (!layer) return null;
 
     selectedLayer = layerId;
@@ -870,9 +961,10 @@ export function initEarthKeplerComparison() {
     if (!pointerFromEvent(event)) return false;
     const s = activeState();
     raycaster.setFromCamera(pointer, camera);
-    const targets = disassemblyCurrent > 0.02 && disassemblyKey === selected
-      ? s.disassembly.layers.map((entry) => entry.mesh)
-      : [s.surface];
+    const targets =
+      disassemblyCurrent > 0.02 && disassemblyKey === selected
+        ? s.disassembly.layers.map((entry) => entry.mesh)
+        : [s.surface];
     return raycaster.intersectObjects(targets, true).length > 0;
   };
 
@@ -905,7 +997,10 @@ export function initEarthKeplerComparison() {
     const expanded = fallbackExpanded || document.fullscreenElement === stage;
     stage.classList.toggle("is-expanded", fallbackExpanded);
     expandBackdrop.hidden = !fallbackExpanded;
-    document.body.classList.toggle("earth-kepler-expanded-open", fallbackExpanded);
+    document.body.classList.toggle(
+      "earth-kepler-expanded-open",
+      fallbackExpanded,
+    );
     expandBtn.textContent = expanded ? "Micsoreaza" : "Mareste";
     expandBtn.setAttribute("aria-pressed", expanded ? "true" : "false");
 
@@ -921,8 +1016,12 @@ export function initEarthKeplerComparison() {
 
   const onExpandSafe = () => {
     const run = async () => {
-      if (document.fullscreenEnabled && typeof stage.requestFullscreen === "function") {
-        if (document.fullscreenElement === stage) await document.exitFullscreen();
+      if (
+        document.fullscreenEnabled &&
+        typeof stage.requestFullscreen === "function"
+      ) {
+        if (document.fullscreenElement === stage)
+          await document.exitFullscreen();
         else await stage.requestFullscreen();
       } else {
         fallbackExpanded = !fallbackExpanded;
@@ -1003,23 +1102,33 @@ export function initEarthKeplerComparison() {
   document.addEventListener("fullscreenchange", onFullscreen);
   window.addEventListener("resize", onResize);
 
-  const observer = new window.IntersectionObserver((entries) => {
-    sectionVisible = entries.some((entry) => entry.isIntersecting);
-  }, { threshold: 0.15 });
+  const observer = new window.IntersectionObserver(
+    (entries) => {
+      sectionVisible = entries.some((entry) => entry.isIntersecting);
+    },
+    { threshold: 0.15 },
+  );
   observer.observe(section);
 
   const applyTextures = async () => {
-    const [earthMapRes, earthNightRes, marsRes, venusRes] = await Promise.allSettled([
-      loadTexture(loader, renderer, "earth.jpg"),
-      loadTexture(loader, renderer, "earth_night.jpg"),
-      loadTexture(loader, renderer, "mars.jpg"),
-      loadTexture(loader, renderer, "venus.jpg")
-    ]);
+    const [earthMapRes, earthNightRes, keplerMapRes, keplerFallbackRes] =
+      await Promise.allSettled([
+        loadTexture(loader, renderer, "earth.jpg"),
+        loadTexture(loader, renderer, "earth_night.jpg"),
+        loadTexture(loader, renderer, "kepler452b_map.png"),
+        loadTexture(loader, renderer, "kepler452b.jpg"),
+      ]);
 
-    const earthMap = earthMapRes.status === "fulfilled" ? earthMapRes.value : null;
-    const earthNight = earthNightRes.status === "fulfilled" ? earthNightRes.value : null;
-    const marsMap = marsRes.status === "fulfilled" ? marsRes.value : null;
-    const venusMap = venusRes.status === "fulfilled" ? venusRes.value : null;
+    const earthMap =
+      earthMapRes.status === "fulfilled" ? earthMapRes.value : null;
+    const earthNight =
+      earthNightRes.status === "fulfilled" ? earthNightRes.value : null;
+    const keplerMap =
+      keplerMapRes.status === "fulfilled"
+        ? keplerMapRes.value
+        : keplerFallbackRes.status === "fulfilled"
+          ? keplerFallbackRes.value
+          : null;
 
     if (earthMap) {
       earthState.surface.material.map = earthMap;
@@ -1035,32 +1144,42 @@ export function initEarthKeplerComparison() {
 
     earthState.clouds.material.map = setupTexture(
       new THREE.CanvasTexture(cloudTexture(12742, [246, 252, 255], 420)),
-      renderer
+      renderer,
     );
     earthState.clouds.material.opacity = 0.14;
     earthState.clouds.material.needsUpdate = true;
 
     const earthLayerTextures = {
       "earth-crust": setupTexture(
-        new THREE.CanvasTexture(layerTexture(1201, [0x5e482d, 0x9a7744, 0xb89355, 0x3e2e1d], 1200)),
-        renderer
+        new THREE.CanvasTexture(
+          layerTexture(1201, [0x5e482d, 0x9a7744, 0xb89355, 0x3e2e1d], 1200),
+        ),
+        renderer,
       ),
       "earth-upper-mantle": setupTexture(
-        new THREE.CanvasTexture(layerTexture(1202, [0x8a2b17, 0xd9551f, 0xee7f38, 0x682114], 1550)),
-        renderer
+        new THREE.CanvasTexture(
+          layerTexture(1202, [0x8a2b17, 0xd9551f, 0xee7f38, 0x682114], 1550),
+        ),
+        renderer,
       ),
       "earth-lower-mantle": setupTexture(
-        new THREE.CanvasTexture(layerTexture(1203, [0x4a0d0d, 0x9f1111, 0xd01f14, 0x2e0808], 1650)),
-        renderer
+        new THREE.CanvasTexture(
+          layerTexture(1203, [0x4a0d0d, 0x9f1111, 0xd01f14, 0x2e0808], 1650),
+        ),
+        renderer,
       ),
       "earth-outer-core": setupTexture(
-        new THREE.CanvasTexture(layerTexture(1204, [0x8b290c, 0xff8a2f, 0xffbe63, 0xf26f1a], 1450)),
-        renderer
+        new THREE.CanvasTexture(
+          layerTexture(1204, [0x8b290c, 0xff8a2f, 0xffbe63, 0xf26f1a], 1450),
+        ),
+        renderer,
       ),
       "earth-inner-core": setupTexture(
-        new THREE.CanvasTexture(layerTexture(1205, [0xe7d59d, 0xfff4bc, 0xffe692, 0xd6bf7a], 900)),
-        renderer
-      )
+        new THREE.CanvasTexture(
+          layerTexture(1205, [0xe7d59d, 0xfff4bc, 0xffe692, 0xd6bf7a], 900),
+        ),
+        renderer,
+      ),
     };
 
     earthState.disassembly.layers.forEach((entry) => {
@@ -1073,12 +1192,13 @@ export function initEarthKeplerComparison() {
       });
     });
 
-    const keplerCanvas = blendKeplerMap(marsMap?.image, venusMap?.image);
-    const keplerTex = setupTexture(new THREE.CanvasTexture(keplerCanvas), renderer);
-    keplerState.surface.material.map = keplerTex;
-    keplerState.surface.material.color = new THREE.Color(0xd79c67);
+    if (keplerMap) {
+      keplerState.surface.material.map = keplerMap;
+      keplerState.surface.material.color = new THREE.Color(0xffffff);
+    }
     keplerState.surface.material.needsUpdate = true;
-    keplerState.clouds.material.map = setupTexture(new THREE.CanvasTexture(cloudTexture(45217000, [250, 236, 214], 1100)), renderer);
+    keplerState.clouds.material.map = null;
+    keplerState.clouds.material.opacity = 0;
     keplerState.clouds.material.needsUpdate = true;
 
     if (previews[0]) {
@@ -1086,8 +1206,10 @@ export function initEarthKeplerComparison() {
       previews[0].material.needsUpdate = true;
     }
     if (previews[1]) {
-      previews[1].material.map = keplerTex;
-      previews[1].material.color = new THREE.Color(0xd79c67);
+      if (keplerMap) previews[1].material.map = keplerMap;
+      previews[1].material.color = new THREE.Color(
+        keplerMap ? 0xffffff : 0xd79c67,
+      );
       previews[1].material.needsUpdate = true;
     }
   };
@@ -1108,10 +1230,16 @@ export function initEarthKeplerComparison() {
     const delta = Math.min(clock.getDelta(), 0.05);
     const elapsed = clock.elapsedTime;
 
-    disassemblyCurrent += (disassemblyTarget - disassemblyCurrent) * Math.min(1, delta * 5.2);
-    if (Math.abs(disassemblyCurrent - disassemblyTarget) < 0.0008) disassemblyCurrent = disassemblyTarget;
+    disassemblyCurrent +=
+      (disassemblyTarget - disassemblyCurrent) * Math.min(1, delta * 5.2);
+    if (Math.abs(disassemblyCurrent - disassemblyTarget) < 0.0008)
+      disassemblyCurrent = disassemblyTarget;
 
-    if (disassemblyKey && disassemblyTarget === 0 && disassemblyCurrent <= 0.01) {
+    if (
+      disassemblyKey &&
+      disassemblyTarget === 0 &&
+      disassemblyCurrent <= 0.01
+    ) {
       disassemblyKey = "";
       selectedLayer = "";
       hideLayerPanel();
@@ -1126,8 +1254,10 @@ export function initEarthKeplerComparison() {
       state.surface.visible = true;
       state.clouds.visible = true;
       state.atmosphere.visible = true;
-      if (state.key === "earth") state.surface.material.emissiveIntensity = 0.18;
-      if (state.key === "earth") state.clouds.material.opacity = state.def.cloudOpacity;
+      if (state.key === "earth")
+        state.surface.material.emissiveIntensity = 0.18;
+      if (state.key === "earth")
+        state.clouds.material.opacity = state.def.cloudOpacity;
       state.disassembly.group.visible = false;
       state.surface.position.set(0, 0, 0);
       state.clouds.position.set(0, 0, 0);
@@ -1154,7 +1284,11 @@ export function initEarthKeplerComparison() {
       state.disassembly.group.visible = true;
       state.surface.material.emissiveIntensity = 0.28;
       state.clouds.material.opacity = 0.2;
-      state.surface.position.set(globeTargetX * disassemblyCurrent, 0, -0.08 * disassemblyCurrent);
+      state.surface.position.set(
+        globeTargetX * disassemblyCurrent,
+        0,
+        -0.08 * disassemblyCurrent,
+      );
       state.clouds.position.copy(state.surface.position);
       state.atmosphere.position.copy(state.surface.position);
       state.surface.scale.setScalar(globeScale);
@@ -1163,8 +1297,11 @@ export function initEarthKeplerComparison() {
       state.disassembly.group.rotation.set(0, 0, 0);
 
       if (!pointerDown) {
-        state.surface.rotation.y += shortestAngleDelta(state.surface.rotation.y, showcaseYaw) * yawEase;
-        state.clouds.rotation.y += shortestAngleDelta(state.clouds.rotation.y, showcaseYaw + 0.12) * yawEase;
+        state.surface.rotation.y +=
+          shortestAngleDelta(state.surface.rotation.y, showcaseYaw) * yawEase;
+        state.clouds.rotation.y +=
+          shortestAngleDelta(state.clouds.rotation.y, showcaseYaw + 0.12) *
+          yawEase;
         state.clouds.rotation.y += state.def.spin * 0.035 * delta;
       }
 
@@ -1172,7 +1309,7 @@ export function initEarthKeplerComparison() {
         entry.mesh.position.set(
           (entry.def.x ?? entry.stack.x) * disassemblyCurrent,
           (entry.def.y ?? 0) * disassemblyCurrent,
-          (entry.def.zOffset ?? 0) * disassemblyCurrent
+          (entry.def.zOffset ?? 0) * disassemblyCurrent,
         );
         if (entry.def.shape === "earthCap") {
           entry.mesh.rotation.set(0, 0, 0);
@@ -1184,15 +1321,20 @@ export function initEarthKeplerComparison() {
         }
       });
     } else {
-      state.surface.material.emissiveIntensity = state.key === "earth" ? 0.18 : state.surface.material.emissiveIntensity;
+      state.surface.material.emissiveIntensity =
+        state.key === "earth" ? 0.18 : state.surface.material.emissiveIntensity;
       state.surface.visible = false;
       state.clouds.visible = false;
       state.atmosphere.visible = true;
       state.disassembly.group.visible = true;
       state.disassembly.group.rotation.y += state.def.spin * delta * 0.68;
-      state.disassembly.group.rotation.z = Math.sin(elapsed * 0.25 + state.def.radius) * 0.035 * disassemblyCurrent;
+      state.disassembly.group.rotation.z =
+        Math.sin(elapsed * 0.25 + state.def.radius) *
+        0.035 *
+        disassemblyCurrent;
       state.disassembly.layers.forEach((entry) => {
-        const shift = (entry.def.spread || 0) * state.def.radius * disassemblyCurrent;
+        const shift =
+          (entry.def.spread || 0) * state.def.radius * disassemblyCurrent;
         entry.mesh.position.copy(entry.dir).multiplyScalar(shift);
         if (entry.def.shape === "torus") entry.mesh.rotation.y += delta * 0.4;
       });
@@ -1207,7 +1349,12 @@ export function initEarthKeplerComparison() {
     setModeUi();
     controls.update();
 
-    if ((sectionVisible || fallbackExpanded || document.fullscreenElement === stage) && !document.hidden) {
+    if (
+      (sectionVisible ||
+        fallbackExpanded ||
+        document.fullscreenElement === stage) &&
+      !document.hidden
+    ) {
       renderer.render(scene, camera);
       previews.forEach((p) => {
         p.mesh.rotation.y += p.spin * 0.65 * delta;
@@ -1217,17 +1364,22 @@ export function initEarthKeplerComparison() {
   };
   animate();
 
-  window.addEventListener("beforeunload", () => {
-    window.cancelAnimationFrame(raf);
-    observer.disconnect();
-    window.removeEventListener("resize", onResize);
-    window.removeEventListener("keydown", onKeyDown);
-    document.removeEventListener("fullscreenchange", onFullscreen);
-    if (switchTimer) window.clearTimeout(switchTimer);
-    canvas.classList.remove("is-grabbing");
-    stage.classList.remove("is-expanded");
-    document.body.classList.remove("earth-kepler-expanded-open");
-    expandBackdrop.hidden = true;
-    if (document.fullscreenElement === stage && document.exitFullscreen) document.exitFullscreen().catch(() => {});
-  }, { once: true });
+  window.addEventListener(
+    "beforeunload",
+    () => {
+      window.cancelAnimationFrame(raf);
+      observer.disconnect();
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("fullscreenchange", onFullscreen);
+      if (switchTimer) window.clearTimeout(switchTimer);
+      canvas.classList.remove("is-grabbing");
+      stage.classList.remove("is-expanded");
+      document.body.classList.remove("earth-kepler-expanded-open");
+      expandBackdrop.hidden = true;
+      if (document.fullscreenElement === stage && document.exitFullscreen)
+        document.exitFullscreen().catch(() => {});
+    },
+    { once: true },
+  );
 }

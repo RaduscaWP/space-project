@@ -1,5 +1,5 @@
-const TEXTURE_DIR = "assets/textures";
-const TEXTURE_REV = "20260408real";
+export const TEXTURE_DIR = "assets/textures";
+export const TEXTURE_REV = "20260408real";
 const CLICK_DRAG_THRESHOLD = 8;
 const TAU = Math.PI * 2;
 const RAPID_TAP_WINDOW_MS = 1000;
@@ -31,7 +31,7 @@ function layer(config) {
   return config;
 }
 
-function createLocalStarField() {
+export function createLocalStarField() {
   function createLayer({ count, minRadius, maxRadius, size, opacity, color }) {
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i += 1) {
@@ -83,7 +83,7 @@ function createLocalStarField() {
   return group;
 }
 
-function createAsteroidBelt(config) {
+export function createAsteroidBelt(config) {
   const { innerRadius, outerRadius, thickness, count, color, opacity, size, yOffset = 0 } = config;
   const positions = new Float32Array(count * 3);
 
@@ -115,12 +115,12 @@ function createAsteroidBelt(config) {
   return new THREE.Points(geometry, material);
 }
 
-function createZodiacalBand() {
+export function createZodiacalBand() {
   // Disabled: large translucent ring was masking planets in the storytelling view.
   return new THREE.Group();
 }
 
-const SUN_INFO = {
+export const SUN_INFO = {
   name: "Soare",
   summary: "Steaua in jurul careia orbiteaza totul",
   description:
@@ -135,7 +135,7 @@ const SUN_INFO = {
   fact2: "Vantul solar e cel care defineste limitele heliosferei."
 };
 
-const PLANET_DEFS = [
+export const PLANET_DEFS = [
   {
     key: "mercury",
     name: "Mercur",
