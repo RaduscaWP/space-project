@@ -97,6 +97,7 @@ export function initGasesteTerra() {
   const hintText = document.getElementById("gt-hint-text");
   const minimap = document.getElementById("gt-minimap");
   const finaleEl = document.getElementById("gt-finale");
+  const restartFinaleBtn = document.getElementById("gt-restart-finale");
   const continueBtn = document.getElementById("gt-continue");
   const speedEl = document.getElementById("gt-speed");
   const distanceEl = document.getElementById("gt-distance");
@@ -125,6 +126,7 @@ export function initGasesteTerra() {
     !hintText ||
     !minimap ||
     !finaleEl ||
+    !restartFinaleBtn ||
     !continueBtn ||
     !speedEl ||
     !distanceEl ||
@@ -176,6 +178,10 @@ export function initGasesteTerra() {
     expandBackdrop,
     recenterButton,
     resetButton
+  });
+
+  restartFinaleBtn.addEventListener("click", () => {
+    sceneApi.restartGame();
   });
 
   continueBtn.addEventListener("click", async () => {
@@ -571,22 +577,22 @@ function buildScene({
     powerPreference: "high-performance"
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setClearColor(0x020408, 1);
+  renderer.setClearColor(0x010204, 1);
   renderer.outputEncoding = T.sRGBEncoding;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.96;
+  renderer.toneMappingExposure = 1.05;
 
   const scene = new T.Scene();
-  scene.fog = new T.Fog(0x020408, 180, 1500);
+  scene.fog = new T.FogExp2(0x010204, 0.00045);
 
-  const camera = new T.PerspectiveCamera(60, 1, 0.05, 1800);
+  const camera = new T.PerspectiveCamera(62, 1, 0.05, 2400);
   camera.position.set(...BASE_CAMERA_POSITION);
   camera.lookAt(0, 0, 0);
 
   const euler = new T.Euler(0, 0, 0, "YXZ");
   euler.setFromQuaternion(camera.quaternion);
 
-  scene.add(new T.AmbientLight(0x3c527d, 1.5));
+  scene.add(new T.AmbientLight(0x2a3e5c, 1.2));
 
   const clock = new T.Clock(false);
   const baseCameraPosition = new T.Vector3(...BASE_CAMERA_POSITION);
@@ -640,16 +646,30 @@ function buildScene({
   let solarPlanets = [];
   let solarEarth = null;
 
+  let milkyWayMesh = null;
+  let nebulaGroup = null;
+  let dustParticles = null;
+  let diffractionTexture = null;
+
+  let nearStarPool = [];
+  let nearStarCoreGeo = null;
+  let nearStarHaloGeo = null;
+
   function formatPc(value) {
     if (!Number.isFinite(value)) return "-";
-    if (value >= 100) return `${Math.round(value)} pc`;
-    if (value >= 10) return `${value.toFixed(1)} pc`;
-    return `${value.toFixed(2)} pc`;
+    const ly = value * 3.2616;
+    if (ly >= 300) return `${Math.round(ly)} ani-lumina`;
+    if (ly >= 10) return `${ly.toFixed(1)} ani-lumina`;
+    if (ly >= 1) return `${ly.toFixed(2)} ani-lumina`;
+    return `${(ly * 1000).toFixed(0)} zile-lumina`;
   }
 
   function formatSystemDistance(value) {
     if (!Number.isFinite(value)) return "-";
-    return `${value >= 10 ? value.toFixed(1) : value.toFixed(2)} u. scena`;
+    const au = value / 48;
+    if (au >= 10) return `${au.toFixed(1)} AU`;
+    if (au >= 0.1) return `${au.toFixed(2)} AU`;
+    return `${(au * 149597870.7).toFixed(0)} km`;
   }
 
   function isNativeFullscreen() {
@@ -758,7 +778,8 @@ function buildScene({
   }
 
   function updateSpeedLabel() {
-    speedEl.textContent = `viteza ${moveSpeed >= 10 ? moveSpeed.toFixed(0) : moveSpeed.toFixed(1)} pc/s`;
+    const lySpeed = moveSpeed * 3.2616;
+    speedEl.textContent = `viteza ${lySpeed >= 30 ? lySpeed.toFixed(0) : lySpeed.toFixed(1)} ani-lumina/s`;
   }
 
   function updateStepCopy(stepIndex) {
@@ -816,7 +837,245 @@ function buildScene({
     }
   }
 
-  function buildStarLayer(stars, { size, opacity, blending }) {
+  // ── SpaceEngine-inspired visual layers ──────────────────────────────
+
+  function ensureDiffractionTexture() {
+    if (diffractionTexture) return diffractionTexture;
+
+    const c = document.createElement("canvas");
+    c.width = 128;
+    c.height = 128;
+    const ctx = c.getContext("2d");
+
+    const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+    grad.addColorStop(0, "rgba(255,255,255,1)");
+    grad.addColorStop(0.12, "rgba(255,255,255,0.92)");
+    grad.addColorStop(0.35, "rgba(255,255,255,0.28)");
+    grad.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 128, 128);
+
+    ctx.globalCompositeOperation = "lighter";
+    for (let a = 0; a < 4; a += 1) {
+      ctx.save();
+      ctx.translate(64, 64);
+      ctx.rotate(a * Math.PI / 4);
+      const sg = ctx.createLinearGradient(0, 0, 62, 0);
+      sg.addColorStop(0, "rgba(255,255,255,0.55)");
+      sg.addColorStop(0.25, "rgba(255,255,255,0.12)");
+      sg.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = sg;
+      ctx.fillRect(0, -1.2, 62, 2.4);
+      ctx.fillRect(-62, -1.2, 62, 2.4);
+      ctx.restore();
+    }
+
+    diffractionTexture = new T.CanvasTexture(c);
+    diffractionTexture.needsUpdate = true;
+    return diffractionTexture;
+  }
+
+  function buildMilkyWayBand() {
+    if (milkyWayMesh) return;
+
+    const c = document.createElement("canvas");
+    c.width = 1024;
+    c.height = 256;
+    const ctx = c.getContext("2d");
+
+    const grad = ctx.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, "rgba(0,0,0,0)");
+    grad.addColorStop(0.25, "rgba(160,148,130,0.02)");
+    grad.addColorStop(0.38, "rgba(195,182,160,0.08)");
+    grad.addColorStop(0.46, "rgba(215,205,185,0.15)");
+    grad.addColorStop(0.5, "rgba(225,215,195,0.18)");
+    grad.addColorStop(0.54, "rgba(215,205,185,0.15)");
+    grad.addColorStop(0.62, "rgba(195,182,160,0.08)");
+    grad.addColorStop(0.75, "rgba(160,148,130,0.02)");
+    grad.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1024, 256);
+
+    for (let i = 0; i < 50; i += 1) {
+      const dx = Math.random() * 1024;
+      const dy = 95 + Math.random() * 66;
+      const dw = 18 + Math.random() * 75;
+      const dh = 4 + Math.random() * 22;
+      ctx.fillStyle = `rgba(0,0,0,${0.08 + Math.random() * 0.14})`;
+      ctx.beginPath();
+      ctx.ellipse(dx, dy, dw, dh, Math.random() * 0.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    for (let i = 0; i < 300; i += 1) {
+      const sx = Math.random() * 1024;
+      const sy = 80 + Math.random() * 96;
+      const sr = 0.4 + Math.random() * 1.8;
+      ctx.fillStyle = `rgba(255,248,230,${0.08 + Math.random() * 0.25})`;
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    for (let i = 0; i < 8; i += 1) {
+      const cx = Math.random() * 1024;
+      const cy = 100 + Math.random() * 56;
+      const cr = 12 + Math.random() * 30;
+      const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, cr);
+      cg.addColorStop(0, "rgba(255,240,210,0.1)");
+      cg.addColorStop(1, "rgba(255,240,210,0)");
+      ctx.fillStyle = cg;
+      ctx.beginPath();
+      ctx.arc(cx, cy, cr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    const tex = new T.CanvasTexture(c);
+    tex.wrapS = T.RepeatWrapping;
+
+    const geo = new T.CylinderGeometry(950, 950, 320, 64, 1, true);
+    const mat = new T.MeshBasicMaterial({
+      map: tex,
+      transparent: true,
+      opacity: 0.55,
+      side: T.BackSide,
+      depthWrite: false,
+      blending: T.AdditiveBlending
+    });
+
+    milkyWayMesh = new T.Mesh(geo, mat);
+    milkyWayMesh.rotation.z = T.MathUtils.degToRad(62.9);
+    milkyWayMesh.rotation.x = T.MathUtils.degToRad(11);
+    scene.add(milkyWayMesh);
+  }
+
+  function buildNebulaPatches() {
+    if (nebulaGroup) return;
+    nebulaGroup = new T.Group();
+
+    const patches = [
+      { x: 320, y: 55, z: -420, s: 190, r: 0.82, g: 0.22, b: 0.28, o: 0.038 },
+      { x: -270, y: -35, z: 370, s: 150, r: 0.28, g: 0.38, b: 0.82, o: 0.032 },
+      { x: 160, y: 90, z: 520, s: 210, r: 0.58, g: 0.26, b: 0.62, o: 0.028 },
+      { x: -420, y: -65, z: -320, s: 170, r: 0.36, g: 0.68, b: 0.48, o: 0.022 },
+      { x: 480, y: 30, z: 180, s: 130, r: 0.75, g: 0.55, b: 0.2, o: 0.025 },
+      { x: -180, y: 110, z: -550, s: 240, r: 0.45, g: 0.2, b: 0.7, o: 0.02 }
+    ];
+
+    for (const p of patches) {
+      const nc = document.createElement("canvas");
+      nc.width = 256;
+      nc.height = 256;
+      const nCtx = nc.getContext("2d");
+
+      const ng = nCtx.createRadialGradient(128, 128, 0, 128, 128, 128);
+      ng.addColorStop(0, `rgba(${p.r * 255 | 0},${p.g * 255 | 0},${p.b * 255 | 0},0.7)`);
+      ng.addColorStop(0.25, `rgba(${p.r * 255 | 0},${p.g * 255 | 0},${p.b * 255 | 0},0.35)`);
+      ng.addColorStop(0.55, `rgba(${p.r * 255 | 0},${p.g * 255 | 0},${p.b * 255 | 0},0.08)`);
+      ng.addColorStop(1, "rgba(0,0,0,0)");
+      nCtx.fillStyle = ng;
+      nCtx.fillRect(0, 0, 256, 256);
+
+      for (let i = 0; i < 35; i += 1) {
+        const nx = 35 + Math.random() * 186;
+        const ny = 35 + Math.random() * 186;
+        const nr = 8 + Math.random() * 38;
+        const ig = nCtx.createRadialGradient(nx, ny, 0, nx, ny, nr);
+        ig.addColorStop(0, `rgba(${Math.min(255, p.r * 300) | 0},${Math.min(255, p.g * 300) | 0},${Math.min(255, p.b * 300) | 0},0.25)`);
+        ig.addColorStop(1, "rgba(0,0,0,0)");
+        nCtx.fillStyle = ig;
+        nCtx.beginPath();
+        nCtx.arc(nx, ny, nr, 0, Math.PI * 2);
+        nCtx.fill();
+      }
+
+      const tex = new T.CanvasTexture(nc);
+      const mat = new T.SpriteMaterial({
+        map: tex,
+        transparent: true,
+        opacity: p.o,
+        blending: T.AdditiveBlending,
+        depthWrite: false
+      });
+      const sprite = new T.Sprite(mat);
+      sprite.position.set(p.x, p.y, p.z);
+      sprite.scale.set(p.s, p.s, 1);
+      nebulaGroup.add(sprite);
+    }
+
+    scene.add(nebulaGroup);
+  }
+
+  function buildDustParticles() {
+    if (dustParticles) return;
+
+    const count = 600;
+    const positions = new Float32Array(count * 3);
+    const opacities = new Float32Array(count);
+
+    for (let i = 0; i < count; i += 1) {
+      positions[i * 3] = (Math.random() - 0.5) * 60;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 60;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 60;
+      opacities[i] = 0.15 + Math.random() * 0.35;
+    }
+
+    const geo = new T.BufferGeometry();
+    geo.setAttribute("position", new T.BufferAttribute(positions, 3));
+
+    const mat = new T.PointsMaterial({
+      color: 0x8899bb,
+      size: 0.12,
+      transparent: true,
+      opacity: 0.18,
+      depthWrite: false,
+      sizeAttenuation: true,
+      blending: T.AdditiveBlending
+    });
+
+    dustParticles = new T.Points(geo, mat);
+    scene.add(dustParticles);
+  }
+
+  function buildPlanetAtmosphere(radius, color, intensity) {
+    const geo = new T.SphereGeometry(radius * 1.025, 48, 48);
+    const mat = new T.ShaderMaterial({
+      uniforms: {
+        uColor: { value: new T.Color(color) },
+        uIntensity: { value: intensity }
+      },
+      vertexShader: [
+        "varying vec3 vNormal;",
+        "varying vec3 vViewDir;",
+        "void main() {",
+        "  vNormal = normalize(normalMatrix * normal);",
+        "  vec4 mv = modelViewMatrix * vec4(position, 1.0);",
+        "  vViewDir = normalize(-mv.xyz);",
+        "  gl_Position = projectionMatrix * mv;",
+        "}"
+      ].join("\n"),
+      fragmentShader: [
+        "uniform vec3 uColor;",
+        "uniform float uIntensity;",
+        "varying vec3 vNormal;",
+        "varying vec3 vViewDir;",
+        "void main() {",
+        "  float NdotV = dot(vNormal, vViewDir);",
+        "  float fresnel = pow(1.0 - max(NdotV, 0.0), 3.2);",
+        "  float glow = fresnel * uIntensity;",
+        "  gl_FragColor = vec4(uColor * glow, glow * 0.72);",
+        "}"
+      ].join("\n"),
+      transparent: true,
+      depthWrite: false,
+      side: T.FrontSide,
+      blending: T.AdditiveBlending
+    });
+
+    return new T.Mesh(geo, mat);
+  }
+
+  function buildStarLayer(stars, { size, opacity, blending, useDiffraction = false }) {
     const positions = new Float32Array(stars.length * 3);
     const colors = new Float32Array(stars.length * 3);
 
@@ -837,7 +1096,7 @@ function buildScene({
     const material = new T.PointsMaterial({
       size,
       sizeAttenuation: false,
-      map: ensureGlowTexture(),
+      map: useDiffraction ? ensureDiffractionTexture() : ensureGlowTexture(),
       transparent: true,
       opacity,
       alphaTest: 0.08,
@@ -870,7 +1129,7 @@ function buildScene({
     }
 
     starLayers = [
-      buildStarLayer(bright, { size: 6.3, opacity: 0.96, blending: T.AdditiveBlending }),
+      buildStarLayer(bright, { size: 8.5, opacity: 0.98, blending: T.AdditiveBlending, useDiffraction: true }),
       buildStarLayer(medium, { size: 3.8, opacity: 0.88, blending: T.AdditiveBlending }),
       buildStarLayer(dim, { size: 2.1, opacity: 0.76, blending: T.NormalBlending })
     ];
@@ -903,6 +1162,212 @@ function buildScene({
 
     scene.add(outer, inner);
     highlightLayers = [outer, inner];
+  }
+
+  // ── Near-star 3D proxy rendering (SpaceEngine-inspired LOD) ────────
+  //
+  // Strategy: keep the full star field as lightweight points. When the
+  // camera is within PROXY_THRESHOLD parsecs of a star, promote it into
+  // a 3D sphere with a photosphere shader (limb darkening, granulation,
+  // hot-core blend) and a Fresnel halo/corona.  Only PROXY_COUNT bodies
+  // are active at once; they are recycled from a fixed pool so there are
+  // zero per-frame allocations.
+
+  const PROXY_COUNT     = 16;
+  const PROXY_THRESHOLD = 22;   // parsecs – proxy starts appearing
+  const PROXY_FULL_DIST = 8;    // parsecs – proxy fully opaque
+  const PROXY_HALO_RATIO = 2.8; // halo sphere radius / core radius
+
+  function nearStarRadius(star) {
+    const lumFactor = 0.18 * Math.log10(Math.max(1, star.lum));
+    return clamp(0.4 * (1 + lumFactor), 0.25, 2.2);
+  }
+
+  function buildNearStarPool() {
+    disposeNearStarPool();
+
+    nearStarCoreGeo = new T.IcosahedronGeometry(1, 3);
+    nearStarHaloGeo = new T.IcosahedronGeometry(1, 2);
+
+    const coreVert = [
+      "varying vec3 vNormal;",
+      "varying vec3 vViewDir;",
+      "void main() {",
+      "  vNormal = normalize(normalMatrix * normal);",
+      "  vec4 mv = modelViewMatrix * vec4(position, 1.0);",
+      "  vViewDir = normalize(-mv.xyz);",
+      "  gl_Position = projectionMatrix * mv;",
+      "}"
+    ].join("\n");
+
+    const coreFrag = [
+      "uniform vec3  uColor;",
+      "uniform float uIntensity;",
+      "uniform float uTime;",
+      "uniform float uOpacity;",
+      "varying vec3  vNormal;",
+      "varying vec3  vViewDir;",
+      "void main() {",
+      "  float NdotV = max(dot(vNormal, vViewDir), 0.0);",
+      // limb darkening – bright center, darker edge
+      "  float limb = pow(NdotV, 0.38);",
+      // blend toward white-hot at the core
+      "  vec3 hotCore  = mix(uColor, vec3(1.0, 0.98, 0.94), 0.4);",
+      "  vec3 surface  = mix(uColor * 0.65, hotCore, limb);",
+      // subtle granulation / convection noise
+      "  float grain = sin(vNormal.x * 18.0 + uTime * 0.6)",
+      "              * sin(vNormal.y * 22.0 - uTime * 0.4)",
+      "              * sin(vNormal.z * 15.0 + uTime * 0.5) * 0.035;",
+      "  vec3 col = surface * uIntensity * (1.0 + grain);",
+      // bright centre boost
+      "  col += vec3(1.0, 0.97, 0.92) * pow(NdotV, 3.0) * 0.12;",
+      "  gl_FragColor = vec4(col, uOpacity);",
+      "}"
+    ].join("\n");
+
+    const haloVert = [
+      "varying vec3 vNormal;",
+      "varying vec3 vViewDir;",
+      "void main() {",
+      "  vNormal = normalize(normalMatrix * normal);",
+      "  vec4 mv = modelViewMatrix * vec4(position, 1.0);",
+      "  vViewDir = normalize(-mv.xyz);",
+      "  gl_Position = projectionMatrix * mv;",
+      "}"
+    ].join("\n");
+
+    const haloFrag = [
+      "uniform vec3  uColor;",
+      "uniform float uOpacity;",
+      "varying vec3  vNormal;",
+      "varying vec3  vViewDir;",
+      "void main() {",
+      "  float NdotV  = max(dot(vNormal, vViewDir), 0.0);",
+      "  float fresnel = pow(max(1.0 - NdotV, 0.0), 2.5);",
+      "  float alpha   = fresnel * uOpacity;",
+      "  gl_FragColor  = vec4(uColor * 1.3, alpha);",
+      "}"
+    ].join("\n");
+
+    for (let i = 0; i < PROXY_COUNT; i += 1) {
+      const group = new T.Group();
+      group.visible = false;
+
+      const cMat = new T.ShaderMaterial({
+        uniforms: {
+          uColor:     { value: new T.Color(1, 1, 1) },
+          uIntensity: { value: 1.5 },
+          uTime:      { value: 0 },
+          uOpacity:   { value: 1.0 }
+        },
+        vertexShader:   coreVert,
+        fragmentShader: coreFrag,
+        transparent: true,
+        depthWrite:  true
+      });
+      const core = new T.Mesh(nearStarCoreGeo, cMat);
+      group.add(core);
+
+      const hMat = new T.ShaderMaterial({
+        uniforms: {
+          uColor:   { value: new T.Color(1, 1, 1) },
+          uOpacity: { value: 0.22 }
+        },
+        vertexShader:   haloVert,
+        fragmentShader: haloFrag,
+        transparent: true,
+        depthWrite:  false,
+        blending:    T.AdditiveBlending,
+        side:        T.FrontSide
+      });
+      const halo = new T.Mesh(nearStarHaloGeo, hMat);
+      group.add(halo);
+
+      scene.add(group);
+      nearStarPool.push({ group, core, coreMat: cMat, halo, haloMat: hMat, starIndex: -1 });
+    }
+  }
+
+  function updateNearStars(elapsed) {
+    if (!nearStarPool.length || !allStars.length) return;
+
+    // Hide all proxies while inside the solar-system sequence
+    if (solarSystemState) {
+      for (const proxy of nearStarPool) {
+        proxy.group.visible = false;
+        proxy.starIndex = -1;
+      }
+      return;
+    }
+
+    const cx = camera.position.x;
+    const cy = camera.position.y;
+    const cz = camera.position.z;
+    const maxSq = PROXY_THRESHOLD * PROXY_THRESHOLD;
+
+    // Linear scan – 3 000 distance² checks is < 0.1 ms on any modern CPU
+    const candidates = [];
+    for (let i = 0; i < allStars.length; i += 1) {
+      const s = allStars[i];
+      const dx = s.x - cx;
+      const dy = s.y - cy;
+      const dz = s.z - cz;
+      const dSq = dx * dx + dy * dy + dz * dz;
+      if (dSq < maxSq) candidates.push({ idx: i, dSq });
+    }
+    candidates.sort((a, b) => a.dSq - b.dSq);
+
+    for (let p = 0; p < PROXY_COUNT; p += 1) {
+      const proxy = nearStarPool[p];
+
+      if (p < candidates.length) {
+        const { idx, dSq } = candidates[p];
+        const star = allStars[idx];
+        const dist = Math.sqrt(dSq);
+
+        // 0 at threshold edge → 1 when fully close
+        const t    = 1 - clamp((dist - PROXY_FULL_DIST) / (PROXY_THRESHOLD - PROXY_FULL_DIST), 0, 1);
+        const fade = smoothstep(t);
+
+        const radius = nearStarRadius(star);
+        const scale  = radius * (0.3 + 0.7 * fade);
+
+        const r = ((star.color >> 16) & 255) / 255;
+        const g = ((star.color >> 8) & 255) / 255;
+        const b = (star.color & 255) / 255;
+
+        // Per-star gentle pulsation so each feels alive
+        const pulse = 1 + 0.05 * Math.sin(elapsed * 1.1 + idx * 0.73);
+
+        proxy.group.position.set(star.x, star.y, star.z);
+        proxy.group.visible = true;
+        proxy.starIndex = idx;
+
+        proxy.core.scale.setScalar(scale);
+        proxy.coreMat.uniforms.uColor.value.setRGB(r, g, b);
+        proxy.coreMat.uniforms.uIntensity.value = (1.3 + 0.4 * fade) * pulse;
+        proxy.coreMat.uniforms.uTime.value = elapsed;
+        proxy.coreMat.uniforms.uOpacity.value = fade;
+
+        proxy.halo.scale.setScalar(scale * PROXY_HALO_RATIO);
+        proxy.haloMat.uniforms.uColor.value.setRGB(r, g, b);
+        proxy.haloMat.uniforms.uOpacity.value = 0.22 * fade;
+      } else {
+        proxy.group.visible = false;
+        proxy.starIndex = -1;
+      }
+    }
+  }
+
+  function disposeNearStarPool() {
+    for (const proxy of nearStarPool) {
+      scene.remove(proxy.group);
+      proxy.coreMat.dispose();
+      proxy.haloMat.dispose();
+    }
+    nearStarPool = [];
+    if (nearStarCoreGeo) { nearStarCoreGeo.dispose(); nearStarCoreGeo = null; }
+    if (nearStarHaloGeo) { nearStarHaloGeo.dispose(); nearStarHaloGeo = null; }
   }
 
   function buildHomeSystem() {
@@ -958,14 +1423,27 @@ function buildScene({
     );
     solarSystemRoot.add(sunGroup);
 
-    const sunHalo = new T.Mesh(
+    const sunHalo1 = new T.Mesh(
       new T.SphereGeometry(17.8, 40, 40),
-      new T.MeshBasicMaterial({ color: 0xffbc73, transparent: true, opacity: 0.17, depthWrite: false })
+      new T.MeshBasicMaterial({ color: 0xffbc73, transparent: true, opacity: 0.2, depthWrite: false, blending: T.AdditiveBlending })
     );
-    sunGroup.add(sunHalo);
-    sunHalos = [sunHalo];
+    sunGroup.add(sunHalo1);
 
-    sunLight = new T.PointLight(0xffde9a, 3.8, 1300, 1.4);
+    const sunHalo2 = new T.Mesh(
+      new T.SphereGeometry(24, 32, 32),
+      new T.MeshBasicMaterial({ color: 0xffaa55, transparent: true, opacity: 0.07, depthWrite: false, blending: T.AdditiveBlending })
+    );
+    sunGroup.add(sunHalo2);
+
+    const sunHalo3 = new T.Mesh(
+      new T.SphereGeometry(36, 24, 24),
+      new T.MeshBasicMaterial({ color: 0xff8833, transparent: true, opacity: 0.025, depthWrite: false, blending: T.AdditiveBlending })
+    );
+    sunGroup.add(sunHalo3);
+
+    sunHalos = [sunHalo1, sunHalo2, sunHalo3];
+
+    sunLight = new T.PointLight(0xffde9a, 4.2, 1500, 1.3);
     solarSystemRoot.add(sunLight);
 
     solarPlanets = PLANET_DEFS.map((def, index) => {
@@ -1020,6 +1498,21 @@ function buildScene({
         new T.MeshStandardMaterial(materialConfig)
       );
       tiltGroup.add(mesh);
+
+      const atmosphereMap = {
+        earth:   { color: 0x4d9eff, intensity: 1.3 },
+        venus:   { color: 0xeacc88, intensity: 0.7 },
+        mars:    { color: 0xd4845a, intensity: 0.35 },
+        jupiter: { color: 0xc4a46a, intensity: 0.4 },
+        saturn:  { color: 0xd4c48a, intensity: 0.35 },
+        uranus:  { color: 0x6ec8d4, intensity: 0.5 },
+        neptune: { color: 0x3366dd, intensity: 0.6 }
+      };
+      if (atmosphereMap[def.key]) {
+        const atm = atmosphereMap[def.key];
+        const atmosphere = buildPlanetAtmosphere(def.radius, atm.color, atm.intensity);
+        tiltGroup.add(atmosphere);
+      }
 
       const planet = {
         def,
@@ -1177,17 +1670,47 @@ function buildScene({
     };
   }
 
-  function solarRevealPose() {
+  function captureTerraShowcaseState() {
+    const earthPosition = getSolarEarthWorldPosition(tempWorldPoint);
+    if (!earthPosition) {
+      return {
+        phase: "complete",
+        orbitAngle: 0,
+        orbitRadius: 6,
+        orbitElevation: 0.24,
+        orbitSpeed: 0.18
+      };
+    }
+
+    const offset = camera.position.clone().sub(earthPosition);
+    const horizontalRadius = Math.max(0.001, Math.hypot(offset.x, offset.z));
+
+    return {
+      phase: "complete",
+      orbitAngle: Math.atan2(offset.z, offset.x),
+      orbitRadius: Math.max(1.8, offset.length()),
+      orbitElevation: clamp(Math.atan2(offset.y, horizontalRadius), -0.9, 0.9),
+      orbitSpeed: 0.18
+    };
+  }
+
+  function solarShowcasePose(state = solarSystemState) {
     const earthPosition = getSolarEarthWorldPosition(tempWorldPoint);
     if (!earthPosition) return solarSearchPose();
 
-    const outward = tempWorldPointB.set(0.18, 0.32, 1);
-    outward.normalize();
+    const orbitRadius = Math.max(1.8, state?.orbitRadius ?? 6);
+    const orbitAngle = state?.orbitAngle ?? 0;
+    const orbitElevation = clamp(state?.orbitElevation ?? 0.24, -0.9, 0.9);
+    const horizontalRadius = Math.max(0.001, orbitRadius * Math.cos(orbitElevation));
+
+    const offset = tempWorldPointB.set(
+      Math.cos(orbitAngle) * horizontalRadius,
+      Math.sin(orbitElevation) * orbitRadius,
+      Math.sin(orbitAngle) * horizontalRadius
+    );
 
     return {
-      position: earthPosition
-        .clone()
-        .add(outward.multiplyScalar(18)),
+      position: earthPosition.clone().add(offset),
       lookAt: earthPosition.clone()
     };
   }
@@ -1230,14 +1753,13 @@ function buildScene({
     if (!solarSystemState || solarSystemState.phase !== "search") return;
 
     hitLocked = true;
-    solarSystemState.phase = "complete";
+    solarSystemState = captureTerraShowcaseState();
     updateModeChip();
-
-    const pose = solarRevealPose();
-    tweenCameraTo(pose.position, pose.lookAt, 1.55, () => {
-      hitLocked = false;
-      showTerraFinale();
-    });
+    const pose = solarShowcasePose(solarSystemState);
+    setPose(pose.position, pose.lookAt);
+    hitLocked = false;
+    showTerraFinale();
+    scheduleFrame();
   }
 
   function triggerSolarSystemSequence() {
@@ -1291,8 +1813,13 @@ function buildScene({
   function recenterToCurrentStep() {
     if (!ready) return;
     if (solarSystemState) {
-      const pose = solarSystemState.phase === "complete" ? solarRevealPose() : solarSearchPose();
-      tweenCameraTo(pose.position, pose.lookAt, 1.05, updateGuidance);
+      const pose = solarSystemState.phase === "complete" ? solarShowcasePose(solarSystemState) : solarSearchPose();
+      if (solarSystemState.phase === "complete") {
+        setPose(pose.position, pose.lookAt);
+        updateGuidance();
+      } else {
+        tweenCameraTo(pose.position, pose.lookAt, 1.05, updateGuidance);
+      }
       scheduleFrame();
       return;
     }
@@ -1305,6 +1832,16 @@ function buildScene({
     moveSpeed = DEFAULT_MOVE_SPEED;
     updateSpeedLabel();
     recenterToCurrentStep();
+  }
+
+  function restartGame() {
+    hideFinale();
+    clearHighlights();
+    moveSpeed = DEFAULT_MOVE_SPEED;
+    updateSpeedLabel();
+    if (!clock.running) clock.start();
+    setStep(0, { instant: true });
+    scheduleFrame();
   }
 
   function completeCurrentStep() {
@@ -1596,6 +2133,12 @@ function buildScene({
     if (sunHalos[0]?.material) {
       sunHalos[0].material.opacity = 0.2 + 0.08 * Math.sin(elapsed * 1.25);
     }
+    if (sunHalos[1]?.material) {
+      sunHalos[1].material.opacity = 0.07 + 0.03 * Math.sin(elapsed * 0.8 + 1.2);
+    }
+    if (sunHalos[2]?.material) {
+      sunHalos[2].material.opacity = 0.025 + 0.015 * Math.sin(elapsed * 0.55 + 2.4);
+    }
     if (solarLocalStarField) {
       solarLocalStarField.rotation.y += delta * 0.008;
       solarLocalStarField.rotation.x = Math.sin(elapsed * 0.035) * 0.045;
@@ -1641,6 +2184,16 @@ function buildScene({
     }
   }
 
+  function updateTerraShowcase(delta) {
+    if (!solarSystemState || solarSystemState.phase !== "complete") return;
+
+    solarSystemState.orbitAngle += (solarSystemState.orbitSpeed ?? 0.18) * delta;
+    const pose = solarShowcasePose(solarSystemState);
+    camera.position.copy(pose.position);
+    camera.lookAt(pose.lookAt);
+    syncEulerToCamera();
+  }
+
   function isInteractionLocked() {
     return Boolean(cameraTween) || (solarSystemState && solarSystemState.phase !== "search");
   }
@@ -1683,6 +2236,22 @@ function buildScene({
     }
 
     animateSolarSystem(delta, elapsed);
+    updateTerraShowcase(delta);
+    updateNearStars(elapsed);
+
+    if (dustParticles) {
+      dustParticles.position.lerp(camera.position, 0.08);
+      dustParticles.rotation.y += delta * 0.012;
+      dustParticles.rotation.x = Math.sin(elapsed * 0.04) * 0.03;
+      dustParticles.material.opacity = solarSystemState ? 0.06 : 0.18;
+    }
+    if (milkyWayMesh) {
+      milkyWayMesh.rotation.y += delta * 0.003;
+      milkyWayMesh.material.opacity = solarSystemState ? 0.15 : 0.55;
+    }
+    if (nebulaGroup) {
+      nebulaGroup.visible = !solarSystemState;
+    }
 
     updateGuidance();
     drawMinimap();
@@ -1824,7 +2393,11 @@ function buildScene({
       oriStars = allStars.filter((star) => star.group === "ori");
       solStar = allStars.find((star) => star.group === "sol") || null;
       buildStarPoints(allStars);
+      buildNearStarPool();
       buildHomeSystem();
+      buildMilkyWayBand();
+      buildNebulaPatches();
+      buildDustParticles();
       ready = true;
       setStep(0, { instant: true });
     },
@@ -1835,10 +2408,12 @@ function buildScene({
       scheduleFrame();
     },
     collapseViewerForNavigation,
+    restartGame,
     dispose() {
       destroyed = true;
       hideFinale();
       setSolarSystemVisible(false);
+      disposeNearStarPool();
       if (frameId) window.cancelAnimationFrame(frameId);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
@@ -1866,6 +2441,14 @@ function buildScene({
         }
       });
       glowTexture?.dispose?.();
+      diffractionTexture?.dispose?.();
+      if (milkyWayMesh) { milkyWayMesh.geometry.dispose(); milkyWayMesh.material.dispose(); milkyWayMesh.material.map?.dispose(); }
+      if (dustParticles) { dustParticles.geometry.dispose(); dustParticles.material.dispose(); }
+      if (nebulaGroup) {
+        nebulaGroup.traverse((child) => {
+          if (child.material) { child.material.map?.dispose(); child.material.dispose(); }
+        });
+      }
       solarTextureCache.forEach((texture) => texture?.dispose?.());
       solarTextureCache.clear();
       renderer.dispose();

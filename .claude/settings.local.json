@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(wc -l \"/c/Users/GZv0x00/OneDrive/Desktop/Elaborare Software/Projects/js\"/*.js)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "WebSearch",
+      "Bash(node -c js/gaseste-terra.js)",
+      "Bash(node --input-type=module -c)"
     ]
   }
 }

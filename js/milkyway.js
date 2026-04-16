@@ -50,7 +50,7 @@ export function initMilkyWay() {
   }
 
   if (!map || !canvas) return;
-  initMilkyWayCanvas(disc || map, canvas);
+  initMilkyWayCanvas(disc || map, canvas, disc, markerLabel);
 }
 
 function placeSolarMarker(disc, marker, label, ring) {
@@ -91,17 +91,21 @@ function placeSolarMarker(disc, marker, label, ring) {
   }
 }
 
-function initMilkyWayCanvas(container, canvas) {
+function initMilkyWayCanvas(container, canvas, disc, markerLabel) {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const baseDiscRotationDeg = -8;
+  const discRotationSpeedDeg = 0.55;
   const stars = [];
   const glows = [];
   let width = 0;
   let height = 0;
   let raf = 0;
   let active = true;
+  let discRotationDeg = 0;
+  let lastFrameTime = 0;
 
   function random(min, max) {
     return Math.random() * (max - min) + min;
@@ -198,15 +202,37 @@ function initMilkyWayCanvas(container, canvas) {
     drawStars(time);
   }
 
-  function tick() {
+  function applyDiscRotation() {
+    if (!disc) return;
+
+    const currentRotation = baseDiscRotationDeg + discRotationDeg;
+    disc.style.transform = `translate(-50%, -50%) rotate(${currentRotation.toFixed(3)}deg)`;
+
+    if (markerLabel) {
+      markerLabel.style.transform = `translate(-50%, -50%) rotate(${(-currentRotation).toFixed(3)}deg)`;
+    }
+  }
+
+  function tick(frameTime) {
     raf = window.requestAnimationFrame(tick);
-    if (!active || document.hidden) return;
+    if (!active || document.hidden) {
+      lastFrameTime = 0;
+      return;
+    }
+
+    if (!lastFrameTime) lastFrameTime = frameTime;
+    const deltaSeconds = Math.min((frameTime - lastFrameTime) / 1000, 0.05);
+    lastFrameTime = frameTime;
+
+    discRotationDeg += discRotationSpeedDeg * deltaSeconds;
+    applyDiscRotation();
     drawFrame();
   }
 
   const visibilityObserver = new window.IntersectionObserver(
     (entries) => {
       active = entries.some((entry) => entry.isIntersecting);
+      if (!active) lastFrameTime = 0;
     },
     { threshold: 0.15 }
   );
@@ -218,10 +244,13 @@ function initMilkyWayCanvas(container, canvas) {
     () => {
       window.cancelAnimationFrame(raf);
       visibilityObserver.disconnect();
+      if (disc) disc.style.transform = "";
+      if (markerLabel) markerLabel.style.transform = "";
     },
     { once: true }
   );
 
   resize();
+  applyDiscRotation();
   tick();
 }

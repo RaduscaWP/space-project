@@ -536,7 +536,7 @@
   right: auto;
   bottom: 1rem;
   z-index: 7;
-  max-width: min(420px, calc(100% - 2rem));
+  max-width: min(340px, calc(100% - 2rem));
   padding: 0.74rem 0.84rem;
 }
 
@@ -926,7 +926,7 @@
 
 .gt-direction {
   right: 0.9rem;
-  bottom: 4.55rem;
+  bottom: 6.1rem;
 }
 
 .gt-hint-step,
@@ -1018,6 +1018,13 @@
   font-size: clamp(0.98rem, 1vw + 0.9rem, 1.3rem);
 }
 
+.gt-finale-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
 .gt-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -1065,6 +1072,17 @@
   }
 }
 
+@media (max-width: 980px) {
+  .gt-viewer-overlay {
+    max-width: min(320px, calc(100% - 2rem));
+  }
+
+  .gt-direction {
+    width: min(260px, calc(100% - 2rem));
+    bottom: 8.75rem;
+  }
+}
+
 @media (max-width: 720px) {
   #solar-canvas-wrap,
   .planet-compare-stage,
@@ -1096,10 +1114,20 @@
     width: 96px;
   }
 
+  .gt-viewer-overlay {
+    max-width: calc(100% - 2rem);
+  }
+
   .gt-direction {
     left: 1rem;
     right: 1rem;
-    bottom: 4.1rem;
+    bottom: 10.25rem;
+  }
+
+  .gt-finale-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: min(280px, 100%);
   }
 
   .gt-toolbar {

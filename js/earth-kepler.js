@@ -9,7 +9,7 @@ const PLANETS = {
     subtitle: "Textura Solar System Scope (CC BY 4.0) + date NASA",
     radius: 2.8,
     cameraDistance: 10.8,
-    spin: 0.22,
+    spin: 0.09,
     atmosphere: 0x7ab8ff,
     cloudOpacity: 0.14,
     stats: [
@@ -32,7 +32,7 @@ const PLANETS = {
     subtitle: "Textura dedicata Kepler-452b din proiect + date NASA",
     radius: 4.48,
     cameraDistance: 14.6,
-    spin: 0.17,
+    spin: 0.07,
     atmosphere: 0xe6b77a,
     cloudOpacity: 0.32,
     stats: [
