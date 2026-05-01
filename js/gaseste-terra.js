@@ -592,7 +592,8 @@ function buildScene({
   const euler = new T.Euler(0, 0, 0, "YXZ");
   euler.setFromQuaternion(camera.quaternion);
 
-  scene.add(new T.AmbientLight(0x2a3e5c, 1.2));
+  const sceneAmbientLight = new T.AmbientLight(0x2a3e5c, 1.2);
+  scene.add(sceneAmbientLight);
 
   const clock = new T.Clock(false);
   const baseCameraPosition = new T.Vector3(...BASE_CAMERA_POSITION);
@@ -603,7 +604,12 @@ function buildScene({
   const tempProjected = new T.Vector3();
   const tempWorldPoint = new T.Vector3();
   const tempWorldPointB = new T.Vector3();
+  const tempWorldPointC = new T.Vector3();
+  const tempWorldPointD = new T.Vector3();
   const tweenLookTarget = new T.Vector3();
+  const tweenCurvePointA = new T.Vector3();
+  const tweenCurvePointB = new T.Vector3();
+  const solarUpVector = new T.Vector3(0, 1, 0);
   const solarTextureLoader = new T.TextureLoader();
   const solarTextureCache = new Map();
 
@@ -650,6 +656,7 @@ function buildScene({
   let nebulaGroup = null;
   let dustParticles = null;
   let diffractionTexture = null;
+  let earthCloudTexture = null;
 
   let nearStarPool = [];
   let nearStarCoreGeo = null;
@@ -828,6 +835,218 @@ function buildScene({
     texture.anisotropy = Math.max(4, Math.min(12, renderer.capabilities.getMaxAnisotropy()));
     solarTextureCache.set(name, texture);
     return texture;
+  }
+
+  function createSeededRandom(seed) {
+    let state = seed >>> 0;
+    if (!state) state = 0x12345678;
+    return () => {
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      return state / 4294967296;
+    };
+  }
+
+  function ensureEarthCloudTexture() {
+    if (earthCloudTexture) return earthCloudTexture;
+
+    const cloudCanvas = document.createElement("canvas");
+    cloudCanvas.width = 1024;
+    cloudCanvas.height = 512;
+    const ctx = cloudCanvas.getContext("2d");
+    const rand = createSeededRandom(19770622);
+    const tau = Math.PI * 2;
+
+    ctx.fillStyle = "rgb(0, 0, 0)";
+    ctx.fillRect(0, 0, cloudCanvas.width, cloudCanvas.height);
+
+    for (let band = 0; band < 18; band += 1) {
+      const y = rand() * cloudCanvas.height;
+      const bandHeight = 14 + rand() * 34;
+      const waviness = 36 + rand() * 120;
+      const strength = 0.08 + rand() * 0.18;
+      const drift = rand() * tau;
+      const gradient = ctx.createLinearGradient(0, y, 0, y + bandHeight);
+      gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
+      gradient.addColorStop(0.2, `rgba(255, 255, 255, ${strength * 0.28})`);
+      gradient.addColorStop(0.5, `rgba(255, 255, 255, ${strength})`);
+      gradient.addColorStop(0.8, `rgba(255, 255, 255, ${strength * 0.22})`);
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = gradient;
+
+      for (let x = -40; x < cloudCanvas.width + 60; x += waviness * 0.82) {
+        const offsetY = Math.sin((x / waviness) * 1.7 + drift) * bandHeight * 0.32;
+        const width = waviness * (0.8 + rand() * 0.55);
+        ctx.fillRect(x, y + offsetY, width, bandHeight);
+      }
+    }
+
+    for (let i = 0; i < 220; i += 1) {
+      const x = rand() * cloudCanvas.width;
+      const y = rand() * cloudCanvas.height;
+      const radiusX = 18 + rand() * 74;
+      const radiusY = 6 + rand() * 24;
+      const rotation = rand() * tau;
+      const alpha = 0.06 + rand() * 0.22;
+      const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, radiusX);
+      gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+      gradient.addColorStop(0.45, `rgba(255, 255, 255, ${alpha * 0.55})`);
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      ctx.scale(1, radiusY / radiusX);
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(0, 0, radiusX, 0, tau);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    const polarFade = ctx.createLinearGradient(0, 0, 0, cloudCanvas.height);
+    polarFade.addColorStop(0, "rgba(255, 255, 255, 0.12)");
+    polarFade.addColorStop(0.12, "rgba(255, 255, 255, 0)");
+    polarFade.addColorStop(0.88, "rgba(255, 255, 255, 0)");
+    polarFade.addColorStop(1, "rgba(255, 255, 255, 0.12)");
+    ctx.fillStyle = polarFade;
+    ctx.fillRect(0, 0, cloudCanvas.width, cloudCanvas.height);
+
+    earthCloudTexture = new T.CanvasTexture(cloudCanvas);
+    earthCloudTexture.wrapS = T.RepeatWrapping;
+    earthCloudTexture.wrapT = T.ClampToEdgeWrapping;
+    earthCloudTexture.anisotropy = Math.max(4, Math.min(12, renderer.capabilities.getMaxAnisotropy()));
+    earthCloudTexture.needsUpdate = true;
+    return earthCloudTexture;
+  }
+
+  function patchEarthSurfaceMaterial(material) {
+    material.onBeforeCompile = (shader) => {
+      shader.uniforms.uSunDirection = { value: new T.Vector3(1, 0, 0) };
+      material.userData.shader = shader;
+
+      shader.vertexShader = shader.vertexShader
+        .replace(
+          "#include <common>",
+          `#include <common>
+varying vec3 vEarthWorldNormal;`
+        )
+        .replace(
+          "#include <beginnormal_vertex>",
+          `#include <beginnormal_vertex>
+vEarthWorldNormal = normalize(mat3(modelMatrix) * objectNormal);`
+        );
+
+      shader.fragmentShader = shader.fragmentShader
+        .replace(
+          "#include <common>",
+          `#include <common>
+uniform vec3 uSunDirection;
+varying vec3 vEarthWorldNormal;`
+        )
+        .replace(
+          "#include <emissivemap_fragment>",
+          `#include <emissivemap_fragment>
+float earthSunFacing = dot(normalize(vEarthWorldNormal), normalize(uSunDirection));
+float earthNightMask = smoothstep(0.22, -0.2, earthSunFacing);
+float earthTwilightMask = smoothstep(0.1, -0.08, earthSunFacing) * (1.0 - earthNightMask);
+totalEmissiveRadiance *= earthNightMask * 0.94 + earthTwilightMask * 0.1;`
+        );
+    };
+    material.customProgramCacheKey = () => "gt-earth-night-v2";
+    material.needsUpdate = true;
+  }
+
+  function buildEarthAtmosphere(radius) {
+    const material = new T.ShaderMaterial({
+      uniforms: {
+        uSunDirection: { value: new T.Vector3(1, 0, 0) },
+        uDayColor: { value: new T.Color(0x5f9bff) },
+        uTwilightColor: { value: new T.Color(0x76d9ff) },
+        uIntensity: { value: 0.44 }
+      },
+      vertexShader: `
+        varying vec3 vWorldNormal;
+        varying vec3 vWorldPosition;
+
+        void main() {
+          vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+          vWorldPosition = worldPosition.xyz;
+          vWorldNormal = normalize(mat3(modelMatrix) * normal);
+          gl_Position = projectionMatrix * viewMatrix * worldPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uSunDirection;
+        uniform vec3 uDayColor;
+        uniform vec3 uTwilightColor;
+        uniform float uIntensity;
+
+        varying vec3 vWorldNormal;
+        varying vec3 vWorldPosition;
+
+        void main() {
+          vec3 normalDir = normalize(vWorldNormal);
+          vec3 viewDir = normalize(cameraPosition - vWorldPosition);
+          float sunFacing = dot(normalDir, normalize(uSunDirection));
+          float fresnel = pow(1.0 - max(dot(normalDir, viewDir), 0.0), 3.7);
+          float dayScatter = smoothstep(-0.18, 0.55, sunFacing);
+          float twilight = exp(-pow((sunFacing + 0.04) * 3.1, 2.0));
+          vec3 color = mix(uTwilightColor, uDayColor, clamp(dayScatter * 0.78 + 0.12, 0.0, 1.0));
+          float alpha = fresnel * (0.12 + twilight * 0.62 + dayScatter * 0.06) * uIntensity;
+          alpha = clamp(alpha, 0.0, 0.32);
+          gl_FragColor = vec4(color * alpha * 1.45, alpha);
+        }
+      `,
+      transparent: true,
+      depthWrite: false,
+      side: T.BackSide,
+      blending: T.AdditiveBlending,
+      toneMapped: false
+    });
+
+    const mesh = new T.Mesh(new T.SphereGeometry(radius * 1.055, 44, 44), material);
+    mesh.renderOrder = 3;
+    return mesh;
+  }
+
+  function buildEarthVisuals(def, tiltGroup) {
+    const surfaceMaterial = new T.MeshStandardMaterial({
+      map: loadSolarTexture(def.texture),
+      emissiveMap: loadSolarTexture("earth_night.jpg"),
+      emissive: new T.Color(0x8cb6ff),
+      emissiveIntensity: 0.18,
+      roughness: 0.8,
+      metalness: 0.01
+    });
+    patchEarthSurfaceMaterial(surfaceMaterial);
+
+    const surface = new T.Mesh(new T.SphereGeometry(def.radius, 64, 64), surfaceMaterial);
+    surface.renderOrder = 1;
+    tiltGroup.add(surface);
+
+    const clouds = new T.Mesh(
+      new T.SphereGeometry(def.radius * 1.017, 48, 48),
+      new T.MeshStandardMaterial({
+        color: 0xf7fbff,
+        alphaMap: ensureEarthCloudTexture(),
+        transparent: true,
+        opacity: 0.44,
+        roughness: 0.96,
+        metalness: 0,
+        depthWrite: false
+      })
+    );
+    clouds.renderOrder = 2;
+    tiltGroup.add(clouds);
+
+    const atmosphere = buildEarthAtmosphere(def.radius);
+    tiltGroup.add(atmosphere);
+
+    return {
+      mesh: surface,
+      clouds,
+      atmosphere
+    };
   }
 
   function setStarfieldDimming(factor = 1) {
@@ -1443,7 +1662,7 @@ function buildScene({
 
     sunHalos = [sunHalo1, sunHalo2, sunHalo3];
 
-    sunLight = new T.PointLight(0xffde9a, 4.2, 1500, 1.3);
+    sunLight = new T.PointLight(0xffde9a, 4.7, 1500, 1.3);
     solarSystemRoot.add(sunLight);
 
     solarPlanets = PLANET_DEFS.map((def, index) => {
@@ -1478,40 +1697,43 @@ function buildScene({
       translationGroup.add(tiltGroup);
 
       const isIceOrGas = def.key === "jupiter" || def.key === "saturn" || def.key === "uranus" || def.key === "neptune";
-      const materialConfig = {
-        map: loadSolarTexture(def.texture),
-        roughness: isIceOrGas ? 0.68 : 0.82,
-        metalness: 0.01,
-        emissive: new T.Color(0x0a1220),
-        emissiveIntensity: isIceOrGas ? 0.06 : 0.03
-      };
+      let mesh = null;
+      let clouds = null;
+      let atmosphere = null;
 
       if (def.key === "earth") {
-        materialConfig.emissiveMap = loadSolarTexture("earth_night.jpg");
-        materialConfig.emissive = new T.Color(0x9bc8ff);
-        materialConfig.emissiveIntensity = 0.22;
-        materialConfig.roughness = 0.74;
-      }
+        const earthVisuals = buildEarthVisuals(def, tiltGroup);
+        mesh = earthVisuals.mesh;
+        clouds = earthVisuals.clouds;
+        atmosphere = earthVisuals.atmosphere;
+      } else {
+        const materialConfig = {
+          map: loadSolarTexture(def.texture),
+          roughness: isIceOrGas ? 0.68 : 0.82,
+          metalness: 0.01,
+          emissive: new T.Color(0x0a1220),
+          emissiveIntensity: isIceOrGas ? 0.06 : 0.03
+        };
 
-      const mesh = new T.Mesh(
-        new T.SphereGeometry(def.radius, 56, 56),
-        new T.MeshStandardMaterial(materialConfig)
-      );
-      tiltGroup.add(mesh);
+        mesh = new T.Mesh(
+          new T.SphereGeometry(def.radius, 56, 56),
+          new T.MeshStandardMaterial(materialConfig)
+        );
+        tiltGroup.add(mesh);
 
-      const atmosphereMap = {
-        earth:   { color: 0x4d9eff, intensity: 1.3 },
-        venus:   { color: 0xeacc88, intensity: 0.7 },
-        mars:    { color: 0xd4845a, intensity: 0.35 },
-        jupiter: { color: 0xc4a46a, intensity: 0.4 },
-        saturn:  { color: 0xd4c48a, intensity: 0.35 },
-        uranus:  { color: 0x6ec8d4, intensity: 0.5 },
-        neptune: { color: 0x3366dd, intensity: 0.6 }
-      };
-      if (atmosphereMap[def.key]) {
-        const atm = atmosphereMap[def.key];
-        const atmosphere = buildPlanetAtmosphere(def.radius, atm.color, atm.intensity);
-        tiltGroup.add(atmosphere);
+        const atmosphereMap = {
+          venus:   { color: 0xeacc88, intensity: 0.7 },
+          mars:    { color: 0xd4845a, intensity: 0.35 },
+          jupiter: { color: 0xc4a46a, intensity: 0.4 },
+          saturn:  { color: 0xd4c48a, intensity: 0.35 },
+          uranus:  { color: 0x6ec8d4, intensity: 0.5 },
+          neptune: { color: 0x3366dd, intensity: 0.6 }
+        };
+        if (atmosphereMap[def.key]) {
+          const atm = atmosphereMap[def.key];
+          atmosphere = buildPlanetAtmosphere(def.radius, atm.color, atm.intensity);
+          tiltGroup.add(atmosphere);
+        }
       }
 
       const planet = {
@@ -1520,6 +1742,8 @@ function buildScene({
         translationGroup,
         tiltGroup,
         mesh,
+        clouds,
+        atmosphere,
         orbitLine,
         ringMesh: null,
         satellites: [],
@@ -1599,7 +1823,28 @@ function buildScene({
     euler.setFromQuaternion(camera.quaternion);
   }
 
-  function tweenCameraTo(position, lookAt, duration = 1.8, onComplete = null) {
+  function computeTweenControlPoint(fromPosition, toPosition, lookAt, { arcLift = 0, arcSide = 0 } = {}) {
+    const distance = fromPosition.distanceTo(toPosition);
+    if (distance < 0.001 || (!arcLift && !arcSide)) return null;
+
+    const direction = tempWorldPointC.copy(toPosition).sub(fromPosition).normalize();
+    const side = tempWorldPointD.copy(direction).cross(solarUpVector);
+    if (side.lengthSq() < 0.0001) side.set(1, 0, 0).cross(direction);
+    side.normalize();
+
+    const lift = tempProjected.copy(side).cross(direction);
+    if (lift.lengthSq() < 0.0001) lift.copy(solarUpVector);
+    lift.normalize();
+
+    return fromPosition
+      .clone()
+      .lerp(toPosition, 0.5)
+      .addScaledVector(lift, distance * arcLift)
+      .addScaledVector(side, distance * arcSide)
+      .addScaledVector(tempRight.copy(lookAt).sub(toPosition).normalize(), distance * 0.04);
+  }
+
+  function tweenCameraTo(position, lookAt, duration = 1.8, onComplete = null, options = null) {
     cameraTween = {
       start: clock.running ? clock.getElapsedTime() : 0,
       duration: Math.max(0.01, duration),
@@ -1607,6 +1852,7 @@ function buildScene({
       toPosition: position.clone(),
       fromLookAt: currentLookPoint(),
       toLookAt: lookAt.clone(),
+      controlPosition: computeTweenControlPoint(camera.position, position, lookAt, options || {}),
       onComplete
     };
   }
@@ -1648,6 +1894,29 @@ function buildScene({
     return solarEarth.mesh.getWorldPosition(target);
   }
 
+  function getSolarSunDirection(target = tempWorldPointC) {
+    const earthPosition = getSolarEarthWorldPosition(tempWorldPoint);
+    if (!earthPosition || !sunGroup) return target.set(0.62, 0.14, -0.77).normalize();
+    return target.copy(sunGroup.getWorldPosition(tempWorldPointD)).sub(earthPosition).normalize();
+  }
+
+  function composeSolarOrbitOffset(orbitAngle, orbitElevation, orbitRadius, target = tempWorldPointB) {
+    const toSun = getSolarSunDirection(tempWorldPointC);
+    const side = tempWorldPointD.copy(solarUpVector).cross(toSun);
+    if (side.lengthSq() < 0.0001) side.set(1, 0, 0).cross(toSun);
+    side.normalize();
+
+    const localUp = tempProjected.copy(toSun).cross(side);
+    if (localUp.lengthSq() < 0.0001) localUp.copy(solarUpVector);
+    localUp.normalize();
+
+    const horizontalRadius = Math.max(0.001, orbitRadius * Math.cos(orbitElevation));
+    target.copy(side).multiplyScalar(Math.cos(orbitAngle) * horizontalRadius);
+    target.addScaledVector(toSun, Math.sin(orbitAngle) * horizontalRadius);
+    target.addScaledVector(localUp, Math.sin(orbitElevation) * orbitRadius);
+    return target;
+  }
+
   function solarOverviewPose() {
     return {
       position: new T.Vector3(0, 88, 190),
@@ -1659,13 +1928,10 @@ function buildScene({
     const earthPosition = getSolarEarthWorldPosition(tempWorldPoint);
     if (!earthPosition) return solarOverviewPose();
 
-    const outward = tempWorldPointB.set(0.12, 0.42, 1);
-    outward.normalize();
-
     return {
       position: earthPosition
         .clone()
-        .add(outward.multiplyScalar(38)),
+        .add(composeSolarOrbitOffset(0.96, 0.28, 35.5)),
       lookAt: earthPosition.clone()
     };
   }
@@ -1675,22 +1941,25 @@ function buildScene({
     if (!earthPosition) {
       return {
         phase: "complete",
-        orbitAngle: 0,
-        orbitRadius: 6,
-        orbitElevation: 0.24,
-        orbitSpeed: 0.18
+        orbitAngle: 0.32,
+        orbitRadius: 10.6,
+        baseOrbitRadius: 10.6,
+        orbitElevation: 0.31,
+        baseOrbitElevation: 0.31,
+        orbitSpeed: 0.065,
+        showcaseTime: 0
       };
     }
 
-    const offset = camera.position.clone().sub(earthPosition);
-    const horizontalRadius = Math.max(0.001, Math.hypot(offset.x, offset.z));
-
     return {
       phase: "complete",
-      orbitAngle: Math.atan2(offset.z, offset.x),
-      orbitRadius: Math.max(1.8, offset.length()),
-      orbitElevation: clamp(Math.atan2(offset.y, horizontalRadius), -0.9, 0.9),
-      orbitSpeed: 0.18
+      orbitAngle: 0.32,
+      orbitRadius: 10.6,
+      baseOrbitRadius: 10.6,
+      orbitElevation: 0.31,
+      baseOrbitElevation: 0.31,
+      orbitSpeed: 0.065,
+      showcaseTime: 0
     };
   }
 
@@ -1701,16 +1970,9 @@ function buildScene({
     const orbitRadius = Math.max(1.8, state?.orbitRadius ?? 6);
     const orbitAngle = state?.orbitAngle ?? 0;
     const orbitElevation = clamp(state?.orbitElevation ?? 0.24, -0.9, 0.9);
-    const horizontalRadius = Math.max(0.001, orbitRadius * Math.cos(orbitElevation));
-
-    const offset = tempWorldPointB.set(
-      Math.cos(orbitAngle) * horizontalRadius,
-      Math.sin(orbitElevation) * orbitRadius,
-      Math.sin(orbitAngle) * horizontalRadius
-    );
 
     return {
-      position: earthPosition.clone().add(offset),
+      position: earthPosition.clone().add(composeSolarOrbitOffset(orbitAngle, orbitElevation, orbitRadius)),
       lookAt: earthPosition.clone()
     };
   }
@@ -1718,6 +1980,8 @@ function buildScene({
   function setSolarSystemVisible(visible) {
     if (solarSystemRoot) solarSystemRoot.visible = visible;
     if (sunLight) sunLight.visible = visible;
+    sceneAmbientLight.intensity = visible ? 0.5 : 1.2;
+    sceneAmbientLight.color.setHex(visible ? 0x1c293a : 0x2a3e5c);
     setStarfieldDimming(visible ? 0.24 : 1);
   }
 
@@ -1756,9 +2020,11 @@ function buildScene({
     solarSystemState = captureTerraShowcaseState();
     updateModeChip();
     const pose = solarShowcasePose(solarSystemState);
-    setPose(pose.position, pose.lookAt);
-    hitLocked = false;
-    showTerraFinale();
+    tweenCameraTo(pose.position, pose.lookAt, 1.95, () => {
+      hitLocked = false;
+      showTerraFinale();
+      scheduleFrame();
+    }, { arcLift: 0.08, arcSide: -0.05 });
     scheduleFrame();
   }
 
@@ -1779,7 +2045,7 @@ function buildScene({
     updateModeChip();
 
     const overviewPose = solarOverviewPose();
-    tweenCameraTo(overviewPose.position, overviewPose.lookAt, 2.1, beginSolarSystemSearch);
+    tweenCameraTo(overviewPose.position, overviewPose.lookAt, 2.35, beginSolarSystemSearch, { arcLift: 0.22, arcSide: 0.07 });
 
     scheduleFrame();
   }
@@ -2159,6 +2425,9 @@ function buildScene({
       const dynamicSpin =
         planet.def.spinSpeed * (0.86 + 0.14 * Math.sin(elapsed * 0.9 + planet.spinPhase)) * delta;
       planet.mesh.rotation.y += dynamicSpin;
+      if (planet.clouds) {
+        planet.clouds.rotation.y += dynamicSpin * 1.08;
+      }
 
       if (planet.ringMesh) {
         planet.ringMesh.rotation.z += delta * 0.01;
@@ -2180,14 +2449,31 @@ function buildScene({
     });
 
     if (solarEarth?.mesh?.material) {
-      solarEarth.mesh.material.emissiveIntensity = solarSystemState?.phase === "complete" ? 0.36 : 0.22;
+      const earthMaterial = solarEarth.mesh.material;
+      earthMaterial.emissiveIntensity = solarSystemState?.phase === "complete" ? 0.26 : 0.18;
+
+      if (solarEarth.mesh.material.userData?.shader || solarEarth.atmosphere?.material?.uniforms) {
+        const sunDirection = getSolarSunDirection(tempWorldPointC);
+        earthMaterial.userData?.shader?.uniforms?.uSunDirection?.value?.copy(sunDirection);
+        solarEarth.atmosphere?.material?.uniforms?.uSunDirection?.value?.copy(sunDirection);
+      }
     }
   }
 
   function updateTerraShowcase(delta) {
-    if (!solarSystemState || solarSystemState.phase !== "complete") return;
+    if (!solarSystemState || solarSystemState.phase !== "complete" || cameraTween) return;
 
+    solarSystemState.showcaseTime = (solarSystemState.showcaseTime ?? 0) + delta;
     solarSystemState.orbitAngle += (solarSystemState.orbitSpeed ?? 0.18) * delta;
+    solarSystemState.orbitRadius =
+      (solarSystemState.baseOrbitRadius ?? solarSystemState.orbitRadius ?? 10.6) +
+      Math.sin(solarSystemState.showcaseTime * 0.42) * 0.18;
+    solarSystemState.orbitElevation = clamp(
+      (solarSystemState.baseOrbitElevation ?? solarSystemState.orbitElevation ?? 0.31) +
+        Math.sin(solarSystemState.showcaseTime * 0.3 + 0.8) * 0.028,
+      -0.9,
+      0.9
+    );
     const pose = solarShowcasePose(solarSystemState);
     camera.position.copy(pose.position);
     camera.lookAt(pose.lookAt);
@@ -2223,7 +2509,13 @@ function buildScene({
     if (cameraTween) {
       const progress = Math.min(1, (elapsed - cameraTween.start) / cameraTween.duration);
       const eased = smoothstep(progress);
-      camera.position.lerpVectors(cameraTween.fromPosition, cameraTween.toPosition, eased);
+      if (cameraTween.controlPosition) {
+        tweenCurvePointA.lerpVectors(cameraTween.fromPosition, cameraTween.controlPosition, eased);
+        tweenCurvePointB.lerpVectors(cameraTween.controlPosition, cameraTween.toPosition, eased);
+        camera.position.lerpVectors(tweenCurvePointA, tweenCurvePointB, eased);
+      } else {
+        camera.position.lerpVectors(cameraTween.fromPosition, cameraTween.toPosition, eased);
+      }
       tweenLookTarget.lerpVectors(cameraTween.fromLookAt, cameraTween.toLookAt, eased);
       camera.lookAt(tweenLookTarget);
 
@@ -2442,6 +2734,7 @@ function buildScene({
       });
       glowTexture?.dispose?.();
       diffractionTexture?.dispose?.();
+      earthCloudTexture?.dispose?.();
       if (milkyWayMesh) { milkyWayMesh.geometry.dispose(); milkyWayMesh.material.dispose(); milkyWayMesh.material.map?.dispose(); }
       if (dustParticles) { dustParticles.geometry.dispose(); dustParticles.material.dispose(); }
       if (nebulaGroup) {
